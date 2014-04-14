@@ -1,15 +1,8 @@
 bmt-alhikma
 ===========
 
-buat BMT se dunia :D
+Basic Example How To Use w2ui Plugin with CodeIgniter
 
-Berdasarkan plugin w2ui di http://w2ui.com/web/
-
-Saya masih membutuhkan optimasi untuk starter project ini.
-
-Anda bisa mengembangkan nya seluas mungkin.
-
-Tapi ada baiknya untuk membuat master project ini lebih oke lagi.
 
 Thanks
 
@@ -19,13 +12,17 @@ Lalu Sefty Junaedi
 
 ============================================================
 
-Apa yang anda butuhkan?
+Tools
 1. Local web server 
-Silakan di unduh dan diinstall melalui web apache
 https://www.apachefriends.org/index.html
 
 2. CodeIgniter
-Versi lama masih bisa digunakan. Versi yang sudah ada silakan di clone aja yang disini.
+http://ellislab.com/codeigniter
+This project already use CI(Code Igniter).
+If you prefer to use another CI version make sure you take necessary modification of config CI folder.
 
 3. Editor
-Saya menggunakan Aptana Studio 3
+http://aptana.com/
+
+question and etc please visit
+http://fb.me/laluseftyjunaedi
