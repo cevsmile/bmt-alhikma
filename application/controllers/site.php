@@ -3,11 +3,26 @@
 class Site extends CI_Controller {
 
 	function index() {
-		$data['title'] = 'Wellcome';
-		$data['main_content'] = 'public/wellcome';
-		$this -> load -> view('public/temp/template', $data);
+		$this ->load -> model ('user_model');
+		$query = $this -> user_model -> first_time_use();
+
+		if ($query)// if return true than use installation folder
+			{
+				$data['title'] = 'Set Up For The First Time';
+				$data['main_content'] = 'installation/registration';
+				$this -> load -> view('installation/temp/template', $data);
+			} else {
+				$data['title'] = 'Wellcome';
+				$data['main_content'] = 'public/wellcome';
+				$this -> load -> view('public/temp/template', $data);
+		}		
 	}
 
+	function site_first_installation(){
+		
+	} // end of site_first_installation function
+	
+	
 	function validasi() {
 		$this -> load -> model('user_model');
 		$query = $this -> user_model -> check_user();
