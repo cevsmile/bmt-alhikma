@@ -1,0 +1,1 @@
+Welcome, this is BMT System Area wich is only registered and authenticated user can access it.
