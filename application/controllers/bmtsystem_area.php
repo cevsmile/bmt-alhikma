@@ -1,22 +1,23 @@
 <?php
 
-class Members_area extends CI_Controller {
+class Bmtsystem_area extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
 		$this -> approved();
 	}
 
-	function members_area() {
-		$data['title'] 			= 'Members Page';
-		$data['main_content'] 	= 'member/wellcome';
-		$this -> load -> view('member/temp/template', $data);
+	function bmtsystem_area() {
+		$data['title'] 			= 'BMT System Page';
+		$data['main_content'] 	= 'bmtsystem_area/wellcome';
+		$this -> load -> view('bmtsystem_area/temp/template', $data);
 	}
 
 	function approved() {
 		$approved = $this -> session -> userdata('approved');
 
 		if (!isset($approved) || $approved != TRUE) {
+			$this -> session -> sess_destroy();
 			redirect('site');
 			// kick users butt :D
 		}

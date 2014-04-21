@@ -1,67 +1,83 @@
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
+<div class="container">
 
-    <div class="container">
+	<div class="jumbotron">
+		<h1>INSTALLATION</h1>
+		<p class="lead">
+			If you see this page, thats mean this is your first time setup. Please fill this form to continue...
+		</p>
+	</div>
 
-      <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-      </div>
-
-    </div><!-- /.container -->
-
-<?php
-	echo form_open('site/first_installation');
-	$NIK = array('name'=>'NIK', 'type' =>'text', 'value' => '');
-	$Nama = array('name'=>'Nama', 'type' =>'text', 'value' => '');
-	$Alamat = array('name'=>'Alamat', 'type' =>'text', 'value' => '');
-	$Nomor_KTP= array('name'=>'Nomor_KTP', 'type' =>'text', 'value' => '');
-	$Nomor_SIM = array('name'=>'Nomor_SIM', 'type' =>'text', 'value' => '');
-	$Jenis_Kelamin = array('name'=>'Jenis_Kelamin', 'type' =>'text', 'value' => '');
-	$Tanggal_Masuk = array('name'=>'Tanggal_Masuk', 'type' =>'text', 'value' => '');
-	$Tanggal_Keluar = array('name'=>'Tanggal_Keluar', 'type' =>'text', 'value' => '');
-	$Status = array('name'=>'Status', 'type' =>'text', 'value' => '');
-	$Pembaruan = array('name'=>'Pembaruan', 'type' =>'text', 'value' => '');
-	$Saldo_Awal = array('name'=>'Saldo_Awal', 'type' =>'text', 'value' => '');
-	$Saldo_Akhir = array('name'=>'Saldo_Akhir', 'type' =>'text', 'value' => '');
-	$Username = array('name'=>'Username', 'type' =>'text', 'value' => '');
-	$Password = array('name'=>'Password', 'type' =>'text', 'value' => '');
-
-	echo form_input($NIK);
-	echo form_input($Nama);
-	echo form_input($Alamat);
-	echo form_input($Nomor_KTP);
-	echo form_input($Nomor_SIM);
-	echo form_input($Jenis_Kelamin);
-	echo form_input($Tanggal_Masuk);
-	echo form_input($Tanggal_Keluar);
-	echo form_input($Status);
-	echo form_input($Pembaruan);
-	echo form_input($Saldo_Awal);
-	echo form_input($Saldo_Akhir);
-	echo form_input($Username);
-	echo form_password($Password);
-
-	$submit = array('type' => 'submit', 'name' => 'submit', 'value' => 'Submit');
-	echo form_submit($submit);
-	
-	echo form_close();
-?>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Instalation Form</h3>
+		</div>
+		<div class="panel-body">
+			<?php echo form_open('site/first_installation');
+			$NIK = array('name' => 'NIK', 'type' => 'text', 'value' => 'NIK');
+			$Nama = array('name' => 'Nama', 'type' => 'text', 'value' => 'Nama');
+			$Alamat = array('name' => 'Alamat', 'type' => 'text', 'value' => 'Alamat');
+			$Nomor_KTP = array('name' => 'Nomor_KTP', 'type' => 'text', 'value' => 'Nomor KTP');
+			$Nomor_SIM = array('name' => 'Nomor_SIM', 'type' => 'text', 'value' => 'Nomor SIM');
+			$Jenis_Kelamin = array('name' => 'Jenis_Kelamin', 'type' => 'text', 'value' => 'Jenis Kelamin');
+			$Tanggal_Masuk = array('name' => 'Tanggal_Masuk', 'type' => 'text', 'value' => 'Tanggal Masuk');
+			$Tanggal_Keluar = array('name' => 'Tanggal_Keluar', 'type' => 'text', 'value' => 'Tanggal Keluar');
+			$Status = array('name' => 'Status', 'type' => 'text', 'value' => 'Status');
+			$Pembaruan = array('name' => 'Pembaruan', 'type' => 'text', 'value' => 'Pembaruan');
+			$Saldo_Awal = array('name' => 'Saldo_Awal', 'type' => 'text', 'value' => 'Saldo Awal');
+			$Saldo_Akhir = array('name' => 'Saldo_Akhir', 'type' => 'text', 'value' => 'Saldo Akhir');
+			$Username = array('name' => 'Username', 'type' => 'text', 'value' => 'Username');
+			$Password = array('name' => 'Password', 'type' => 'text', 'value' => 'Password');
+			$submit = array('type' => 'submit', 'name' => 'submit', 'value' => 'Submit', 'class' => 'btn btn-primary');
+			?>
+		</div>
+		<table class="table">
+			<th>Label</th><th>Input </th>
+			<tr>
+				<td><?php echo form_label('Nomor Induk Kepegawaian', 'NIK'); ?></td><td><?php echo form_input($NIK); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo form_label('Nama Pegawai', 'Nama'); ?></td><td><?php echo form_input($Nama); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo form_label('Alamat Pegawai', 'Alamat'); ?></td><td><?php echo form_input($Alamat); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo form_label('Nomor KTP', 'Nomor_KTP'); ?></td><td><?php echo form_input($Nomor_KTP); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo form_label('Nomor SIM', 'Nomor_SIM'); ?></td><td><?php echo form_input($Nomor_SIM); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo form_label('Jenis Kelamin', 'Jenis_Kelamin'); ?></td><td><?php echo form_input($Jenis_Kelamin); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo form_label('Tanggal Masuk', 'Tanggal_Masuk'); ?></td><td><?php echo form_input($Tanggal_Masuk); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo form_label('Tanggal Keluar', 'Tanggal_Keluar'); ?></td><td><?php echo form_input($Tanggal_Keluar); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo form_label('Status', 'Status'); ?></td><td><?php echo form_input($Status); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo form_label('Pembaruan', 'Pembaruan'); ?></td><td><?php echo form_input($Pembaruan); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo form_label('Saldo_Awal', 'Saldo_Awal'); ?></td><td><?php echo form_input($Saldo_Awal); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo form_label('Saldo Akhir', 'Saldo_Akhir'); ?></td><td><?php echo form_input($Saldo_Akhir); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo form_label('Username', 'Username'); ?></td><td><?php echo form_input($Username); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo form_label('Password', 'Password'); ?></td><td><?php echo form_password($Password); ?></td>
+			</tr>
+			<tr>
+				<td><?php echo form_submit($submit); ?></td><td><?php ?></td>
+			</tr>
+			<?php echo form_close(); ?>
+		</table>
+	</div><!-- /.instalation_form -->
+</div><!-- /.container -->

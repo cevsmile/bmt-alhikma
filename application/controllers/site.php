@@ -18,28 +18,36 @@ class Site extends CI_Controller {
 		}		
 	}
 
-	function site_first_installation(){
+// Delete This Code if you already set up the application
+	function first_installation(){
+		$this -> load -> model('installation');
+		$query = $this -> installation -> add_pegawai();
+		redirect('');
+	} // end of first_installation function
+//====================End Of Delete========================================	
+
+	function validate(){
+		$this->load->model('bmtsystem_area');
+		$query = $this->bmtsystem_area->check_user();
 		
-	} // end of site_first_installation function
-	
-	
-	function validasi() {
-		$this -> load -> model('user_model');
-		$query = $this -> user_model -> check_user();
-
-		if ($query)// jika user tervalidasi...
+		if($query) // if data were found..
 		{
-			$data = array('Username' => $this -> input -> post('Username'), 'approved' => true);
-
-			$this -> session -> set_userdata($data);
-			//save data to session
-			redirect('members_area/members_area');
-			// redirect user to members area page.
-		} else {
-			$this -> index();
-			// redirect user bact to index function above.
+			$data = array(
+				'nama' => $this->input->post('nama'),
+				'imlogin' => true
+			);
+			
+			$this->session->set_userdata($data); //saving data to session
+			redirect('bmtsystem_area/bmtsystem_area'); // and redirect user to bmtsystem_area menu.
 		}
-
+		else 
+		{
+			$this -> session -> sess_destroy();
+			$this->index(); // if not validate than kick user butt.
+		}
+		
 	}
 
-}
+
+
+}// end of Site controller

@@ -15,7 +15,7 @@
     <link href="files/bootstrap-3.1.1-dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="files/bootstrap-3.1.1-dist/css/starter-template.css" rel="stylesheet">
+    <link href="files/bootstrap-3.1.1-dist/css/jumbotron-narrow.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
