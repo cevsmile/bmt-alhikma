@@ -47,7 +47,7 @@ Create table Daftar_Akun (
 	Akun_NR_LR Char(2),
 	Jumlah_Debit Int,
 	Jumlah_Kredit Int,
- Primary Key (Kode_Akun)) ENGINE = MyISAM;
+ Primary Key (Kode_Akun)) ENGINE = InnoDB;
 
 Create table Identitas_BMT (
 	Kode_Cabang Char(3) NOT NULL,
@@ -56,7 +56,7 @@ Create table Identitas_BMT (
 	status Char(20),
 	Nomor_Registrasi Char(20),
 	Tgl_Pembukuan Char(20),
- Primary Key (Kode_Cabang)) ENGINE = MyISAM;
+ Primary Key (Kode_Cabang)) ENGINE = InnoDB;
 
 Create table Nasabah (
 	No_Urut_Nasabah Int NOT NULL AUTO_INCREMENT,
@@ -74,14 +74,14 @@ Create table Nasabah (
 	Username Varchar(32),
 	Password Varchar(32),
 	UNIQUE (No_Urut_Nasabah),
- Primary Key (No_Urut_Nasabah)) ENGINE = MyISAM;
+ Primary Key (No_Urut_Nasabah)) ENGINE = InnoDB;
 
 Create table Daftar_Sandi (
 	Kode_Sandi Char(20) NOT NULL,
 	Nama_Sandi Char(20),
 	Akun_DB Char(20),
 	Akun_KR Char(20),
- Primary Key (Kode_Sandi)) ENGINE = MyISAM;
+ Primary Key (Kode_Sandi)) ENGINE = InnoDB;
 
 Create table Jurnal_Umum (
 	Tanggal Datetime,
@@ -90,7 +90,7 @@ Create table Jurnal_Umum (
 	Akun_DB Char(20),
 	Akun_KR Char(20),
 	Jumlah_Debit Int,
-	Jumlah_Kredit Int) ENGINE = MyISAM;
+	Jumlah_Kredit Int) ENGINE = InnoDB;
 
 Create table Jurnal_Beli_Kredit (
 	Tanggal Datetime,
@@ -102,7 +102,7 @@ Create table Jurnal_Beli_Kredit (
 	Jumlah_Pembelian Int,
 	akun_db2 Char(20),
 	akun_kr2 Char(20),
-	Jumlah_Potongan Int) ENGINE = MyISAM;
+	Jumlah_Potongan Int) ENGINE = InnoDB;
 
 Create table Daftar_Kode_Bantu (
 	Kode_Pembantu Char(20) NOT NULL,
@@ -112,7 +112,7 @@ Create table Daftar_Kode_Bantu (
 	No_Urut_Nasabah Int NOT NULL,
 	NIK Int NOT NULL,
 	UNIQUE (Kode_Pembantu),
- Primary Key (Kode_Pembantu)) ENGINE = MyISAM;
+ Primary Key (Kode_Pembantu)) ENGINE = InnoDB;
 
 Create table Pegawai (
 	NIK Int NOT NULL AUTO_INCREMENT,
@@ -130,7 +130,7 @@ Create table Pegawai (
 	Username Varchar(32),
 	Password Varchar(32),
 	UNIQUE (NIK),
- Primary Key (NIK)) ENGINE = MyISAM;
+ Primary Key (NIK)) ENGINE = InnoDB;
 
 Create table Bank (
 	Tanggal Datetime,
@@ -139,7 +139,7 @@ Create table Bank (
 	Akun_DB Char(20),
 	Akun_KR Char(20),
 	Jumlah_Debit Int,
-	Jumlah_Kredit Int) ENGINE = MyISAM;
+	Jumlah_Kredit Int) ENGINE = InnoDB;
 
 Create table Jurnal_Jual_Kredit (
 	Tanggal Datetime,
@@ -151,14 +151,14 @@ Create table Jurnal_Jual_Kredit (
 	Jumlah_Jual Int,
 	akun_db2 Char(20),
 	akun_kr2 Char(20),
-	Jumlah_Untung Int) ENGINE = MyISAM;
+	Jumlah_Untung Int) ENGINE = InnoDB;
 
 Create table Supplier (
 	Nomor_Urut_Supplier Char(20) NOT NULL,
 	Nama Char(20),
 	Alamat Char(20),
 	NPWP Char(20),
- Primary Key (Nomor_Urut_Supplier)) ENGINE = MyISAM;
+ Primary Key (Nomor_Urut_Supplier)) ENGINE = InnoDB;
 
 
 

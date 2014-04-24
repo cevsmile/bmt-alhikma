@@ -5,6 +5,7 @@ class System_area extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this -> validation();
+		$this->load->model( 'pegawai' );
 	}
 
 	function bmt_center() {
@@ -27,4 +28,13 @@ class System_area extends CI_Controller {
 		redirect('site');
 	}
 
-}
+	public function getById($NIK) {
+		if (isset($NIK))
+			echo json_encode($this -> pegawai -> getById($NIK));
+	}
+
+	public function read() {
+		echo json_encode($this -> pegawai -> getAll());
+	}
+
+}// End of system area
