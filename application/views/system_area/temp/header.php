@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="files/bootstrap-3.1.1-dist/ico/favicon.ico">
+    <link rel="shortcut icon" href="files/img/BMT-Alhikma-Terara.ico">
 
     <title><?php echo $title; ?></title>
 
@@ -18,10 +18,13 @@
     <link href="files/bootstrap-3.1.1-dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="files/bootstrap-3.1.1-dist/css/theme.css" rel="stylesheet">
 
-    <!-- w2ui plugin coer CSS+JS -->
+    <!-- w2ui plugin core CSS+JS -->
 	<link rel="stylesheet" type="text/css" href="files/css/w2ui-1.3.2.min.css" />
 	<script src="files/js/jquery-1.10.2.js"></script>
 	<script type="text/javascript" src="files/js/w2ui-1.3.2.min.js"></script>
+	
+	<!-- w2ui plugin custom CSS+JS -->
+	<!--<script type="text/javascript" src="files/js/system_area/sementara2.js"></script> -->
 	
   </head>
 

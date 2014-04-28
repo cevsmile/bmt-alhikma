@@ -2,9 +2,9 @@
 <html>
 <head>
 		<base href="<?php echo base_url(); ?>" />
-		<link rel="stylesheet" type="text/css" href="css/w2ui-1.3.2.min.css" />
-		<script type="text/javascript" src="js/jquery-1.10.2.js"></script>
-		<script type="text/javascript" src="js/w2ui-1.3.2.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="files/css/w2ui-1.3.2.min.css" />
+	<script src="files/js/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="files/js/w2ui-1.3.2.min.js"></script>
 </head>
 <body>
     <div id="users" style="width: 100%; height: 600px;"></div>
@@ -141,7 +141,7 @@ function editUser(recid) {
 		height 	: 300,
 		onOpen 	: function (event) {
 			event.onComplete = function () {
-			w2ui['user_edit'].clear();
+			//w2ui['user_edit'].clear();
 			w2ui['user_edit'].recid = recid;
 			$('#w2ui-popup #user_edit').w2render('user_edit');
 			}
