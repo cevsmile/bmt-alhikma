@@ -183,13 +183,14 @@ function editUser(recid) {
 			},
 			actions: {
 				"save": function () {
+					w2ui['foo'].recid = recid;
 					this.save(function (data) {
 						if (data.status == 'success') {
 							w2ui['users'].reload();
 							$().w2popup('close');
 						}
 					// if error, it is already displayed by w2form
-					});
+					}); console.log(data);
 				},
 				"cancel": function () {
 					$().w2popup('close');

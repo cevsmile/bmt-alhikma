@@ -30,21 +30,22 @@ class Pegawai extends CI_Model {
 	}
 
     public function update() {
-        $data = array(
-            'Nama' => $this->input->post( 'Nama', true ),
-            'Alamat' => $this->input->post( 'Alamat', true ),
-            'Nomor_KTP' => $this->input->post( 'Nomor_KTP', true ),
-            'Nomor_SIM' => $this->input->post( 'Nomor_SIM', true ),
-            'Jenis_Kelamin' => $this->input->post( 'Jenis_Kelamin', true ),
-            'Tanggal_Masuk' => $this->input->post( 'Tanggal_Masuk', true ),
-            'Tanggal_Keluar' => $this->input->post( 'Tanggal_Keluar', true ),
-            'Status' => $this->input->post( 'Status', true ),
-            'Pembaruan' => $this->input->post( 'Pembaruan', true ),
-            'Saldo_Awal' => $this->input->post( 'Saldo_Awal', true ),
-            'Saldo_Akhir' => $this->input->post( 'Saldo_Akhir', true ),
-            'Username' => $this->input->post( 'Username', true )
-        );
-        $this->db->update( 'pegawai', $data, array( 'NIK' => $this->input->post( 'NIK', true ) ) );
+		$data = $this->input->post("record");
+        $datalist = array(
+            'Nama' => $data["Nama"],
+            'Alamat' => $data["Alamat"],
+            'Nomor_KTP' => $data["Nomor_KTP"],
+            'Nomor_SIM' => $data["Nomor_SIM"],
+            'Jenis_Kelamin' => $data["Jenis_Kelamin"],
+            'Tanggal_Masuk' => $data["Tanggal_Masuk"],
+            'Tanggal_Keluar' => $data["Tanggal_Keluar"],
+            'Status' => $data["Status"],
+            'Pembaruan' => $data["Pembaruan"],
+            'Saldo_Awal' => $data["Saldo_Awal"],
+            'Saldo_Akhir' => $data["Saldo_Akhir"],
+            'Username' => $data["Username"]
+        );		
+        $this->db->update( 'pegawai', $datalist, array( 'NIK' => $this->input->post( 'recid', true ) ) );
     }	
 	
 	

@@ -50,20 +50,10 @@ class System_area extends CI_Controller {
 	}
 	
 	public function update() {
-		$arr = $_POST;
-		print_r($arr);
-		//Uraikan data yang dikirim AJAX
-		$nama     = $arr['record']['nama'];
-		$alamat   = $arr['record']['alamat'];
-		$username = $arr['record']['username'];
-
-
-		//$data = $this->input->post( 'record[Alamat]', true );
-//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
-		echo "<pre>"; die(print_r($nama, TRUE));
+	//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
 		if( !empty( $_POST ) ) {
 			$this->pegawai->update();
-			echo json_encode('Record updated successfully!');
+			echo json_encode('success');
 		}
 	}
 
