@@ -6,6 +6,10 @@
 <script type="text/javascript">
 
 $(function () {
+	loadPegawai();
+});
+
+function loadPegawai(){
 // define and render grid
 	$.get("index.php/system_area/read", function(data) {
 		var myRecords = [];
@@ -24,11 +28,11 @@ $(function () {
 				Saldo_Awal : data[i].Saldo_Awal,
 				Saldo_Akhir : data[i].Saldo_Akhir,
 				Username : data[i].Username
-			});
+			}); console.log(myRecords);
 		}
     $('#users').w2grid({
         name : 'users',
-        header : 'List of Users',
+        header : 'Data Pegawai BMT AL-Hikma',
         show: {
 	         header : true,
 	         toolbar : true,
@@ -46,7 +50,7 @@ $(function () {
 	        addUser(0);
         },
         onDblClick: function (event) {
-         	editUser(event.recid);
+         	editUser(event.recid); 
         },
 		onClick: function (event) {
 			w2ui['users1'].clear();
@@ -83,14 +87,18 @@ $(function () {
 
 	}, "json");
 	
-});
+
+}
+
 
 function editUser(recid) {
 		$.get("index.php/system_area/getByRecid/" + recid, function(data) {
+			console.log(data);
 		$().w2destroy('foo');
 		$().w2form({
 			name: 'foo',
 			style: 'border: 0px; background-color: transparent;',
+			url : 'index.php/system_area/update/',
 			formHTML:
 				'<div class="w2ui-page page-0">'+
 				' 	<div class="w2ui-label">Nomor Pegawai:</div>'+
@@ -182,19 +190,26 @@ function editUser(recid) {
 			},
 			actions: {
 				"save": function () {
+					w2ui['foo'].recid = recid;
 					this.save(function (data) {
-					if (data.status == 'success') {
-						w2ui['users'].reload();
-						$().w2popup('close');
-					}
-				// if error, it is already displayed by w2form
-				});
+						if (data.status == 'success') {
+							//w2ui['users'].clear();
+							w2ui['users'].destroy();
+							w2ui['users1'].destroy();
+							loadPegawai();
+							//w2ui['users'].reload('users');
+							//w2ui['users'].refresh();
+							//w2ui['users1'].refresh();
+							//console.log(data.status);
+							$().w2popup('close');
+						}
+					// if error, it is already displayed by w2form
+					});
 				},
 				"cancel": function () {
-					w2ui['foo'].reload();
 					$().w2popup('close');
 				},  
-		}
+			}
 		});
 		
 		$().w2popup('open', {
@@ -231,5 +246,6 @@ function editUser(recid) {
 	}, "json");
 }
 
-
+function addUser() {
+}
  </script>

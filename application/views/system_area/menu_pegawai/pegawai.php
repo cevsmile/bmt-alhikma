@@ -6,6 +6,10 @@
 <script type="text/javascript">
 
 $(function () {
+	loadPegawai();
+});
+
+function loadPegawai(){
 // define and render grid
 	$.get("index.php/system_area/read", function(data) {
 		var myRecords = [];
@@ -83,7 +87,9 @@ $(function () {
 
 	}, "json");
 	
-});
+
+}
+
 
 function editUser(recid) {
 		$.get("index.php/system_area/getByRecid/" + recid, function(data) {
@@ -166,31 +172,19 @@ function editUser(recid) {
 				{ name: 'Saldo_Akhir', type: 'text' },
 				{ name: 'Username', type: 'text' },
 			],
-			record: { 
-				NIK : data.NIK,
-				Nama	: data.Nama,
-				Alamat 	: data.Alamat,
-				Nomor_KTP : data.Nomor_KTP,
-				Nomor_SIM : data.Nomor_SIM,
-				Jenis_Kelamin : data.Jenis_Kelamin,
-				Tanggal_Masuk : data.Tanggal_Masuk,
-				Tanggal_Keluar : data.Tanggal_Keluar,
-				Status : data.Status,
-				Pembaruan : data.Pembaruan,
-				Saldo_Awal : data.Saldo_Awal,
-				Saldo_Akhir : data.Saldo_Akhir,
-				Username : data.Username
-			},
+			record: data,
 			actions: {
 				"save": function () {
 					w2ui['foo'].recid = recid;
 					this.save(function (data) {
 						if (data.status == 'success') {
-							w2ui['users'].reload();
+							w2ui['users'].destroy();
+							w2ui['users1'].destroy();
+							loadPegawai();
 							$().w2popup('close');
 						}
 					// if error, it is already displayed by w2form
-					}); console.log(data);
+					});
 				},
 				"cancel": function () {
 					$().w2popup('close');
@@ -232,6 +226,137 @@ function editUser(recid) {
 	}, "json");
 }
 
-function addUser() {
+function addUser(recid) {
+
+		$().w2destroy('foo');
+		$().w2form({
+			name: 'foo',
+			style: 'border: 0px; background-color: transparent;',
+			url : 'index.php/system_area/create/',
+			formHTML:
+				'<div class="w2ui-page page-0">'+
+				' 	<div class="w2ui-label">Nomor Pegawai:</div>'+
+				' 	<div class="w2ui-field">'+
+				' 		<input name="NIK" type="text" size="35"/>'+
+				' 	</div>'+
+				' 	<div class="w2ui-label">Nama:</div>'+
+				' 	<div class="w2ui-field">'+
+				' 		<input name="Nama" type="text" size="35"/>'+
+				' 	</div>'+
+				' 	<div class="w2ui-label">Alamat:</div>'+
+				' 	<div class="w2ui-field">'+
+				' 		<input name="Alamat" type="text" size="35"/>'+
+				' 	</div>'+
+				' 	<div class="w2ui-label">Nomor KTP:</div>'+
+				' 	<div class="w2ui-field">'+
+				' 		<input name="Nomor_KTP" type="text" size="35"/>'+
+				' 	</div>'+
+				' 	<div class="w2ui-label">Nomor SIM:</div>'+
+				' 	<div class="w2ui-field">'+
+				' 		<input name="Nomor_SIM" type="text" size="35"/>'+
+				' 	</div>'+
+				' 	<div class="w2ui-label">Jenis Kelamin:</div>'+
+				' 	<div class="w2ui-field">'+
+				' 		<input name="Jenis_Kelamin" type="text" size="35"/>'+
+				' 	</div>'+
+				' 	<div class="w2ui-label">Tanggal Masuk:</div>'+
+				' 	<div class="w2ui-field">'+
+				' 		<input name="Tanggal_Masuk" type="text" size="35"/>'+
+				' 	</div>'+
+				' 	<div class="w2ui-label">Tanggal Keluar:</div>'+
+				' 	<div class="w2ui-field">'+
+				' 		<input name="Tanggal_Keluar" type="text" size="35"/>'+
+				' 	</div>'+
+				' 	<div class="w2ui-label">Status:</div>'+
+				' 	<div class="w2ui-field">'+
+				' 		<input name="Status" type="text" size="35"/>'+
+				' 	</div>'+
+				' 	<div class="w2ui-label">Pembaruan Rekening:</div>'+
+				' 	<div class="w2ui-field">'+
+				' 		<input name="Pembaruan" type="text" size="35"/>'+
+				' 	</div>'+
+				' 	<div class="w2ui-label">Saldo Awal:</div>'+
+				' 	<div class="w2ui-field">'+
+				' 		<input name="Saldo_Awal" type="text" size="35"/>'+
+				' 	</div>'+
+				' 	<div class="w2ui-label">Saldo Akhir:</div>'+
+				' 	<div class="w2ui-field">'+
+				' 		<input name="Saldo_Akhir" type="text" size="35"/>'+
+				' 	</div>'+
+				' 	<div class="w2ui-label">Username:</div>'+
+				' 	<div class="w2ui-field">'+
+				' 		<input name="Username" type="text" size="35"/>'+
+				' 	</div>'+
+				'</div>'+
+				'<div class="w2ui-buttons">'+
+				'	<input type="button" value="save" name="save">'+
+				'	<input type="button" value="cancel" name="cancel">'+
+				'</div>',
+			fields: [
+				{ name: 'NIK', type: 'text', required: true },
+				{ name: 'Nama', type: 'text', required: true },
+				{ name: 'Alamat', type: 'text', required: true },
+				{ name: 'Nomor_KTP', type: 'text' },
+				{ name: 'Nomor_SIM', type: 'text' },
+				{ name: 'Jenis_Kelamin', type: 'text' },
+				{ name: 'Tanggal_Masuk', type: 'text' },
+				{ name: 'Tanggal_Keluar', type: 'text' },
+				{ name: 'Status', type: 'text' },
+				{ name: 'Pembaruan', type: 'text' },
+				{ name: 'Saldo_Awal', type: 'text' },
+				{ name: 'Saldo_Akhir', type: 'text' },
+				{ name: 'Username', type: 'text' },
+			],
+			actions: {
+				"save": function () {
+					w2ui['foo'].recid = recid;
+					this.save(function (data) {
+						if (data.status == 'success') {
+							w2ui['users'].destroy();
+							w2ui['users1'].destroy();
+							loadPegawai();
+							$().w2popup('close');
+						}
+					// if error, it is already displayed by w2form
+					});
+				},
+				"cancel": function () {
+					$().w2popup('close');
+				},  
+			}
+		});
+		
+		$().w2popup('open', {
+			title	: 'Add Pegawai',
+			body	: '<div id="form" style="width: 100%; height: 100%;"></div>',
+			style	: 'padding: 15px 0px 0px 0px',
+			width	: 500,
+			height	: 600, 
+			showMax : true,
+			onMin	: function (event) {
+				$(w2ui.foo.box).hide();
+				event.onComplete = function () {
+					$(w2ui.foo.box).show();
+					w2ui.foo.resize();
+				}
+			},
+			onMax	: function (event) {
+				$(w2ui.foo.box).hide();
+				event.onComplete = function () {
+					$(w2ui.foo.box).show();
+					w2ui.foo.resize();
+				}
+			},
+			onOpen	: function (event) {
+				event.onComplete = function () {
+					// specifying an onOpen handler instead is equivalent to specifying an onBeforeOpen handler, which would make this code execute too early and hence not deliver.
+					//w2ui['foo'].clear();
+					//w2ui['foo'].recid = recid;
+					$('#w2ui-popup #form').w2render('foo');
+				}
+			}
+		});
+		
+
 }
  </script>

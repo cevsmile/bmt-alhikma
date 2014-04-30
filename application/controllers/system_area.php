@@ -53,8 +53,34 @@ class System_area extends CI_Controller {
 	//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
 		if( !empty( $_POST ) ) {
 			$this->pegawai->update();
-			echo json_encode('success');
+			$res = Array();
+			$res['status']  = 'success';
+			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
+			//$res['postData']= $_REQUEST;
+			echo json_encode($res);
+		}
+
+	}
+
+	public function create() {
+		if( !empty( $_POST ) ) {
+			$this->pegawai->create();
+			$res = Array();
+			$res['status']  = 'success';
+			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
+			//$res['postData']= $_REQUEST;
+			echo json_encode($res);
 		}
 	}
+
+
+
+	public function tester_read(){
+		$data['records']=$this->pegawai->getAll();
+
+		//$data['records']= 'recid';
+		echo json_encode($data);		
+	}
+
 
 }// End of system area

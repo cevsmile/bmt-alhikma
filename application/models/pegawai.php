@@ -47,6 +47,27 @@ class Pegawai extends CI_Model {
         );		
         $this->db->update( 'pegawai', $datalist, array( 'NIK' => $this->input->post( 'recid', true ) ) );
     }	
-	
+
+    public function create() {
+ 		$data = $this->input->post("record");
+        $datalist = array(
+        	'NIK' => $this->input->post( 'recid', true ),
+            'Nama' => $data["Nama"],
+            'Alamat' => $data["Alamat"],
+            'Nomor_KTP' => $data["Nomor_KTP"],
+            'Nomor_SIM' => $data["Nomor_SIM"],
+            'Jenis_Kelamin' => $data["Jenis_Kelamin"],
+            'Tanggal_Masuk' => $data["Tanggal_Masuk"],
+            'Tanggal_Keluar' => $data["Tanggal_Keluar"],
+            'Status' => $data["Status"],
+            'Pembaruan' => $data["Pembaruan"],
+            'Saldo_Awal' => $data["Saldo_Awal"],
+            'Saldo_Akhir' => $data["Saldo_Akhir"],
+            'Username' => $data["Username"]
+        );		
+        
+        $this->db->insert( 'pegawai', $data );
+        return $this->db->insert_id();
+    }	
 	
 }// end of class
