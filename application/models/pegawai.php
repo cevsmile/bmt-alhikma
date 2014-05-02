@@ -30,7 +30,7 @@ class Pegawai extends CI_Model {
 	}
 
     public function update() {
-		$data = $this->input->post("record");
+		$data = $this->input->post("record", TRUE);
         $datalist = array(
             'Nama' => $data["Nama"],
             'Alamat' => $data["Alamat"],
@@ -46,6 +46,7 @@ class Pegawai extends CI_Model {
             'Username' => $data["Username"]
         );		
         $this->db->update( 'pegawai', $datalist, array( 'NIK' => $this->input->post( 'recid', true ) ) );
+		//return $datalist;
     }	
 
     public function create() {
@@ -69,5 +70,15 @@ class Pegawai extends CI_Model {
         $this->db->insert( 'pegawai', $data );
         return $this->db->insert_id();
     }	
-	
+    
+    public function delete( $recid ) {
+        /*
+        * Any non-digit character will be excluded after passing $id
+        * from intval function. This is done for security reason.
+        */
+        $recid = intval( $recid );
+        
+        $this->db->delete( 'pegawai', array( 'NIK' => $recid ) );
+    } //end delete	
+    
 }// end of class

@@ -1,16 +1,16 @@
-<div id="users" style="position: absolute; left: 0px; width: 50%; height: 400px;"></div>
-<div id="users1" style="position: absolute; right: 0px; width: 50%; height: 400px;"></div>
-
+<div id="main" style="width: 100%; height: 400px;"></div>
 <script type="text/javascript">
-
-$(function () {
-	loadPegawai();
-});
-
-function loadPegawai(){
-// define and render grid
-
-    $('#users').w2grid({
+// widget configuration
+var config = {
+	layout: {
+		name: 'layout',
+		padding: 4,
+		panels: [
+			{ type: 'left', size: '70%', resizable: true, minSize: 300 },
+			{ type: 'main', minSize: 200 }
+		]
+	},
+	grid: { 
         name : 'users',
         header : 'Data Pegawai BMT AL-Hikma',
         url : {get: 'index.php/system_area/tester'},
@@ -31,7 +31,7 @@ function loadPegawai(){
 	        addUser(0);
         },
         onDblClick: function (event) {
-         	editUser(event.recid);
+         	editUser(event.recid); 
         },
 		onDelete: function(event) {
 			//var delnik = w2ui['users'].getSelection();
@@ -60,10 +60,8 @@ function loadPegawai(){
 				{ recid: 12, name: 'Username:', value: record.Username }
 			]);
 		}		        
-    });
-
-	//defined detailed grid
-	$('#users1').w2grid({ 
+	},
+	grid2: { 
 		header: 'Details',
 		show: { header: true, columnHeaders: false },
 		name: 'users1', 
@@ -71,10 +69,16 @@ function loadPegawai(){
 			{ field: 'name', caption: 'Name', size: '100px', style: 'background-color: #efefef; border-bottom: 1px solid white; padding-right: 5px;', attr: "align=right" },
 			{ field: 'value', caption: 'Value', size: '100%' }
 		]
-	});		
-
-
+	}
+		
 }
+
+$(function () {
+	// initialization
+	$('#main').w2layout(config.layout);
+	w2ui.layout.content('left', $().w2grid(config.grid));
+	w2ui.layout.content('main', $().w2grid(config.grid2));
+});
 
 
 function editUser(recid) {
@@ -218,7 +222,6 @@ function editUser(recid) {
 		
 	}, "json");
 }
-
 
 function addUser(recid) {
 
@@ -405,4 +408,4 @@ function deleteUser(delrecid){
 	});	
 	
 }
- </script>
+</script>

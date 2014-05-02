@@ -9,11 +9,28 @@ $(function () {
 
 function loadPegawai(){
 // define and render grid
-
+	$.get("index.php/system_area/read", function(data) {
+		var myRecords = [];
+		for (var i in data) {
+			myRecords.push({
+				recid : data[i].NIK,
+				Nama : data[i].Nama,
+				Alamat : data[i].Alamat,
+				Nomor_KTP : data[i].Nomor_KTP,
+				Nomor_SIM : data[i].Nomor_SIM,
+				Jenis_Kelamin : data[i].Jenis_Kelamin,
+				Tanggal_Masuk : data[i].Tanggal_Masuk,
+				Tanggal_Keluar : data[i].Tanggal_Keluar,
+				Status : data[i].Status,
+				Pembaruan : data[i].Pembaruan,
+				Saldo_Awal : data[i].Saldo_Awal,
+				Saldo_Akhir : data[i].Saldo_Akhir,
+				Username : data[i].Username
+			});
+		}
     $('#users').w2grid({
         name : 'users',
         header : 'Data Pegawai BMT AL-Hikma',
-        url : {get: 'index.php/system_area/tester'},
         show: {
 	         header : true,
 	         toolbar : true,
@@ -26,15 +43,14 @@ function loadPegawai(){
             { field: 'Nama', caption: 'Nama', size: '150px', searchable: true },
             { field: 'Jenis_Kelamin', caption: 'Jenis Kelamin', size: '150px', searchable: true },
             { field: 'Username', caption: 'Username', size: '100%', searchable: true }
-        ],
+        ], records: myRecords,
         onAdd: function (event) {
 	        addUser(0);
         },
         onDblClick: function (event) {
-         	editUser(event.recid);
+         	editUser(event.recid); 
         },
 		onDelete: function(event) {
-			//var delnik = w2ui['users'].getSelection();
 			var delrecid= w2ui['users'].getSelection();
 			event.preventDefault();
 			deleteUser(delrecid);
@@ -43,9 +59,8 @@ function loadPegawai(){
 		onClick: function (event) {
 			w2ui['users1'].clear();
 			var record = this.get(event.recid);
-			
 			w2ui['users1'].add([
-				{ recid: 0, name: 'NIK:', value: record.NIK },
+				{ recid: 0, name: 'NIK:', value: record.recid },
 				{ recid: 1, name: 'Nama:', value: record.Nama },
 				{ recid: 2, name: 'Alamat:', value: record.Alamat },
 				{ recid: 3, name: 'Nomor KTP:', value: record.Nomor_KTP },
@@ -73,6 +88,9 @@ function loadPegawai(){
 		]
 	});		
 
+
+	}, "json");
+	
 
 }
 
@@ -164,13 +182,9 @@ function editUser(recid) {
 					w2ui['foo'].recid = recid;
 					this.save(function (data) {
 						if (data.status == 'success') {
-
-							w2ui['users'].reload();
-							w2ui['users1'].clear();
-	
-							//w2ui['users'].destroy();
-							//w2ui['users1'].destroy();
-							//loadPegawai();
+							w2ui['users'].destroy();
+							w2ui['users1'].destroy();
+							loadPegawai();
 							//w2ui('users').reload();
 							
 							$().w2popup('close');
@@ -218,7 +232,6 @@ function editUser(recid) {
 		
 	}, "json");
 }
-
 
 function addUser(recid) {
 
@@ -307,6 +320,7 @@ function addUser(recid) {
 					this.save(function (data) {
 						if (data.status == 'success') {
 							//w2ui['users'].reload();
+							//w2ui['users1'].clear();
 							//data.preventDefault();
 							w2ui['users'].destroy();
 							w2ui['users1'].destroy();
@@ -375,11 +389,11 @@ function deleteUser(delrecid){
 			'</div>',
 			actions: {
 				"delete": function () {
+					w2ui['deletedialog'].recid = delrecid;
 					this.save(function (data) {
 						console.log(data);
 						if (data.status == 'success') {
-							w2ui['users'].reload();
-							w2ui['users1'].clear();
+							w2ui['users'].remove(delrecid);
 							$().w2popup('close');
 						}
 					// if error, it is already displayed by w2form

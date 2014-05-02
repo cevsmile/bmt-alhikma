@@ -26,6 +26,12 @@ class System_area extends CI_Controller {
 		$this -> load -> view('system_area/temp/template', $data);
 	}
 
+	function menu_testing() {
+		$data['title'] = 'BMT System Home Page';
+		$data['main_content'] = 'system_area/testing/tester';
+		$this -> load -> view('system_area/temp/template', $data);
+	}
+	
 	function validation() {
 		$imlogin = $this -> session -> userdata('imlogin');
 
@@ -48,39 +54,57 @@ class System_area extends CI_Controller {
 		if (isset($recid))
 			echo json_encode($this -> pegawai -> getByRecid($recid));
 	}
-	
+
 	public function update() {
-	//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
-		if( !empty( $_POST ) ) {
-			$this->pegawai->update();
+		//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
+		if (!empty($_POST)) {
+			$this -> pegawai -> update();
 			$res = Array();
-			$res['status']  = 'success';
+			$res['status'] = 'success';
+			$res['records'] = $_REQUEST['record'];
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
 			//$res['postData']= $_REQUEST;
 			echo json_encode($res);
 		}
-
 	}
 
 	public function create() {
-		if( !empty( $_POST ) ) {
-			$this->pegawai->create();
+		if (!empty($_POST)) {
+			$this -> pegawai -> create();
 			$res = Array();
-			$res['status']  = 'success';
+			$res['status'] = 'success';
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
 			//$res['postData']= $_REQUEST;
 			echo json_encode($res);
 		}
 	}
 
+	public function delete($recid = null) {
+		if (is_null($recid)) {
+			echo 'ERROR: Id not provided.';
+			return;
+		}
 
-
-	public function tester_read(){
-		$data['records']=$this->pegawai->getAll();
-
-		//$data['records']= 'recid';
-		echo json_encode($data);		
+		$this -> pegawai -> delete($recid);
+		$res = Array();
+		$res['status'] = 'success';
+		//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
+		//$res['postData']= $_REQUEST;
+		echo json_encode($res);
 	}
 
+	function tester() {
+		$data = $this -> pegawai -> getAll();
+		$newaray = Array();
+		$sums = count($data);
+		$newaray['status'] = 'success';
+		$newaray['total'] = $sums;
+		$newaray['records'] = $data;
+		for ($i = 0; $i < $sums; $i++) {
+			$data[$i] -> recid = $data[$i]->NIK;
+		}
+		echo json_encode($newaray);
+		//"<pre>"; die(print_r($data, TRUE));
+	}
 
 }// End of system area

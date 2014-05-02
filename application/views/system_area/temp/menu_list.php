@@ -49,7 +49,7 @@
 					<a href="index.php/system_area/menu_tester" class="dropdown-toggle"/><img style="border:0;" src="files/img/Configure alt 1.png" alt="Input Data" width="40" height="40"></a>
 				</li>
 				<li class="dropdown">
-					<a class="dropdown-toggle" value="Open Popup" onclick="openPopup()"/><img style="border:0;" src="files/img/Configure.png" alt="Input Data" width="40" height="40"></a>
+					<a href="index.php/system_area/menu_testing" class="dropdown-toggle"/><img style="border:0;" src="files/img/Configure.png" alt="Input Data" width="40" height="40"></a>
 				</li>
 				<li class="dropdown">
 					<a href="index.php/system_area/bmt_center" class="dropdown-toggle"/><img style="border:0;" src="files/img/Power - Restart.png" alt="Input Data" width="40" height="40"></a>
