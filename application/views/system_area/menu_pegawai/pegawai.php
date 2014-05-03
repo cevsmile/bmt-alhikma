@@ -13,22 +13,22 @@ var config = {
 	grid: { 
         name : 'users',
         header : 'Data Pegawai BMT AL-Hikma',
-        url : {get: 'index.php/system_area/tester'},
         show: {
 	         header : true,
 	         toolbar : true,
 	         footer : true,
 	         toolbarAdd	: true,
-	         toolbarDelete	: true
+	         toolbarDelete	: true,
+	         lineNumbers: true
         },
         columns: [
-            { field: 'recid', caption: 'Nomor Induk', size: '150px', searchable: true },
-            { field: 'Nama', caption: 'Nama', size: '150px', searchable: true },
-            { field: 'Jenis_Kelamin', caption: 'Jenis Kelamin', size: '150px', searchable: true },
-            { field: 'Username', caption: 'Username', size: '100%', searchable: true }
+            { field: 'recid', caption: 'Nomor Induk', size: '150px', searchable: true, sortable: true },
+            { field: 'Nama', caption: 'Nama', size: '150px', searchable: true, sortable: true },
+            { field: 'Jenis_Kelamin', caption: 'Jenis Kelamin', size: '150px', searchable: true, sortable: true },
+            { field: 'Username', caption: 'Username', size: '100%', searchable: true, sortable: true }
         ],
         onAdd: function (event) {
-	        addUser(0);
+	        addUser(event.recid);
         },
         onDblClick: function (event) {
          	editUser(event.recid); 
@@ -106,9 +106,7 @@ var config = {
 				this.save(function (data) {
 					if (data.status == 'success') {
 						w2ui['users'].set(data.records.NIK, data.records);
-						w2ui['users'].refresh();
 						w2ui['users'].selectNone();
-						w2ui['users1'].clear();
 						$().w2popup('close');
 					}
 				});				
@@ -138,16 +136,10 @@ var config = {
 				this.clear();
 			},
 			Save: function () {
-				//console.log(record.NIK);
-				//w2ui['form2'].recid = '10';
 				this.save(function (data) {
-					console.log(data.records);
 					if (data.status == 'success') {
-						w2ui['users'].refresh();
-						//w2ui['users'].add($.extend(true, { recid: data.recid }, data.records));
 						w2ui['users'].add(data.records);
 						w2ui['users'].selectNone();
-						w2ui['users1'].clear();
 						$().w2popup('close');
 					}
 				});
@@ -165,6 +157,8 @@ $(function () {
 	w2ui.layout.content('main', $().w2grid(config.grid2));
 	$().w2form(config.form);
 	$().w2form(config.form2);
+	w2ui['users'].load('index.php/system_area/tester');
+	
 });
 
 
@@ -201,7 +195,7 @@ function editUser(recid) {
 	
 }
 
-function addUser() {
+function addUser(recid) {
 	$().w2popup('open', {
 		title	: 'Add Pegawai',
 		body	: '<div id="form2" style="width: 100%; height: 100%;"></div>',
@@ -225,13 +219,9 @@ function addUser() {
 		},
 		onOpen	: function (event) {
 			event.onComplete = function () {
-				
 				$('#w2ui-popup #form2').w2render('form2');
-//				w2ui['form2'].clear();
 				w2ui['form2'].url = {save: 'index.php/system_area/create/'};
-				
-//				w2ui['form2'].recid = w2ui['form2'].recid;
-				
+				w2ui['form2'].action('Reset');
 			}
 		}
 	});
@@ -262,7 +252,7 @@ function deleteUser(delrecid){
 				"delete": function () {
 					this.save(function (data) {
 						if (data.status == 'success') {
-							w2ui['users'].reload();
+							w2ui['users'].remove(delrecid);
 							w2ui['users1'].clear();
 							$().w2popup('close');
 						}

@@ -76,6 +76,7 @@ class System_area extends CI_Controller {
 			$res = Array();
 			$res['status'] = 'success';
 			$res['recid'] = $data['NIK']; 
+			//$res['total'] = intval($data['NIK']) + 1;
 			$res['records'] = $data; 
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
 			//$res['postData']= $_REQUEST;
