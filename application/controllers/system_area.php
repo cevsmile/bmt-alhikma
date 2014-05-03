@@ -70,11 +70,16 @@ class System_area extends CI_Controller {
 
 	public function create() {
 		if (!empty($_POST)) {
-			$this -> pegawai -> create();
+		   	$data = $this -> pegawai -> create();
+			$data['recid']= $data['NIK'];
+			
 			$res = Array();
 			$res['status'] = 'success';
+			$res['recid'] = $data['NIK']; 
+			$res['records'] = $data; 
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
 			//$res['postData']= $_REQUEST;
+			//echo "<pre>"; die(print_r($res, TRUE));
 			echo json_encode($res);
 		}
 	}
