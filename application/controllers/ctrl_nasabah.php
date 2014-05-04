@@ -1,45 +1,13 @@
 <?php
 
-class System_area extends CI_Controller {
+class Ctrl_nasabah extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
 		$this -> validation();
-		$this -> load -> model('pegawai');
+		$this -> load -> model('mod_nasabah');
 	}
 
-	function bmt_center() {
-		$data['title'] = 'BMT System Home Page';
-		$data['main_content'] = 'system_area/welcome';
-		$this -> load -> view('system_area/vf_temp/vff_template', $data);
-	}
-
-	function menu_pegawai() {
-		$data['title'] = 'BMT System Home Page';
-		$data['main_content'] = 'system_area/vf_pegawai/vff_pegawai';
-		$this -> load -> view('system_area/vf_temp/vff_template', $data);
-	}
-
-	function menu_tester() {
-		$data['title'] = 'BMT System Home Page';
-		$data['main_content'] = 'system_area/menu_tester/tester';
-		$this -> load -> view('system_area/vf_temp/vff_template', $data);
-	}
-
-	function menu_testing() {
-		$data['title'] = 'BMT System Home Page';
-		$data['main_content'] = 'system_area/testing/tester';
-		$this -> load -> view('system_area/vf_temp/vff_template', $data);
-	}
-
-	function menu_nasabah() {
-		$data['title'] = 'BMT System Home Page';
-		$data['main_content'] = 'system_area/vf_nasabah/vff_nasabah.php';
-		$this -> load -> view('system_area/vf_temp/vff_template', $data);
-	}
-
-
-	
 	function validation() {
 		$imlogin = $this -> session -> userdata('imlogin');
 
@@ -66,7 +34,7 @@ class System_area extends CI_Controller {
 	public function update() {
 		//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
 		if (!empty($_POST)) {
-			$this -> pegawai -> update();
+			$this -> mod_nasabah -> update();
 			$res = Array();
 			$res['status'] = 'success';
 			$res['records'] = $_REQUEST['record'];
@@ -78,7 +46,7 @@ class System_area extends CI_Controller {
 
 	public function create() {
 		if (!empty($_POST)) {
-		   	$data = $this -> pegawai -> create();
+		   	$data = $this -> mod_nasabah -> create();
 			$data['recid']= $data['NIK'];
 			
 			$res = Array();
@@ -99,7 +67,7 @@ class System_area extends CI_Controller {
 			return;
 		}
 
-		$this -> pegawai -> delete($recid);
+		$this -> mod_nasabah -> delete($recid);
 		$res = Array();
 		$res['status'] = 'success';
 		//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
@@ -108,7 +76,7 @@ class System_area extends CI_Controller {
 	}
 
 	function tester() {
-		$data = $this -> pegawai -> getAll();
+		$data = $this -> mod_nasabah -> getAll();
 		$newaray = Array();
 		$sums = count($data);
 		$newaray['status'] = 'success';

@@ -4,11 +4,11 @@
  *  Contact : 081808785851
  *  Email : warior.cakep@gmail.com
  */
-class Pegawai extends CI_Model {
+class Mod_nasabah extends CI_Model {
 
 	public function getAll() {
 		//get all records from users table
-		$query = $this -> db -> get('pegawai');
+		$query = $this -> db -> get('nasabah');
 
 		if ($query -> num_rows() > 0) {
 			return $query -> result();
@@ -45,13 +45,13 @@ class Pegawai extends CI_Model {
             'Saldo_Akhir' => $data["Saldo_Akhir"],
             'Username' => $data["Username"]
         );		
-        $this->db->update( 'pegawai', $datalist, array( 'NIK' => $this->input->post( 'recid', true ) ) );
+        $this->db->update( 'nasabah', $datalist, array( 'NIK' => $this->input->post( 'recid', true ) ) );
 		//return $datalist;
     }	
 
     public function create() {
  		$data = $this->input->post("record");
-        $this->db->insert( 'pegawai', $data );
+        $this->db->insert( 'nasabah', $data );
         //return $this->db->insert_id();
         return $data;
     }	
@@ -63,7 +63,7 @@ class Pegawai extends CI_Model {
         */
         $recid = intval( $recid );
         
-        $this->db->delete( 'pegawai', array( 'NIK' => $recid ) );
+        $this->db->delete( 'nasabah', array( 'NIK' => $recid ) );
     } //end delete	
     
 }// end of class

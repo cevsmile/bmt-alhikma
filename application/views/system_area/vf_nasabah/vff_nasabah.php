@@ -1,4 +1,6 @@
-<div id="main" style="width: 100%; height: 400px;"></div>
+<div class="container">
+<div id="main" style="width: 100%; height: 500px;"></div>
+</div>
 <script type="text/javascript">
 // widget configuration
 var config = {
@@ -6,29 +8,31 @@ var config = {
 		name: 'layout',
 		padding: 4,
 		panels: [
+			{ type: 'top', size: '10%', resizable: true, minSize: 10 },
 			{ type: 'left', size: '70%', resizable: true, minSize: 300 },
+			{ type: 'bottom', size: '10%', resizable: true, minSize: 10 },
 			{ type: 'main', minSize: 200 }
 		]
 	},
 	grid: { 
         name : 'users',
-        header : 'Data Pegawai BMT AL-Hikma',
-        url : {get: 'index.php/system_area/tester'},
+        header : 'Data Nasabah BMT AL-Hikma',
         show: {
 	         header : true,
 	         toolbar : true,
 	         footer : true,
 	         toolbarAdd	: true,
-	         toolbarDelete	: true
+	         toolbarDelete	: true,
+	         lineNumbers: true
         },
         columns: [
-            { field: 'recid', caption: 'Nomor Induk', size: '150px', searchable: true },
-            { field: 'Nama', caption: 'Nama', size: '150px', searchable: true },
-            { field: 'Jenis_Kelamin', caption: 'Jenis Kelamin', size: '150px', searchable: true },
-            { field: 'Username', caption: 'Username', size: '100%', searchable: true }
+            { field: 'recid', caption: 'Nomor Induk', size: '150px', searchable: true, sortable: true },
+            { field: 'Nama', caption: 'Nama', size: '150px', searchable: true, sortable: true },
+            { field: 'Jenis_Kelamin', caption: 'Jenis Kelamin', size: '150px', searchable: true, sortable: true },
+            { field: 'Username', caption: 'Username', size: '100%', searchable: true, sortable: true }
         ],
         onAdd: function (event) {
-	        addUser(0);
+	        addUser(event.recid);
         },
         onDblClick: function (event) {
          	editUser(event.recid); 
@@ -49,7 +53,7 @@ var config = {
 			var delrecid= w2ui['users'].getSelection();
 			event.preventDefault();
 			deleteUser(delrecid);
-			console.log(delrecid);
+			//console.log(delrecid);
 		},	        
 		onClick: function (event) {
 			w2ui['users1'].clear();
@@ -108,6 +112,7 @@ var config = {
 						w2ui['users'].set(data.records.NIK, data.records);
 						w2ui['users'].refresh();
 						w2ui['users'].selectNone();
+						w2ui['users1'].clear();
 						$().w2popup('close');
 					}
 				});				
@@ -118,7 +123,7 @@ var config = {
 	form2: {
 		name: 'form2',
 		fields: [
-			{ name: 'recid', type: 'text', html: { caption: 'NIK', attr: 'size="10"' } },
+			{ name: 'NIK', type: 'text', required: true, html: { caption: 'NIK', attr: 'size="10"' } },
 			{ name: 'Nama', type: 'text', required: true, html: { caption: 'Nama', attr: 'size="40" maxlength="40"' } },
 			{ name: 'Alamat', type: 'text', required: true, html: { caption: 'Alamat', attr: 'size="40" maxlength="40"' } },
 			{ name: 'Nomor_KTP', type: 'text', html: { caption: 'Nomor KTP', attr: 'size="10"' } },
@@ -139,12 +144,11 @@ var config = {
 			Save: function () {
 				this.save(function (data) {
 					if (data.status == 'success') {
-						w2ui['users'].set(data.records.NIK, data.records);
-						w2ui['users'].refresh();
+						w2ui['users'].add(data.records);
 						w2ui['users'].selectNone();
 						$().w2popup('close');
 					}
-				});				
+				});
 				
 			}
 		}
@@ -158,6 +162,30 @@ $(function () {
 	w2ui.layout.content('left', $().w2grid(config.grid));
 	w2ui.layout.content('main', $().w2grid(config.grid2));
 	$().w2form(config.form);
+	$().w2form(config.form2);
+	w2ui['users'].load('index.php/ctrl_pegawai/tester');
+
+	w2ui['users'].on('reload', function(event) {
+		this.load('index.php/ctrl_pegawai/tester');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+		w2ui['users1'].clear();
+	});
+
+/*
+	w2ui['users'].toolbar.on('click', function(event) {
+		console.log(event.target);
+		
+		if (event.target == 'reload'){
+		w2ui['users'].clear();
+		
+		//w2ui['users'].load('index.php/system_area/tester');
+		w2ui['users'].reload();
+		}
+	});	
+*/
+	
 });
 
 
@@ -186,7 +214,7 @@ function editUser(recid) {
 		onOpen	: function (event) {
 			event.onComplete = function () {
 				$('#w2ui-popup #form').w2render('form');
-				w2ui['form'].url = {save: 'index.php/system_area/update/'};
+				w2ui['form'].url = {save: 'index.php/ctrl_pegawai/update/'};
 				
 			}
 		}
@@ -195,133 +223,36 @@ function editUser(recid) {
 }
 
 function addUser(recid) {
-
-		$().w2destroy('foo');
-		$().w2form({
-			name: 'foo',
-			style: 'border: 0px; background-color: transparent;',
-			url : 'index.php/system_area/create/',
-			formHTML:
-				'<div class="w2ui-page page-0">'+
-				' 	<div class="w2ui-label">Nomor Pegawai:</div>'+
-				' 	<div class="w2ui-field">'+
-				' 		<input name="NIK" type="text" size="35"/>'+
-				' 	</div>'+
-				' 	<div class="w2ui-label">Nama:</div>'+
-				' 	<div class="w2ui-field">'+
-				' 		<input name="Nama" type="text" size="35"/>'+
-				' 	</div>'+
-				' 	<div class="w2ui-label">Alamat:</div>'+
-				' 	<div class="w2ui-field">'+
-				' 		<input name="Alamat" type="text" size="35"/>'+
-				' 	</div>'+
-				' 	<div class="w2ui-label">Nomor KTP:</div>'+
-				' 	<div class="w2ui-field">'+
-				' 		<input name="Nomor_KTP" type="text" size="35"/>'+
-				' 	</div>'+
-				' 	<div class="w2ui-label">Nomor SIM:</div>'+
-				' 	<div class="w2ui-field">'+
-				' 		<input name="Nomor_SIM" type="text" size="35"/>'+
-				' 	</div>'+
-				' 	<div class="w2ui-label">Jenis Kelamin:</div>'+
-				' 	<div class="w2ui-field">'+
-				' 		<input name="Jenis_Kelamin" type="text" size="35"/>'+
-				' 	</div>'+
-				' 	<div class="w2ui-label">Tanggal Masuk:</div>'+
-				' 	<div class="w2ui-field">'+
-				' 		<input name="Tanggal_Masuk" type="text" size="35"/>'+
-				' 	</div>'+
-				' 	<div class="w2ui-label">Tanggal Keluar:</div>'+
-				' 	<div class="w2ui-field">'+
-				' 		<input name="Tanggal_Keluar" type="text" size="35"/>'+
-				' 	</div>'+
-				' 	<div class="w2ui-label">Status:</div>'+
-				' 	<div class="w2ui-field">'+
-				' 		<input name="Status" type="text" size="35"/>'+
-				' 	</div>'+
-				' 	<div class="w2ui-label">Pembaruan Rekening:</div>'+
-				' 	<div class="w2ui-field">'+
-				' 		<input name="Pembaruan" type="text" size="35"/>'+
-				' 	</div>'+
-				' 	<div class="w2ui-label">Saldo Awal:</div>'+
-				' 	<div class="w2ui-field">'+
-				' 		<input name="Saldo_Awal" type="text" size="35"/>'+
-				' 	</div>'+
-				' 	<div class="w2ui-label">Saldo Akhir:</div>'+
-				' 	<div class="w2ui-field">'+
-				' 		<input name="Saldo_Akhir" type="text" size="35"/>'+
-				' 	</div>'+
-				' 	<div class="w2ui-label">Username:</div>'+
-				' 	<div class="w2ui-field">'+
-				' 		<input name="Username" type="text" size="35"/>'+
-				' 	</div>'+
-				'</div>'+
-				'<div class="w2ui-buttons">'+
-				'	<input type="button" value="save" name="save">'+
-				'	<input type="button" value="cancel" name="cancel">'+
-				'</div>',
-			fields: [
-				{ name: 'NIK', type: 'text', required: true },
-				{ name: 'Nama', type: 'text', required: true },
-				{ name: 'Alamat', type: 'text', required: true },
-				{ name: 'Nomor_KTP', type: 'text' },
-				{ name: 'Nomor_SIM', type: 'text' },
-				{ name: 'Jenis_Kelamin', type: 'text' },
-				{ name: 'Tanggal_Masuk', type: 'text' },
-				{ name: 'Tanggal_Keluar', type: 'text' },
-				{ name: 'Status', type: 'text' },
-				{ name: 'Pembaruan', type: 'text' },
-				{ name: 'Saldo_Awal', type: 'text' },
-				{ name: 'Saldo_Akhir', type: 'text' },
-				{ name: 'Username', type: 'text' },
-			],
-			actions: {
-				"save": function () {
-					w2ui['foo'].recid = recid;
-					this.save(function (data) {
-						if (data.status == 'success') {
-							w2ui['users'].reload();
-							w2ui['users1'].clear();						
-							$().w2popup('close');
-						}
-					// if error, it is already displayed by w2form
-					});
-				},
-				"cancel": function () {
-					$().w2popup('close');
-				},  
+	$().w2popup('open', {
+		title	: 'Add Pegawai',
+		body	: '<div id="form2" style="width: 100%; height: 100%;"></div>',
+		style	: 'padding: 0px 0px 0px 0px',
+		width	: 500,
+		height	: 600, 
+		showMax : true,
+		onMin	: function (event) {
+			$(w2ui.form2.box).hide();
+			event.onComplete = function () {
+				$(w2ui.form2.box).show();
+				w2ui.form2.resize();
 			}
-		});
-		
-		$().w2popup('open', {
-			title	: 'Add Pegawai',
-			body	: '<div id="form" style="width: 100%; height: 100%;"></div>',
-			style	: 'padding: 15px 0px 0px 0px',
-			width	: 500,
-			height	: 600, 
-			showMax : true,
-			onMin	: function (event) {
-				$(w2ui.foo.box).hide();
-				event.onComplete = function () {
-					$(w2ui.foo.box).show();
-					w2ui.foo.resize();
-				}
-			},
-			onMax	: function (event) {
-				$(w2ui.foo.box).hide();
-				event.onComplete = function () {
-					$(w2ui.foo.box).show();
-					w2ui.foo.resize();
-				}
-			},
-			onOpen	: function (event) {
-				event.onComplete = function () {
-					$('#w2ui-popup #form').w2render('foo');
-				}
+		},
+		onMax	: function (event) {
+			$(w2ui.form2.box).hide();
+			event.onComplete = function () {
+				$(w2ui.form2.box).show();
+				w2ui.form2.resize();
 			}
-		});
-		
-
+		},
+		onOpen	: function (event) {
+			event.onComplete = function () {
+				$('#w2ui-popup #form2').w2render('form2');
+				w2ui['form2'].url = {save: 'index.php/ctrl_pegawai/create/'};
+				w2ui['form2'].action('Reset');
+			}
+		}
+	});
+	
 }
 
 function deleteUser(delrecid){
@@ -329,7 +260,7 @@ function deleteUser(delrecid){
 	$('#deletedialog').w2form({ 
 		name: 'deletedialog',
 		style: 'border: 0px; background-color: transparent;',
-		url : 'index.php/system_area/delete/' + delrecid,
+		url : 'index.php/ctrl_pegawai/delete/' + delrecid,
 		formHTML:
 			'<div class="w2ui-page page-0">'+
 			'<div style="" class="w2ui-box1">'+
@@ -348,7 +279,7 @@ function deleteUser(delrecid){
 				"delete": function () {
 					this.save(function (data) {
 						if (data.status == 'success') {
-							w2ui['users'].reload();
+							w2ui['users'].remove(delrecid);
 							w2ui['users1'].clear();
 							$().w2popup('close');
 						}

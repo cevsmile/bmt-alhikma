@@ -1,4 +1,6 @@
-<div id="main" style="width: 100%; height: 400px;"></div>
+<div class="container">
+<div id="main" style="width: 100%; height: 500px;"></div>
+</div>
 <script type="text/javascript">
 // widget configuration
 var config = {
@@ -6,7 +8,9 @@ var config = {
 		name: 'layout',
 		padding: 4,
 		panels: [
+			{ type: 'top', size: '10%', resizable: true, minSize: 10 },
 			{ type: 'left', size: '70%', resizable: true, minSize: 300 },
+			{ type: 'bottom', size: '10%', resizable: true, minSize: 10 },
 			{ type: 'main', minSize: 200 }
 		]
 	},
@@ -49,7 +53,7 @@ var config = {
 			var delrecid= w2ui['users'].getSelection();
 			event.preventDefault();
 			deleteUser(delrecid);
-			console.log(delrecid);
+			//console.log(delrecid);
 		},	        
 		onClick: function (event) {
 			w2ui['users1'].clear();
@@ -106,7 +110,9 @@ var config = {
 				this.save(function (data) {
 					if (data.status == 'success') {
 						w2ui['users'].set(data.records.NIK, data.records);
+						w2ui['users'].refresh();
 						w2ui['users'].selectNone();
+						w2ui['users1'].clear();
 						$().w2popup('close');
 					}
 				});				
@@ -157,7 +163,28 @@ $(function () {
 	w2ui.layout.content('main', $().w2grid(config.grid2));
 	$().w2form(config.form);
 	$().w2form(config.form2);
-	w2ui['users'].load('index.php/system_area/tester');
+	w2ui['users'].load('index.php/ctrl_pegawai/tester');
+
+	w2ui['users'].on('reload', function(event) {
+		this.load('index.php/ctrl_pegawai/tester');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+		w2ui['users1'].clear();
+	});
+
+/*
+	w2ui['users'].toolbar.on('click', function(event) {
+		console.log(event.target);
+		
+		if (event.target == 'reload'){
+		w2ui['users'].clear();
+		
+		//w2ui['users'].load('index.php/system_area/tester');
+		w2ui['users'].reload();
+		}
+	});	
+*/
 	
 });
 
@@ -187,7 +214,7 @@ function editUser(recid) {
 		onOpen	: function (event) {
 			event.onComplete = function () {
 				$('#w2ui-popup #form').w2render('form');
-				w2ui['form'].url = {save: 'index.php/system_area/update/'};
+				w2ui['form'].url = {save: 'index.php/ctrl_pegawai/update/'};
 				
 			}
 		}
@@ -220,7 +247,7 @@ function addUser(recid) {
 		onOpen	: function (event) {
 			event.onComplete = function () {
 				$('#w2ui-popup #form2').w2render('form2');
-				w2ui['form2'].url = {save: 'index.php/system_area/create/'};
+				w2ui['form2'].url = {save: 'index.php/ctrl_pegawai/create/'};
 				w2ui['form2'].action('Reset');
 			}
 		}
@@ -233,7 +260,7 @@ function deleteUser(delrecid){
 	$('#deletedialog').w2form({ 
 		name: 'deletedialog',
 		style: 'border: 0px; background-color: transparent;',
-		url : 'index.php/system_area/delete/' + delrecid,
+		url : 'index.php/ctrl_pegawai/delete/' + delrecid,
 		formHTML:
 			'<div class="w2ui-page page-0">'+
 			'<div style="" class="w2ui-box1">'+

@@ -1,6 +1,6 @@
 <?php
 
-class System_area extends CI_Controller {
+class Ctrl_pegawai extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
@@ -8,38 +8,6 @@ class System_area extends CI_Controller {
 		$this -> load -> model('pegawai');
 	}
 
-	function bmt_center() {
-		$data['title'] = 'BMT System Home Page';
-		$data['main_content'] = 'system_area/welcome';
-		$this -> load -> view('system_area/vf_temp/vff_template', $data);
-	}
-
-	function menu_pegawai() {
-		$data['title'] = 'BMT System Home Page';
-		$data['main_content'] = 'system_area/vf_pegawai/vff_pegawai';
-		$this -> load -> view('system_area/vf_temp/vff_template', $data);
-	}
-
-	function menu_tester() {
-		$data['title'] = 'BMT System Home Page';
-		$data['main_content'] = 'system_area/menu_tester/tester';
-		$this -> load -> view('system_area/vf_temp/vff_template', $data);
-	}
-
-	function menu_testing() {
-		$data['title'] = 'BMT System Home Page';
-		$data['main_content'] = 'system_area/testing/tester';
-		$this -> load -> view('system_area/vf_temp/vff_template', $data);
-	}
-
-	function menu_nasabah() {
-		$data['title'] = 'BMT System Home Page';
-		$data['main_content'] = 'system_area/vf_nasabah/vff_nasabah.php';
-		$this -> load -> view('system_area/vf_temp/vff_template', $data);
-	}
-
-
-	
 	function validation() {
 		$imlogin = $this -> session -> userdata('imlogin');
 
