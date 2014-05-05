@@ -25,6 +25,8 @@
 	<!-- w2ui plugin custom CSS+JS -->
 	<!--<script type="text/javascript" src="files/js/system_area/sementara2.js"></script> -->
 	<link href="files/css/font-awesome-4.0.3/css/font-awesome.css" rel="stylesheet">
+	<!-- Deploy Modul -->
+	
   </head>
 
   <body>

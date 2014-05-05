@@ -1,39 +1,30 @@
+<div class="container">
+<div id="main" style="width: 100%; height: 500px;"></div>
+</div>
 <script type="text/javascript">
 // widget configuration
-var config_pegawai = {
-	grid_pegawai: { 
-        name : 'grid_pegawai',
-        header : 'Data Pegawai BMT AL-Hikma',
-		show : {
-			toolbar : true,
-	        header : true,
-	        footer : true,
-	        toolbarAdd	: true,
-	        toolbarDelete	: true,
-	        lineNumbers: true
-		},
-		toolbar: {
-			items: [
-				{ type: 'break' },
-				{ type: 'button', id: 'btn-details', caption: 'Details', icon: 'fa fa-eye' },
-				{ type: 'button', id: 'btn-fullscreen', caption: 'Full', icon: 'fa fa-eye' }
-			],
-			onClick: function (event) {
-				switch (event.target) {
-					case 'btn-details':
-						w2ui['layout'].toggle('right', true);
-						break;
-					case 'btn-fullscreen':
-						w2ui['layout'].toggle('top', true);
-						w2ui['layout'].toggle('left', true);
-						w2ui['layout'].hide('right', true);
-						w2ui['layout'].toggle('bottom', true);
-						break;
-					case 'level-1-2':
-						break;
-				};
-			}
-		},
+var config = {
+	layout: {
+		name: 'layout',
+		padding: 4,
+		panels: [
+			{ type: 'top', size: '10%', resizable: true, minSize: 10 },
+			{ type: 'left', size: '70%', resizable: true, minSize: 300 },
+			{ type: 'bottom', size: '10%', resizable: true, minSize: 10 },
+			{ type: 'main', minSize: 200 }
+		]
+	},
+	grid: { 
+        name : 'users',
+        header : 'Data Nasabah BMT AL-Hikma',
+        show: {
+	         header : true,
+	         toolbar : true,
+	         footer : true,
+	         toolbarAdd	: true,
+	         toolbarDelete	: true,
+	         lineNumbers: true
+        },
         columns: [
             { field: 'recid', caption: 'Nomor Induk', size: '150px', searchable: true, sortable: true },
             { field: 'Nama', caption: 'Nama', size: '150px', searchable: true, sortable: true },
@@ -41,34 +32,34 @@ var config_pegawai = {
             { field: 'Username', caption: 'Username', size: '100%', searchable: true, sortable: true }
         ],
         onAdd: function (event) {
-	        call_add_pegawai(event.recid);
+	        addUser(event.recid);
         },
         onDblClick: function (event) {
-         	call_edit_pegawai(event.recid); 
+         	editUser(event.recid); 
 			var grid = this;
-			var form_pegawai = w2ui.form_edit_pegawai;
+			var form = w2ui.form;
 			event.onComplete = function () {
 				var sel = grid.getSelection();
 				if (sel.length == 1) {
-					form_pegawai.recid  = sel[0];
-					form_pegawai.record = $.extend(true, {}, grid.get(sel[0]));
-					form_pegawai.refresh();
+					form.recid  = sel[0];
+					form.record = $.extend(true, {}, grid.get(sel[0]));
+					form.refresh();
 				} else {
-					form_pegawai.clear();
+					form.clear();
 				}
 			}
         },
 		onDelete: function(event) {
-			var delrecid= w2ui['grid_pegawai'].getSelection();
+			var delrecid= w2ui['users'].getSelection();
 			event.preventDefault();
-			call_delete_pegawai(delrecid);
+			deleteUser(delrecid);
 			//console.log(delrecid);
 		},	        
 		onClick: function (event) {
-			w2ui['grid_detail_pegawai'].clear();
+			w2ui['users1'].clear();
 			var record = this.get(event.recid);
 			
-			w2ui['grid_detail_pegawai'].add([
+			w2ui['users1'].add([
 				{ recid: 0, name: 'NIK:', value: record.NIK },
 				{ recid: 1, name: 'Nama:', value: record.Nama },
 				{ recid: 2, name: 'Alamat:', value: record.Alamat },
@@ -85,17 +76,17 @@ var config_pegawai = {
 			]);
 		}		        
 	},
-	grid_detail_pegawai: { 
+	grid2: { 
 		header: 'Details',
 		show: { header: true, columnHeaders: false },
-		name: 'grid_detail_pegawai', 
+		name: 'users1', 
 		columns: [				
 			{ field: 'name', caption: 'Name', size: '100px', style: 'background-color: #efefef; border-bottom: 1px solid white; padding-right: 5px;', attr: "align=right" },
 			{ field: 'value', caption: 'Value', size: '100%' }
 		]
 	},
-	form_edit_pegawai: {
-		name: 'form_edit_pegawai',
+	form: {
+		name: 'form',
 		fields: [
 			{ name: 'recid', type: 'text', html: { caption: 'NIK', attr: 'size="10" readonly' } },
 			{ name: 'Nama', type: 'text', required: true, html: { caption: 'Nama', attr: 'size="40" maxlength="40"' } },
@@ -118,10 +109,10 @@ var config_pegawai = {
 			Save: function () {
 				this.save(function (data) {
 					if (data.status == 'success') {
-						w2ui['grid_pegawai'].set(data.records.NIK, data.records);
-						w2ui['grid_pegawai'].refresh();
-						w2ui['grid_pegawai'].selectNone();
-						w2ui['grid_detail_pegawai'].clear();
+						w2ui['users'].set(data.records.NIK, data.records);
+						w2ui['users'].refresh();
+						w2ui['users'].selectNone();
+						w2ui['users1'].clear();
 						$().w2popup('close');
 					}
 				});				
@@ -129,8 +120,8 @@ var config_pegawai = {
 			}
 		}
 	},
-	form_add_pegawai: {
-		name: 'form_add_pegawai',
+	form2: {
+		name: 'form2',
 		fields: [
 			{ name: 'NIK', type: 'text', required: true, html: { caption: 'NIK', attr: 'size="10"' } },
 			{ name: 'Nama', type: 'text', required: true, html: { caption: 'Nama', attr: 'size="40" maxlength="40"' } },
@@ -153,8 +144,8 @@ var config_pegawai = {
 			Save: function () {
 				this.save(function (data) {
 					if (data.status == 'success') {
-						w2ui['grid_pegawai'].add(data.records);
-						w2ui['grid_pegawai'].selectNone();
+						w2ui['users'].add(data.records);
+						w2ui['users'].selectNone();
 						$().w2popup('close');
 					}
 				});
@@ -166,38 +157,64 @@ var config_pegawai = {
 }
 
 $(function () {
-	$().w2form(config_pegawai.form_add_pegawai);
-	$().w2form(config_pegawai.form_edit_pegawai);
+	// initialization
+	$('#main').w2layout(config.layout);
+	w2ui.layout.content('left', $().w2grid(config.grid));
+	w2ui.layout.content('main', $().w2grid(config.grid2));
+	$().w2form(config.form);
+	$().w2form(config.form2);
+	w2ui['users'].load('index.php/ctrl_pegawai/tester');
+
+	w2ui['users'].on('reload', function(event) {
+		this.load('index.php/ctrl_pegawai/tester');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+		w2ui['users1'].clear();
+	});
+
+/*
+	w2ui['users'].toolbar.on('click', function(event) {
+		console.log(event.target);
+		
+		if (event.target == 'reload'){
+		w2ui['users'].clear();
+		
+		//w2ui['users'].load('index.php/system_area/tester');
+		w2ui['users'].reload();
+		}
+	});	
+*/
 	
 });
 
 
-function call_edit_pegawai(recid) {
+function editUser(recid) {
 	$().w2popup('open', {
 		title	: 'Edit Pegawai',
-		body	: '<div id="form_edit_pegawai" style="width: 100%; height: 100%;"></div>',
+		body	: '<div id="form" style="width: 100%; height: 100%;"></div>',
 		style	: 'padding: 0px 0px 0px 0px',
 		width	: 500,
 		height	: 600, 
 		showMax : true,
 		onMin	: function (event) {
-			$(w2ui.form_edit_pegawai.box).hide();
+			$(w2ui.form.box).hide();
 			event.onComplete = function () {
-				$(w2ui.form_edit_pegawai.box).show();
-				w2ui.form_edit_pegawai.resize();
+				$(w2ui.form.box).show();
+				w2ui.form.resize();
 			}
 		},
 		onMax	: function (event) {
-			$(w2ui.form_edit_pegawai.box).hide();
+			$(w2ui.form.box).hide();
 			event.onComplete = function () {
-				$(w2ui.form_edit_pegawai.box).show();
-				w2ui.form_edit_pegawai.resize();
+				$(w2ui.form.box).show();
+				w2ui.form.resize();
 			}
 		},
 		onOpen	: function (event) {
 			event.onComplete = function () {
-				$('#w2ui-popup #form_edit_pegawai').w2render('form_edit_pegawai');
-				w2ui['form_edit_pegawai'].url = {save: 'index.php/ctrl_pegawai/update/'};
+				$('#w2ui-popup #form').w2render('form');
+				w2ui['form'].url = {save: 'index.php/ctrl_pegawai/update/'};
 				
 			}
 		}
@@ -205,40 +222,40 @@ function call_edit_pegawai(recid) {
 	
 }
 
-function call_add_pegawai(recid) {
+function addUser(recid) {
 	$().w2popup('open', {
 		title	: 'Add Pegawai',
-		body	: '<div id="form_add_pegawai" style="width: 100%; height: 100%;"></div>',
+		body	: '<div id="form2" style="width: 100%; height: 100%;"></div>',
 		style	: 'padding: 0px 0px 0px 0px',
 		width	: 500,
 		height	: 600, 
 		showMax : true,
 		onMin	: function (event) {
-			$(w2ui.form_add_pegawai.box).hide();
+			$(w2ui.form2.box).hide();
 			event.onComplete = function () {
-				$(w2ui.form_add_pegawai.box).show();
-				w2ui.form_add_pegawai.resize();
+				$(w2ui.form2.box).show();
+				w2ui.form2.resize();
 			}
 		},
 		onMax	: function (event) {
-			$(w2ui.popup_add_pegawai.box).hide();
+			$(w2ui.form2.box).hide();
 			event.onComplete = function () {
-				$(w2ui.form_add_pegawai.box).show();
-				w2ui.form_add_pegawai.resize();
+				$(w2ui.form2.box).show();
+				w2ui.form2.resize();
 			}
 		},
 		onOpen	: function (event) {
 			event.onComplete = function () {
-				$('#w2ui-popup #form_add_pegawai').w2render('form_add_pegawai');
-				w2ui['form_add_pegawai'].url = {save: 'index.php/ctrl_pegawai/create/'};
-				w2ui['form_add_pegawai'].action('Reset');
+				$('#w2ui-popup #form2').w2render('form2');
+				w2ui['form2'].url = {save: 'index.php/ctrl_pegawai/create/'};
+				w2ui['form2'].action('Reset');
 			}
 		}
 	});
 	
 }
 
-function call_delete_pegawai(delrecid){
+function deleteUser(delrecid){
 	$().w2destroy('deletedialog');
 	$('#deletedialog').w2form({ 
 		name: 'deletedialog',
@@ -262,8 +279,8 @@ function call_delete_pegawai(delrecid){
 				"delete": function () {
 					this.save(function (data) {
 						if (data.status == 'success') {
-							w2ui['grid_pegawai'].remove(delrecid);
-							w2ui['grid_detail_pegawai'].clear();
+							w2ui['users'].remove(delrecid);
+							w2ui['users1'].clear();
 							$().w2popup('close');
 						}
 					// if error, it is already displayed by w2form
@@ -277,13 +294,13 @@ function call_delete_pegawai(delrecid){
 	
 	$().w2popup('open', {
 		title	: 'Delete Pegawai',
-		body	: '<div id="form_popup_pegawai" style="width: 100%; height: 100%;"></div>',
+		body	: '<div id="form" style="width: 100%; height: 100%;"></div>',
 		style	: 'padding: 15px 0px 0px 0px',
 		width	: 500,
 		height	: 300, 
 		onOpen	: function (event) {
 			event.onComplete = function () {
-				$('#w2ui-popup #form_popup_pegawai').w2render('deletedialog');
+				$('#w2ui-popup #form').w2render('deletedialog');
 			}
 		},
 	});	

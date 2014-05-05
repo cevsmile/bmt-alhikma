@@ -32,20 +32,13 @@ class Mod_identitas_bmt extends CI_Model {
     public function update() {
 		$data = $this->input->post("record", TRUE);
         $datalist = array(
-            'Nama' => $data["Nama"],
-            'Alamat' => $data["Alamat"],
-            'Nomor_KTP' => $data["Nomor_KTP"],
-            'Nomor_SIM' => $data["Nomor_SIM"],
-            'Jenis_Kelamin' => $data["Jenis_Kelamin"],
-            'Tanggal_Masuk' => $data["Tanggal_Masuk"],
-            'Tanggal_Keluar' => $data["Tanggal_Keluar"],
-            'Status' => $data["Status"],
-            'Pembaruan' => $data["Pembaruan"],
-            'Saldo_Awal' => $data["Saldo_Awal"],
-            'Saldo_Akhir' => $data["Saldo_Akhir"],
-            'Username' => $data["Username"]
+            'Nama_BMT' => $data["Nama_BMT"],
+            'Alamat_BMT' => $data["Alamat_BMT"],
+            'status' => $data["status"],
+            'Nomor_Registrasi' => $data["Nomor_Registrasi"],
+            'Tgl_Pembukuan' => date('Y-m-d', strtotime($data["Tgl_Pembukuan"]))
         );		
-        $this->db->update( 'identitas_bmt', $datalist, array( 'NIK' => $this->input->post( 'recid', true ) ) );
+        $this->db->update( 'identitas_bmt', $datalist, array( 'Kode_Cabang' => $this->input->post( 'recid', true ) ) );
 		//return $datalist;
     }	
 
@@ -63,7 +56,7 @@ class Mod_identitas_bmt extends CI_Model {
         */
         $recid = intval( $recid );
         
-        $this->db->delete( 'identitas_bmt', array( 'NIK' => $recid ) );
+        $this->db->delete( 'identitas_bmt', array( 'Kode_Cabang' => $recid ) );
     } //end delete	
     
 }// end of class

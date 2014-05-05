@@ -16,15 +16,38 @@ var config = {
 	},
 	grid: { 
         name : 'users',
-        header : 'Data Nasabah BMT AL-Hikma',
-        show: {
-	         header : true,
-	         toolbar : true,
-	         footer : true,
-	         toolbarAdd	: true,
-	         toolbarDelete	: true,
-	         lineNumbers: true
-        },
+        header : 'Data Pegawai BMT AL-Hikma',
+		show : {
+			toolbar : true,
+	        header : true,
+	        toolbar : true,
+	        footer : true,
+	        toolbarAdd	: true,
+	        toolbarDelete	: true,
+	        lineNumbers: true
+		},
+		toolbar: {
+			items: [
+				{ type: 'break' },
+				{ type: 'button', id: 'btn-details', caption: 'Details', icon: 'fa fa-eye' },
+				{ type: 'button', id: 'btn-fullscreen', caption: 'Full', icon: 'fa fa-eye' }
+			],
+			onClick: function (event) {
+				switch (event.target) {
+					case 'btn-details':
+						w2ui['layout'].toggle('right', true);
+						break;
+					case 'btn-fullscreen':
+						w2ui['layout'].toggle('top', true);
+						w2ui['layout'].toggle('left', true);
+						w2ui['layout'].hide('right', true);
+						w2ui['layout'].toggle('bottom', true);
+						break;
+					case 'level-1-2':
+						break;
+				};
+			}
+		},
         columns: [
             { field: 'recid', caption: 'Nomor Induk', size: '150px', searchable: true, sortable: true },
             { field: 'Nama', caption: 'Nama', size: '150px', searchable: true, sortable: true },
