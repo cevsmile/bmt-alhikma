@@ -1,6 +1,5 @@
-<div class="container">
 <div id="main" style="width: 100%; height: 500px;"></div>
-</div>
+
 <script type="text/javascript">
 // widget configuration
 var config = {
@@ -9,11 +8,32 @@ var config = {
 		padding: 4,
 		panels: [
 			{ type: 'top', size: '10%', resizable: true, minSize: 10 },
-			{ type: 'left', size: '70%', resizable: true, minSize: 300 },
+			{ type: 'left', size: '15%', resizable: true, minSize: 10 },
+			{ type: 'right', size: '25%', resizable: true, minSize: 10 },
 			{ type: 'bottom', size: '10%', resizable: true, minSize: 10 },
-			{ type: 'main', minSize: 200 }
+			{ type: 'main', minSize: 300 }
 		]
 	},
+	sidebar:{
+		name: 'sidebar',
+		nodes: [ 
+			{ id: 'level-1', text: 'DATA MASTER', img: 'icon-folder', expanded: true,
+			  nodes: [ { id: 'level-1-1', text: 'Identitas BMT', img: 'icon-page'},
+					   { id: 'level-1-2', text: 'Daftar Akun', img: 'icon-page' },
+					   { id: 'level-1-3', text: 'Pegawai', img: 'icon-page' },
+					   { id: 'level-1-4', text: 'Nasabah', img: 'icon-page' },
+					   { id: 'level-1-5', text: 'Supplier', img: 'icon-page' },
+					   { id: 'level-1-6', text: 'Daftar Sandi', img: 'icon-page' }
+					 ]
+			},
+			{ id: 'level-2', text: 'Level 2', img: 'icon-folder',
+			  nodes: [ { id: 'level-2-1', text: 'Level 2.1', icon: 'fa fa-home' },
+					   { id: 'level-2-2', text: 'Level 2.2', icon: 'fa fa-home'  },
+					   { id: 'level-2-3', text: 'Level 2.3', icon: 'fa fa-home'  }
+					 ]
+			}
+		]
+	},	
 	grid: { 
         name : 'users',
         header : 'Data Pegawai BMT AL-Hikma',
@@ -157,15 +177,20 @@ var config = {
 }
 
 $(function () {
-	// initialization
+	// define layout to html class id main.
 	$('#main').w2layout(config.layout);
-	w2ui.layout.content('left', $().w2grid(config.grid));
-	w2ui.layout.content('main', $().w2grid(config.grid2));
+	//initialization layout to main
+	w2ui.layout.content('left', $().w2sidebar(config.sidebar));
+	w2ui.layout.content('main', $().w2grid(config.grid));
+	w2ui.layout.content('right', $().w2grid(config.grid2));
+	
+	// save to memory for re-use
 	$().w2form(config.form);
 	$().w2form(config.form2);
-	w2ui['users'].load('index.php/ctrl_pegawai/tester');
+	
+	w2ui.users.load('index.php/ctrl_pegawai/tester');
 
-	w2ui['users'].on('reload', function(event) {
+	w2ui.users.on('reload', function(event) {
 		this.load('index.php/ctrl_pegawai/tester');
 		this.selectNone();
 		this.reset();
@@ -173,19 +198,36 @@ $(function () {
 		w2ui['users1'].clear();
 	});
 
-/*
-	w2ui['users'].toolbar.on('click', function(event) {
-		console.log(event.target);
-		
-		if (event.target == 'reload'){
-		w2ui['users'].clear();
-		
-		//w2ui['users'].load('index.php/system_area/tester');
-		w2ui['users'].reload();
+	//sidebar evenet listener
+	w2ui.sidebar.on('click', function (event) {
+		switch (event.target) {
+			case 'level-1-1':
+				w2ui.layout.content('main', w2ui['users']);
+				w2ui.layout.content('right', w2ui['users1']);
+				break;
+			case 'level-1-2':
+				w2ui.layout.content('main', w2ui['users1']);
+				break;
+			case 'level-1-3':
+				w2ui.layout.content('main', w2ui['users1']);
+				break;
+			case 'level-1-4':
+				w2ui.layout.content('main', w2ui['users1']);
+				break;
+			case 'level-1-5':
+				w2ui.layout.content('main', w2ui['users1']);
+				break;
+			case 'html':
+				w2ui.layout.content('main', '<div style="padding: 10px">Some HTML</div>');
+				$(w2ui.layout.el('main'))
+					.removeClass('w2ui-grid')
+					.css({ 
+						'border-left': '1px solid silver'
+					});
+				break;
 		}
-	});	
-*/
-	
+	});
+
 });
 
 

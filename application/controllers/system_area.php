@@ -34,7 +34,7 @@ class System_area extends CI_Controller {
 
 	function menu_nasabah() {
 		$data['title'] = 'BMT System Home Page';
-		$data['main_content'] = 'system_area/vf_nasabah/vff_nasabah.php';
+		$data['main_content'] = 'system_area/vf_nasabah/vff_nasabah';
 		$this -> load -> view('system_area/vf_temp/vff_template', $data);
 	}
 

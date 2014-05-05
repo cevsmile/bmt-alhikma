@@ -4,7 +4,7 @@
  *  Contact : 081808785851
  *  Email : warior.cakep@gmail.com
  */
-class Pegawai extends CI_Model {
+class Mod_pegawai extends CI_Model {
 
 	public function getAll() {
 		//get all records from users table
