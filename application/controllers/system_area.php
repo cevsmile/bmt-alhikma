@@ -5,7 +5,7 @@ class System_area extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this -> validation();
-		$this -> load -> model('pegawai');
+		$this -> load -> model('mod_pegawai');
 	}
 
 	function bmt_center() {
@@ -14,9 +14,9 @@ class System_area extends CI_Controller {
 		$this -> load -> view('system_area/vf_temp/vff_template', $data);
 	}
 
-	function menu_pegawai() {
-		$data['title'] = 'BMT System Home Page';
-		$data['main_content'] = 'system_area/vf_pegawai/vff_pegawai';
+	function menu_system_application() {
+		$data['title'] = 'BMT System Application';
+		$data['main_content'] = 'system_area/vf_system_application/vff_system_application';
 		$this -> load -> view('system_area/vf_temp/vff_template', $data);
 	}
 
@@ -29,12 +29,6 @@ class System_area extends CI_Controller {
 	function menu_testing() {
 		$data['title'] = 'BMT System Home Page';
 		$data['main_content'] = 'system_area/testing/tester';
-		$this -> load -> view('system_area/vf_temp/vff_template', $data);
-	}
-
-	function menu_nasabah() {
-		$data['title'] = 'BMT System Home Page';
-		$data['main_content'] = 'system_area/vf_nasabah/vff_nasabah';
 		$this -> load -> view('system_area/vf_temp/vff_template', $data);
 	}
 
@@ -53,6 +47,11 @@ class System_area extends CI_Controller {
 		$this -> session -> sess_destroy();
 		redirect('site');
 	}
+
+
+
+
+
 /*
 	function read() {
 		echo json_encode($this -> pegawai -> getAll());
@@ -62,7 +61,7 @@ class System_area extends CI_Controller {
 		if (isset($recid))
 			echo json_encode($this -> pegawai -> getByRecid($recid));
 	}
-*/
+
 	public function update() {
 		//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
 		if (!empty($_POST)) {
@@ -120,5 +119,5 @@ class System_area extends CI_Controller {
 		echo json_encode($newaray);
 		//"<pre>"; die(print_r($data, TRUE));
 	}
-
+*/
 }// End of system area

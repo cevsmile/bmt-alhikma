@@ -12,9 +12,9 @@
 		Start Menu saat ini belum Aktif, rencana akan saya gantikan dengan menu Utility.
 	</p>
 
-	<h3><img src="files/img/User Accounts.png" width="40" height="40"></img> Menu Pegawai</h3>
+	<h3><img src="files/img/User Accounts.png" width="40" height="40"></img> Data Master</h3>
 	<p>
-		Di Menu ini anda dapat melakukan Penambahan atau perubahan username dan password anda.
+		Data Master Memuat semua informasi tentang pengolahan data BMT.
 	</p>
 
 	<h3><img src="files/img/Power - Shut Down.png" width="40" height="40"></img> Logout</h3>

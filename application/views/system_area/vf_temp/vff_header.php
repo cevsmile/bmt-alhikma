@@ -11,7 +11,6 @@
 
     <title><?php echo $title; ?></title>
 
-
     <!-- Custom styles for this template -->
     <link href="files/bootstrap-3.1.1-dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="files/bootstrap-3.1.1-dist/css/theme.css" rel="stylesheet">
@@ -22,7 +21,7 @@
 	<script type="text/javascript" src="files/js/w2ui-1.3.2.min.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="files/bootstrap-3.1.1-dist/css/bootstrap.min.css" rel="stylesheet">
-	
+
 	<!-- w2ui plugin custom CSS+JS -->
 	<!--<script type="text/javascript" src="files/js/system_area/sementara2.js"></script> -->
 	<link href="files/css/font-awesome-4.0.3/css/font-awesome.css" rel="stylesheet">
