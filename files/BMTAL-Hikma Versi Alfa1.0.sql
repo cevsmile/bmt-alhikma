@@ -42,7 +42,7 @@ drop table IF EXISTS Daftar_Akun;
 
 Create table Daftar_Akun (
 	Kode_Akun Char(4) NOT NULL,
-	nama_akun Varchar(50),
+	Nama_Akun Varchar(50),
 	Akun_DK Char(2),
 	Akun_NR_LR Char(2),
 	Jumlah_Debit Int,
@@ -53,7 +53,7 @@ Create table Identitas_BMT (
 	Kode_Cabang Char(3) NOT NULL,
 	Nama_BMT Varchar(200),
 	Alamat_BMT Varchar(200),
-	status Char(20),
+	Status Char(20),
 	Nomor_Registrasi Char(20),
 	Tgl_Pembukuan Date,
  Primary Key (Kode_Cabang)) ENGINE = InnoDB;

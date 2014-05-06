@@ -79,14 +79,19 @@ class Ctrl_daftar_akun extends CI_Controller {
 		$data = $this -> mod_daftar_akun -> getAll();
 		$newaray = Array();
 		$sums = count($data);
-		$newaray['status'] = 'success';
-		$newaray['total'] = $sums;
-		$newaray['records'] = $data;
-		for ($i = 0; $i < $sums; $i++) {
-			$data[$i] -> recid = $data[$i]->NIK;
+		if ($sums==0){
+			$newaray['status']  = 'error';
+			$newaray['message'] = 'Data Masih Kosong';
+			echo json_encode($newaray);		
+		}else{
+			$newaray['status'] = 'success';
+			$newaray['total'] = $sums;
+			$newaray['records'] = $data;
+			for ($i = 0; $i < $sums; $i++) {
+				$data[$i] -> recid = $data[$i]->Kode_Akun;
+			}
+			echo json_encode($newaray);
 		}
-		echo json_encode($newaray);
 		//"<pre>"; die(print_r($data, TRUE));
 	}
-
 }// End of system area

@@ -16,7 +16,7 @@ var config_pegawai = {
 			items: [
 				{ type: 'break' },
 				{ type: 'button', id: 'btn-details', caption: 'Details', icon: 'fa fa-eye' },
-				{ type: 'button', id: 'btn-fullscreen', caption: 'Full', icon: 'fa fa-eye' }
+				{ type: 'button', id: 'btn-fullscreen', caption: 'Full', icon: 'fa fa-expand' }
 			],
 			onClick: function (event) {
 				switch (event.target) {

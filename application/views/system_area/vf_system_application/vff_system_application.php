@@ -1,5 +1,5 @@
 <div id="main" style="width: 100%; height: 500px;"></div>
-
+<?php $this->load->view('system_area/vf_system_application/vf_daftar_akun/vff_daftar_akun'); ?>
 <?php $this->load->view('system_area/vf_system_application/vf_identitas_bmt/vff_identitas_bmt'); ?>
 <?php $this->load->view('system_area/vf_system_application/vf_pegawai/vff_pegawai'); ?>
 
@@ -32,7 +32,7 @@ var config = {
 			{ id: 'level-2', text: 'Level 2', img: 'icon-folder',
 			  nodes: [ { id: 'level-2-1', text: 'Level 2.1', icon: 'fa fa-home' },
 					   { id: 'level-2-2', text: 'Level 2.2', icon: 'fa fa-home'  },
-					   { id: 'level-2-3', text: 'Level 2.3', icon: 'fa fa-home'  }
+					   { id: 'level-2-3', text: 'Barcode', icon: 'fa fa-barcode'  }
 					 ]
 			}
 		]
@@ -46,8 +46,8 @@ $(function () {
 	//initialization layout to main
 	w2ui.layout.content('left', $().w2sidebar(config.sidebar));
 	w2ui.layout.content('main', '<div style="padding: 10px">Slamat Datang</div>');
-	var a = w2utils.formatDateTime((new Date()), 'mm-dd-yyyy');
-	console.log(a);
+	//var a = w2utils.formatDateTime((new Date()), 'mm-dd-yyyy');
+	//console.log(a);
 	//sidebar evenet listener
 	w2ui.sidebar.on('click', function (event) {
 		switch (event.target) {
@@ -61,7 +61,7 @@ $(function () {
 				break;
 			case 'level-1-2':
 				//w2ui.layout.content('main', w2ui['grid_detail_pegawai']);
-				desObj();
+				menu_daftar_akun();
 				break;
 			case 'level-1-3':
 				menu_pegawai();
@@ -93,7 +93,9 @@ function desObj(){
 	$().w2destroy('grid_pegawai');
 	$().w2destroy('grid_detail_pegawai');
 	$().w2destroy('grid_identitas_bmt');
-	$().w2destroy('grid_detail_identitas_bmt');	
+	$().w2destroy('grid_detail_identitas_bmt');
+	$().w2destroy('grid_daftar_akun');
+	$().w2destroy('grid_detail_daftar_akun');	
 }
 
 function menu_pegawai(){
@@ -121,6 +123,20 @@ function menu_identitas_bmt(){
 		this.reset();
 		this.refresh();
 		w2ui['grid_detail_identitas_bmt'].clear();
+	});
+}
+
+function menu_daftar_akun(){
+	desObj();
+	w2ui.layout.content('main', $().w2grid(config_daftar_akun.grid_daftar_akun));
+	w2ui.layout.content('right', $().w2grid(config_daftar_akun.grid_detail_daftar_akun));
+	//w2ui['grid_pegawai'].load('index.php/ctrl_pegawai/tester');
+	w2ui['grid_daftar_akun'].on('reload', function(event) {
+		this.load('index.php/ctrl_daftar_akun/tester');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+		w2ui['grid_detail_daftar_akun'].clear();
 	});
 }
 </script>
