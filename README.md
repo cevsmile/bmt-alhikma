@@ -1,7 +1,7 @@
 bmt-alhikma
 ===========
 
-Basic Example How To Use w2ui Plugin with CodeIgniter
+Here i will not use w2ui, i just want to make pure CodeIgniter without jquery plugin.
 
 
 Thanks
@@ -25,5 +25,8 @@ If you prefer to use another CI version make sure you take necessary modificatio
 3. Editor
 http://aptana.com/
 
-question and etc please visit
+Community :
 http://fb.me/laluseftyjunaedi
+
+Suggestion, idea, or anything you can create new issue on the right top of this github page. 
+Make sure to put your question and idea on the right branch. We just want to make the master clean.
