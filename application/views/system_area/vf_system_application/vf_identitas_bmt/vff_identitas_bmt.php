@@ -38,7 +38,7 @@ var config_identitas_bmt = {
             { field: 'recid', caption: 'Kode Cabang', size: '150px', searchable: true, sortable: true },
             { field: 'Nama_BMT', caption: 'Nama BMT', size: '150px', searchable: true, sortable: true },
             { field: 'Alamat_BMT', caption: 'Alamat BMT', size: '150px', searchable: true, sortable: true },
-            { field: 'status', caption: 'Status', size: '100%', searchable: true, sortable: true },
+            { field: 'Status', caption: 'Status', size: '100%', searchable: true, sortable: true },
             { field: 'Nomor_Registrasi', caption: 'Nomor Registrasi', size: '100%', searchable: true, sortable: true },
             { field: 'Tgl_Pembukuan', caption: 'Tanggal Pembukuan', size: '100%', searchable: true, sortable: true }
         ],
@@ -74,7 +74,7 @@ var config_identitas_bmt = {
 				{ recid: 0, name: 'Kode Cabang:', value: record.Kode_Cabang },
 				{ recid: 1, name: 'Nama BMT:', value: record.Nama_BMT },
 				{ recid: 2, name: 'Alamat BMT:', value: record.Alamat_BMT },
-				{ recid: 3, name: 'status:', value: record.Status },
+				{ recid: 3, name: 'Status:', value: record.Status },
 				{ recid: 5, name: 'Nomor Registrasi:', value: record.Nomor_Registrasi },
 				{ recid: 6, name: 'Tanggal Pembukuan:', value: record.Tgl_Pembukuan }
 			]);
@@ -95,7 +95,7 @@ var config_identitas_bmt = {
 			{ name: 'recid', type: 'text', html: { caption: 'Kode Cabang', attr: 'size="10" readonly' } },
 			{ name: 'Nama_BMT', type: 'text', required: true, html: { caption: 'Nama BMT', attr: 'size="40" maxlength="40"' } },
 			{ name: 'Alamat_BMT', type: 'text', required: true, html: { caption: 'Alamat BMT', attr: 'size="40" maxlength="40"' } },
-			{ name: 'status', type: 'text', html: { caption: 'Status', attr: 'size="10"' } },
+			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="10"' } },
 			{ name: 'Nomor_Registrasi', type: 'text', html: { caption: 'Nomor SIM', attr: 'size="10"' } },
 			{ name: 'Tgl_Pembukuan', type: 'date', required: true, html: { caption: 'Tanggal Pembukuan'} }
 		],
@@ -123,7 +123,7 @@ var config_identitas_bmt = {
 			{ name: 'Kode_Cabang', type: 'text', required: true, html: { caption: 'Kode Cabang', attr: 'size="10"' } },
 			{ name: 'Nama_BMT', type: 'text', required: true, html: { caption: 'Nama BMT', attr: 'size="40" maxlength="40"' } },
 			{ name: 'Alamat_BMT', type: 'text', required: true, html: { caption: 'Alamat BMT', attr: 'size="40" maxlength="40"' } },
-			{ name: 'status', type: 'text', html: { caption: 'Status', attr: 'size="10"' } },
+			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="10"' } },
 			{ name: 'Nomor_Registrasi', type: 'text', html: { caption: 'Nomor Registrasi', attr: 'size="10"' } },
 			{ name: 'Tgl_Pembukuan', type: 'date', required: true, html: { caption: 'Tanggal Pembukuan'} }
 		],

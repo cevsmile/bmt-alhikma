@@ -34,7 +34,7 @@ class Mod_identitas_bmt extends CI_Model {
         $datalist = array(
             'Nama_BMT' => $data["Nama_BMT"],
             'Alamat_BMT' => $data["Alamat_BMT"],
-            'status' => $data["status"],
+            'Status' => $data["Status"],
             'Nomor_Registrasi' => $data["Nomor_Registrasi"],
             'Tgl_Pembukuan' => date('Y-m-d', strtotime($data["Tgl_Pembukuan"]))
         );		

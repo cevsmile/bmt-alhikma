@@ -47,11 +47,11 @@ class Ctrl_daftar_akun extends CI_Controller {
 	public function create() {
 		if (!empty($_POST)) {
 		   	$data = $this -> mod_daftar_akun -> create();
-			$data['recid']= $data['NIK'];
+			$data['recid']= $data['Kode_Akun'];
 			
 			$res = Array();
 			$res['status'] = 'success';
-			$res['recid'] = $data['NIK']; 
+			$res['recid'] = $data['Kode_Akun']; 
 			//$res['total'] = intval($data['NIK']) + 1;
 			$res['records'] = $data; 
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';

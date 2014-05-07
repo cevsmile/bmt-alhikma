@@ -103,10 +103,10 @@ var config_pegawai = {
 			{ name: 'Nomor_KTP', type: 'text', html: { caption: 'Nomor KTP', attr: 'size="10"' } },
 			{ name: 'Nomor_SIM', type: 'text', html: { caption: 'Nomor SIM', attr: 'size="10"' } },
 			{ name: 'Jenis_Kelamin', type: 'text', html: { caption: 'Jenis Kelamin', attr: 'size="10"' } },
-			{ name: 'Tanggal_Masuk', type: 'text', html: { caption: 'Tanggal Masuk'} },
-			{ name: 'Tanggal_Keluar', type: 'text', html: { caption: 'Tanggal Keluar'} },
+			{ name: 'Tanggal_Masuk', type: 'date', html: { caption: 'Tanggal Masuk'} },
+			{ name: 'Tanggal_Keluar', type: 'date', html: { caption: 'Tanggal Keluar'} },
 			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="10"' } },
-			{ name: 'Pembaruan', type: 'text', html: { caption: 'Pembaruan'} },
+			{ name: 'Pembaruan', type: 'date', html: { caption: 'Pembaruan'} },
 			{ name: 'Saldo_Awal', type: 'int', html: { caption: 'Saldo Awal'} },
 			{ name: 'Saldo_Akhir', type: 'int', html: { caption: 'Saldo Akhir'} },
 			{ name: 'Username', type: 'text', html: { caption: 'Username', attr: 'size="10"' } }
@@ -221,7 +221,7 @@ function call_add_pegawai(recid) {
 			}
 		},
 		onMax	: function (event) {
-			$(w2ui.popup_add_pegawai.box).hide();
+			$(w2ui.form_add_pegawai.box).hide();
 			event.onComplete = function () {
 				$(w2ui.form_add_pegawai.box).show();
 				w2ui.form_add_pegawai.resize();
