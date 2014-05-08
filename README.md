@@ -47,3 +47,5 @@ https://www.facebook.com/groups/w2ui.id/
 
 Suggestion, idea, or anything you can create new issue on the right top of this github page. 
 Make sure to put your question and idea on the right branch. We just want to make the master clean.
+
+:smile:
