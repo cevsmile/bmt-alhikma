@@ -1,106 +1,103 @@
-<div class="container">
-<div id="main" style="width: 100%; height: 500px;"></div>
-</div>
 <script type="text/javascript">
 // widget configuration
-var config = {
-	layout: {
-		name: 'layout',
-		padding: 4,
-		panels: [
-			{ type: 'top', size: '10%', resizable: true, minSize: 10 },
-			{ type: 'left', size: '70%', resizable: true, minSize: 300 },
-			{ type: 'bottom', size: '10%', resizable: true, minSize: 10 },
-			{ type: 'main', minSize: 200 }
-		]
-	},
-	grid: { 
-        name : 'users',
-        header : 'Data Nasabah BMT AL-Hikma',
-        show: {
-	         header : true,
-	         toolbar : true,
-	         footer : true,
-	         toolbarAdd	: true,
-	         toolbarDelete	: true,
-	         lineNumbers: true
-        },
+var config_daftar_akun = {
+	grid_daftar_akun: { 
+        name : 'grid_daftar_akun',
+        header : 'Daftar Akun BMT AL-Hikma',
+		show : {
+			toolbar : true,
+	        header : true,
+	        footer : true,
+	        toolbarAdd	: true,
+	        toolbarDelete	: true,
+	        lineNumbers: true
+		},
+		toolbar: {
+			items: [
+				{ type: 'break' },
+				{ type: 'button', id: 'btn-details', caption: 'Details', icon: 'fa fa-eye' },
+				{ type: 'button', id: 'btn-fullscreen', caption: 'Full', icon: 'fa  fa-expand' }
+			],
+			onClick: function (event) {
+				switch (event.target) {
+					case 'btn-details':
+						w2ui['layout'].toggle('right', true);
+						break;
+					case 'btn-fullscreen':
+						w2ui['layout'].toggle('top', true);
+						w2ui['layout'].toggle('left', true);
+						w2ui['layout'].hide('right', true);
+						w2ui['layout'].toggle('bottom', true);
+						break;
+					case 'level-1-2':
+						break;
+				};
+			}
+		},
         columns: [
-            { field: 'recid', caption: 'Nomor Induk', size: '150px', searchable: true, sortable: true },
-            { field: 'Nama', caption: 'Nama', size: '150px', searchable: true, sortable: true },
-            { field: 'Jenis_Kelamin', caption: 'Jenis Kelamin', size: '150px', searchable: true, sortable: true },
-            { field: 'Username', caption: 'Username', size: '100%', searchable: true, sortable: true }
+            { field: 'recid', caption: 'Kode Akun', size: '150px', searchable: true, sortable: true },
+            { field: 'Nama_Akun', caption: 'Nama Akun', size: '150px', searchable: true, sortable: true },
+            { field: 'Akun_DK', caption: 'Alamat DK', size: '150px', searchable: true, sortable: true },
+            { field: 'Akun_NR_LR', caption: 'Neraca Lajur/Laba Rugi', size: '100%', searchable: true, sortable: true },
+            { field: 'Jumlah_Debit', caption: 'Jumlah Debit', size: '100%', searchable: true, sortable: true },
+            { field: 'Jumlah_Kredit', caption: 'Jumlah Kredit', size: '100%', searchable: true, sortable: true }
         ],
         onAdd: function (event) {
-	        addUser(event.recid);
+	        call_add_daftar_akun(event.recid);
         },
         onDblClick: function (event) {
-         	editUser(event.recid); 
+         	call_edit_daftar_akun(event.recid); 
 			var grid = this;
-			var form = w2ui.form;
+			var form_edit_daftar_akun = w2ui.form_edit_daftar_akun;
 			event.onComplete = function () {
 				var sel = grid.getSelection();
 				if (sel.length == 1) {
-					form.recid  = sel[0];
-					form.record = $.extend(true, {}, grid.get(sel[0]));
-					form.refresh();
+					form_edit_daftar_akun.recid  = sel[0];
+					form_edit_daftar_akun.record = $.extend(true, {}, grid.get(sel[0]));
+					form_edit_daftar_akun.refresh();
 				} else {
-					form.clear();
+					form_edit_daftar_akun.clear();
 				}
 			}
         },
 		onDelete: function(event) {
-			var delrecid= w2ui['users'].getSelection();
+			var delrecid= w2ui['grid_daftar_akun'].getSelection();
 			event.preventDefault();
-			deleteUser(delrecid);
+			call_delete_daftar_akun(delrecid);
 			//console.log(delrecid);
 		},	        
 		onClick: function (event) {
-			w2ui['users1'].clear();
+			w2ui['grid_detail_daftar_akun'].clear();
 			var record = this.get(event.recid);
 			
-			w2ui['users1'].add([
-				{ recid: 0, name: 'NIK:', value: record.NIK },
-				{ recid: 1, name: 'Nama:', value: record.Nama },
-				{ recid: 2, name: 'Alamat:', value: record.Alamat },
-				{ recid: 3, name: 'Nomor KTP:', value: record.Nomor_KTP },
-				{ recid: 4, name: 'Nomor SIM:', value: record.Nomor_SIM },
-				{ recid: 5, name: 'Jenis Kelamin:', value: record.Jenis_Kelamin },
-				{ recid: 6, name: 'Tanggal Masuk:', value: record.Tanggal_Masuk },
-				{ recid: 7, name: 'Tanggal Keluar:', value: record.Tanggal_Keluar },
-				{ recid: 8, name: 'Status:', value: record.Status },
-				{ recid: 9, name: 'Pembaruan:', value: record.Pembaruan },
-				{ recid: 10, name: 'Saldo Awal:', value: record.Saldo_Awal },
-				{ recid: 11, name: 'Saldo Akhir:', value: record.Saldo_Akhir },
-				{ recid: 12, name: 'Username:', value: record.Username }
+			w2ui['grid_detail_daftar_akun'].add([
+				{ recid: 0, name: 'Kode Akun:', value: record.Kode_Akun },
+				{ recid: 1, name: 'Nama Akun:', value: record.Nama_Akun },
+				{ recid: 2, name: 'Akun D/K:', value: record.Akun_DK },
+				{ recid: 3, name: 'Akun NR/LR:', value: record.Akun_NR_LR },
+				{ recid: 5, name: 'Debit:', value: record.Jumlah_Debit },
+				{ recid: 6, name: 'Kredit:', value: record.Jumlah_Kredit }
 			]);
-		}		        
+		}
 	},
-	grid2: { 
+	grid_detail_daftar_akun: { 
 		header: 'Details',
 		show: { header: true, columnHeaders: false },
-		name: 'users1', 
+		name: 'grid_detail_daftar_akun', 
 		columns: [				
 			{ field: 'name', caption: 'Name', size: '100px', style: 'background-color: #efefef; border-bottom: 1px solid white; padding-right: 5px;', attr: "align=right" },
 			{ field: 'value', caption: 'Value', size: '100%' }
 		]
 	},
-	form: {
-		name: 'form',
+	form_edit_daftar_akun: {
+		name: 'form_edit_daftar_akun',
 		fields: [
-			{ name: 'recid', type: 'text', html: { caption: 'NIK', attr: 'size="10" readonly' } },
-			{ name: 'Nama', type: 'text', required: true, html: { caption: 'Nama', attr: 'size="40" maxlength="40"' } },
-			{ name: 'Alamat', type: 'text', required: true, html: { caption: 'Alamat', attr: 'size="40" maxlength="40"' } },
-			{ name: 'Nomor_KTP', type: 'text', html: { caption: 'Nomor KTP', attr: 'size="10"' } },
-			{ name: 'Nomor_SIM', type: 'text', html: { caption: 'Nomor SIM', attr: 'size="10"' } },
-			{ name: 'Jenis_Kelamin', type: 'text', html: { caption: 'Jenis Kelamin', attr: 'size="10"' } },
-			{ name: 'Tanggal_Masuk', type: 'text', html: { caption: 'Tanggal Masuk'} },
-			{ name: 'Tanggal_Keluar', type: 'text', html: { caption: 'Tanggal Keluar'} },
-			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="10"' } },
-			{ name: 'Pembaruan', type: 'text', html: { caption: 'Pembaruan'} },
-			{ name: 'Saldo_Awal', type: 'int', html: { caption: 'Saldo Awal'} },
-			{ name: 'Saldo_Akhir', type: 'int', html: { caption: 'Saldo Akhir'} },
-			{ name: 'Username', type: 'text', html: { caption: 'Username', attr: 'size="10"' } }
+			{ name: 'recid', type: 'text', required: true, html: { caption: 'Kode Akun', attr: 'size="10" readonly' } },
+			{ name: 'Nama_Akun', type: 'text', required: true, html: { caption: 'Nama Akun', attr: 'size="40" maxlength="40"' } },
+			{ name: 'Akun_DK', type: 'text', required: true, html: { caption: 'Akun D/K', attr: 'size="5" maxlength="2"' } },
+			{ name: 'Akun_NR_LR', type: 'text', html: { caption: 'Neraca Lajur/Laba Rugi', attr: 'size="5" maxlength="2"' } },
+			{ name: 'Jumlah_Debit', type: 'int', html: { caption: 'Jumlah di Debit'} },
+			{ name: 'Jumlah_Kredit', type: 'int', required: true, html: { caption: 'Jumlah di Kredit'} }
 		],
 		actions: {
 			Reset: function () {
@@ -109,10 +106,10 @@ var config = {
 			Save: function () {
 				this.save(function (data) {
 					if (data.status == 'success') {
-						w2ui['users'].set(data.records.NIK, data.records);
-						w2ui['users'].refresh();
-						w2ui['users'].selectNone();
-						w2ui['users1'].clear();
+						w2ui['grid_daftar_akun'].set(data.records.Kode_Akun, data.records);
+						w2ui['grid_daftar_akun'].refresh();
+						w2ui['grid_daftar_akun'].selectNone();
+						w2ui['grid_detail_daftar_akun'].clear();
 						$().w2popup('close');
 					}
 				});				
@@ -120,22 +117,15 @@ var config = {
 			}
 		}
 	},
-	form2: {
-		name: 'form2',
+	form_add_daftar_akun: {
+		name: 'form_add_daftar_akun',
 		fields: [
-			{ name: 'NIK', type: 'text', required: true, html: { caption: 'NIK', attr: 'size="10"' } },
-			{ name: 'Nama', type: 'text', required: true, html: { caption: 'Nama', attr: 'size="40" maxlength="40"' } },
-			{ name: 'Alamat', type: 'text', required: true, html: { caption: 'Alamat', attr: 'size="40" maxlength="40"' } },
-			{ name: 'Nomor_KTP', type: 'text', html: { caption: 'Nomor KTP', attr: 'size="10"' } },
-			{ name: 'Nomor_SIM', type: 'text', html: { caption: 'Nomor SIM', attr: 'size="10"' } },
-			{ name: 'Jenis_Kelamin', type: 'text', html: { caption: 'Jenis Kelamin', attr: 'size="10"' } },
-			{ name: 'Tanggal_Masuk', type: 'text', html: { caption: 'Tanggal Masuk'} },
-			{ name: 'Tanggal_Keluar', type: 'text', html: { caption: 'Tanggal Keluar'} },
-			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="10"' } },
-			{ name: 'Pembaruan', type: 'text', html: { caption: 'Pembaruan'} },
-			{ name: 'Saldo_Awal', type: 'int', html: { caption: 'Saldo Awal'} },
-			{ name: 'Saldo_Akhir', type: 'int', html: { caption: 'Saldo Akhir'} },
-			{ name: 'Username', type: 'text', html: { caption: 'Username', attr: 'size="10"' } }
+			{ name: 'Kode_Akun', type: 'text', required: true, html: { caption: 'Kode Akun', attr: 'size="10"' } },
+			{ name: 'Nama_Akun', type: 'text', required: true, html: { caption: 'Nama Akun', attr: 'size="40" maxlength="40"' } },
+			{ name: 'Akun_DK', type: 'text', required: true, html: { caption: 'Akun DK', attr: 'size="5" maxlength="2"' } },
+			{ name: 'Akun_NR_LR', type: 'text', html: { caption: 'Neraca Lajur/Laba Rugi', attr: 'size="5" maxlength="2"' } },
+			{ name: 'Jumlah_Debit', type: 'int', html: { caption: 'Jumlah Debit'} },
+			{ name: 'Jumlah_Kredit', type: 'int', html: { caption: 'Jumlah Kredit'} }
 		],
 		actions: {
 			Reset: function () {
@@ -144,8 +134,8 @@ var config = {
 			Save: function () {
 				this.save(function (data) {
 					if (data.status == 'success') {
-						w2ui['users'].add(data.records);
-						w2ui['users'].selectNone();
+						w2ui['grid_daftar_akun'].add(data.records);
+						w2ui['grid_daftar_akun'].selectNone();
 						$().w2popup('close');
 					}
 				});
@@ -157,64 +147,38 @@ var config = {
 }
 
 $(function () {
-	// initialization
-	$('#main').w2layout(config.layout);
-	w2ui.layout.content('left', $().w2grid(config.grid));
-	w2ui.layout.content('main', $().w2grid(config.grid2));
-	$().w2form(config.form);
-	$().w2form(config.form2);
-	w2ui['users'].load('index.php/ctrl_pegawai/tester');
-
-	w2ui['users'].on('reload', function(event) {
-		this.load('index.php/ctrl_pegawai/tester');
-		this.selectNone();
-		this.reset();
-		this.refresh();
-		w2ui['users1'].clear();
-	});
-
-/*
-	w2ui['users'].toolbar.on('click', function(event) {
-		console.log(event.target);
-		
-		if (event.target == 'reload'){
-		w2ui['users'].clear();
-		
-		//w2ui['users'].load('index.php/system_area/tester');
-		w2ui['users'].reload();
-		}
-	});	
-*/
+	$().w2form(config_daftar_akun.form_add_daftar_akun);
+	$().w2form(config_daftar_akun.form_edit_daftar_akun);
 	
 });
 
 
-function editUser(recid) {
+function call_edit_daftar_akun(recid) {
 	$().w2popup('open', {
-		title	: 'Edit Pegawai',
-		body	: '<div id="form" style="width: 100%; height: 100%;"></div>',
+		title	: 'Edit Daftar Akun BMT',
+		body	: '<div id="form_edit_daftar_akun" style="width: 100%; height: 100%;"></div>',
 		style	: 'padding: 0px 0px 0px 0px',
 		width	: 500,
 		height	: 600, 
 		showMax : true,
 		onMin	: function (event) {
-			$(w2ui.form.box).hide();
+			$(w2ui.form_edit_daftar_akun.box).hide();
 			event.onComplete = function () {
-				$(w2ui.form.box).show();
-				w2ui.form.resize();
+				$(w2ui.form_edit_daftar_akun.box).show();
+				w2ui.form_edit_daftar_akun.resize();
 			}
 		},
 		onMax	: function (event) {
-			$(w2ui.form.box).hide();
+			$(w2ui.form_edit_daftar_akun.box).hide();
 			event.onComplete = function () {
-				$(w2ui.form.box).show();
-				w2ui.form.resize();
+				$(w2ui.form_edit_daftar_akun.box).show();
+				w2ui.form_edit_daftar_akun.resize();
 			}
 		},
 		onOpen	: function (event) {
 			event.onComplete = function () {
-				$('#w2ui-popup #form').w2render('form');
-				w2ui['form'].url = {save: 'index.php/ctrl_pegawai/update/'};
+				$('#w2ui-popup #form_edit_daftar_akun').w2render('form_edit_daftar_akun');
+				w2ui['form_edit_daftar_akun'].url = {save: 'index.php/ctrl_daftar_akun/update/'};
 				
 			}
 		}
@@ -222,45 +186,45 @@ function editUser(recid) {
 	
 }
 
-function addUser(recid) {
+function call_add_daftar_akun(recid) {
 	$().w2popup('open', {
-		title	: 'Add Pegawai',
-		body	: '<div id="form2" style="width: 100%; height: 100%;"></div>',
+		title	: 'Add Kode Akun BMT',
+		body	: '<div id="form_add_daftar_akun" style="width: 100%; height: 100%;"></div>',
 		style	: 'padding: 0px 0px 0px 0px',
 		width	: 500,
-		height	: 600, 
+		height	: 400, 
 		showMax : true,
 		onMin	: function (event) {
-			$(w2ui.form2.box).hide();
+			$(w2ui.form_add_daftar_akun.box).hide();
 			event.onComplete = function () {
-				$(w2ui.form2.box).show();
-				w2ui.form2.resize();
+				$(w2ui.form_add_daftar_akun.box).show();
+				w2ui.form_add_daftar_akun.resize();
 			}
 		},
 		onMax	: function (event) {
-			$(w2ui.form2.box).hide();
+			$(w2ui.form_add_daftar_akun.box).hide();
 			event.onComplete = function () {
-				$(w2ui.form2.box).show();
-				w2ui.form2.resize();
+				$(w2ui.form_add_daftar_akun.box).show();
+				w2ui.form_add_daftar_akun.resize();
 			}
 		},
 		onOpen	: function (event) {
 			event.onComplete = function () {
-				$('#w2ui-popup #form2').w2render('form2');
-				w2ui['form2'].url = {save: 'index.php/ctrl_pegawai/create/'};
-				w2ui['form2'].action('Reset');
+				$('#w2ui-popup #form_add_daftar_akun').w2render('form_add_daftar_akun');
+				w2ui['form_add_daftar_akun'].url = {save: 'index.php/ctrl_daftar_akun/create/'};
+				w2ui['form_add_daftar_akun'].action('Reset');
 			}
 		}
 	});
 	
 }
 
-function deleteUser(delrecid){
+function call_delete_daftar_akun(delrecid){
 	$().w2destroy('deletedialog');
 	$('#deletedialog').w2form({ 
 		name: 'deletedialog',
 		style: 'border: 0px; background-color: transparent;',
-		url : 'index.php/ctrl_pegawai/delete/' + delrecid,
+		url : 'index.php/ctrl_daftar_akun/delete/' + delrecid,
 		formHTML:
 			'<div class="w2ui-page page-0">'+
 			'<div style="" class="w2ui-box1">'+
@@ -279,8 +243,8 @@ function deleteUser(delrecid){
 				"delete": function () {
 					this.save(function (data) {
 						if (data.status == 'success') {
-							w2ui['users'].remove(delrecid);
-							w2ui['users1'].clear();
+							w2ui['grid_daftar_akun'].remove(delrecid);
+							w2ui['grid_detail_daftar_akun'].clear();
 							$().w2popup('close');
 						}
 					// if error, it is already displayed by w2form
@@ -293,14 +257,14 @@ function deleteUser(delrecid){
 	}); 
 	
 	$().w2popup('open', {
-		title	: 'Delete Pegawai',
-		body	: '<div id="form" style="width: 100%; height: 100%;"></div>',
+		title	: 'Delete Kode Akun BMT',
+		body	: '<div id="form_popup_daftar_akun" style="width: 100%; height: 100%;"></div>',
 		style	: 'padding: 15px 0px 0px 0px',
 		width	: 500,
 		height	: 300, 
 		onOpen	: function (event) {
 			event.onComplete = function () {
-				$('#w2ui-popup #form').w2render('deletedialog');
+				$('#w2ui-popup #form_popup_daftar_akun').w2render('deletedialog');
 			}
 		},
 	});	

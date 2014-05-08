@@ -1,8 +1,10 @@
 <div id="main" style="width: 100%; height: 500px;"></div>
-
-
-
-
+<?php $this->load->view('system_area/vf_system_application/vf_identitas_bmt/vff_identitas_bmt'); ?>
+<?php $this->load->view('system_area/vf_system_application/vf_daftar_akun/vff_daftar_akun'); ?>
+<?php $this->load->view('system_area/vf_system_application/vf_pegawai/vff_pegawai'); ?>
+<?php $this->load->view('system_area/vf_system_application/vf_nasabah/vff_nasabah'); ?>
+<?php $this->load->view('system_area/vf_system_application/vf_supplier/vff_supplier'); ?>
+<?php $this->load->view('system_area/vf_system_application/vf_daftar_sandi/vff_daftar_sandi'); ?>
 
 <script type="text/javascript">
 // widget configuration
@@ -33,169 +35,12 @@ var config = {
 			{ id: 'level-2', text: 'Level 2', img: 'icon-folder',
 			  nodes: [ { id: 'level-2-1', text: 'Level 2.1', icon: 'fa fa-home' },
 					   { id: 'level-2-2', text: 'Level 2.2', icon: 'fa fa-home'  },
-					   { id: 'level-2-3', text: 'Level 2.3', icon: 'fa fa-home'  }
+					   { id: 'level-2-3', text: 'Barcode', icon: 'fa fa-barcode'  }
 					 ]
 			}
 		]
-	},	
-	grid: { 
-        name : 'users',
-        header : 'Data Pegawai BMT AL-Hikma',
-		show : {
-			toolbar : true,
-	        header : true,
-	        toolbar : true,
-	        footer : true,
-	        toolbarAdd	: true,
-	        toolbarDelete	: true,
-	        lineNumbers: true
-		},
-		toolbar: {
-			items: [
-				{ type: 'break' },
-				{ type: 'button', id: 'btn-details', caption: 'Details', icon: 'fa fa-eye' }
-			],
-			onClick: function (event) {
-				switch (event.target) {
-					case 'btn-details':
-						w2ui['layout'].toggle('right', true);
-						break;
-					case 'level-1-1':
-						break;
-					case 'level-1-2':
-						break;
-				};
-			}
-		},
-        columns: [
-            { field: 'recid', caption: 'Nomor Induk', size: '150px', searchable: true, sortable: true },
-            { field: 'Nama', caption: 'Nama', size: '150px', searchable: true, sortable: true },
-            { field: 'Jenis_Kelamin', caption: 'Jenis Kelamin', size: '150px', searchable: true, sortable: true },
-            { field: 'Username', caption: 'Username', size: '100%', searchable: true, sortable: true }
-        ],
-        onAdd: function (event) {
-	        addUser(event.recid);
-        },
-        onDblClick: function (event) {
-         	editUser(event.recid); 
-			var grid = this;
-			var form = w2ui.form;
-			event.onComplete = function () {
-				var sel = grid.getSelection();
-				if (sel.length == 1) {
-					form.recid  = sel[0];
-					form.record = $.extend(true, {}, grid.get(sel[0]));
-					form.refresh();
-				} else {
-					form.clear();
-				}
-			}
-        },
-		onDelete: function(event) {
-			var delrecid= w2ui['users'].getSelection();
-			event.preventDefault();
-			deleteUser(delrecid);
-			//console.log(delrecid);
-		},	        
-		onClick: function (event) {
-			w2ui['users1'].clear();
-			var record = this.get(event.recid);
-			
-			w2ui['users1'].add([
-				{ recid: 0, name: 'NIK:', value: record.NIK },
-				{ recid: 1, name: 'Nama:', value: record.Nama },
-				{ recid: 2, name: 'Alamat:', value: record.Alamat },
-				{ recid: 3, name: 'Nomor KTP:', value: record.Nomor_KTP },
-				{ recid: 4, name: 'Nomor SIM:', value: record.Nomor_SIM },
-				{ recid: 5, name: 'Jenis Kelamin:', value: record.Jenis_Kelamin },
-				{ recid: 6, name: 'Tanggal Masuk:', value: record.Tanggal_Masuk },
-				{ recid: 7, name: 'Tanggal Keluar:', value: record.Tanggal_Keluar },
-				{ recid: 8, name: 'Status:', value: record.Status },
-				{ recid: 9, name: 'Pembaruan:', value: record.Pembaruan },
-				{ recid: 10, name: 'Saldo Awal:', value: record.Saldo_Awal },
-				{ recid: 11, name: 'Saldo Akhir:', value: record.Saldo_Akhir },
-				{ recid: 12, name: 'Username:', value: record.Username }
-			]);
-		}		        
-	},
-	grid2: { 
-		header: 'Details',
-		show: { header: true, columnHeaders: false },
-		name: 'users1', 
-		columns: [				
-			{ field: 'name', caption: 'Name', size: '100px', style: 'background-color: #efefef; border-bottom: 1px solid white; padding-right: 5px;', attr: "align=right" },
-			{ field: 'value', caption: 'Value', size: '100%' }
-		]
-	},
-	form: {
-		name: 'form',
-		fields: [
-			{ name: 'recid', type: 'text', html: { caption: 'NIK', attr: 'size="10" readonly' } },
-			{ name: 'Nama', type: 'text', required: true, html: { caption: 'Nama', attr: 'size="40" maxlength="40"' } },
-			{ name: 'Alamat', type: 'text', required: true, html: { caption: 'Alamat', attr: 'size="40" maxlength="40"' } },
-			{ name: 'Nomor_KTP', type: 'text', html: { caption: 'Nomor KTP', attr: 'size="10"' } },
-			{ name: 'Nomor_SIM', type: 'text', html: { caption: 'Nomor SIM', attr: 'size="10"' } },
-			{ name: 'Jenis_Kelamin', type: 'text', html: { caption: 'Jenis Kelamin', attr: 'size="10"' } },
-			{ name: 'Tanggal_Masuk', type: 'text', html: { caption: 'Tanggal Masuk'} },
-			{ name: 'Tanggal_Keluar', type: 'text', html: { caption: 'Tanggal Keluar'} },
-			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="10"' } },
-			{ name: 'Pembaruan', type: 'text', html: { caption: 'Pembaruan'} },
-			{ name: 'Saldo_Awal', type: 'int', html: { caption: 'Saldo Awal'} },
-			{ name: 'Saldo_Akhir', type: 'int', html: { caption: 'Saldo Akhir'} },
-			{ name: 'Username', type: 'text', html: { caption: 'Username', attr: 'size="10"' } }
-		],
-		actions: {
-			Reset: function () {
-				this.clear();
-			},
-			Save: function () {
-				this.save(function (data) {
-					if (data.status == 'success') {
-						w2ui['users'].set(data.records.NIK, data.records);
-						w2ui['users'].refresh();
-						w2ui['users'].selectNone();
-						w2ui['users1'].clear();
-						$().w2popup('close');
-					}
-				});				
-				
-			}
-		}
-	},
-	form2: {
-		name: 'form2',
-		fields: [
-			{ name: 'NIK', type: 'text', required: true, html: { caption: 'NIK', attr: 'size="10"' } },
-			{ name: 'Nama', type: 'text', required: true, html: { caption: 'Nama', attr: 'size="40" maxlength="40"' } },
-			{ name: 'Alamat', type: 'text', required: true, html: { caption: 'Alamat', attr: 'size="40" maxlength="40"' } },
-			{ name: 'Nomor_KTP', type: 'text', html: { caption: 'Nomor KTP', attr: 'size="10"' } },
-			{ name: 'Nomor_SIM', type: 'text', html: { caption: 'Nomor SIM', attr: 'size="10"' } },
-			{ name: 'Jenis_Kelamin', type: 'text', html: { caption: 'Jenis Kelamin', attr: 'size="10"' } },
-			{ name: 'Tanggal_Masuk', type: 'text', html: { caption: 'Tanggal Masuk'} },
-			{ name: 'Tanggal_Keluar', type: 'text', html: { caption: 'Tanggal Keluar'} },
-			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="10"' } },
-			{ name: 'Pembaruan', type: 'text', html: { caption: 'Pembaruan'} },
-			{ name: 'Saldo_Awal', type: 'int', html: { caption: 'Saldo Awal'} },
-			{ name: 'Saldo_Akhir', type: 'int', html: { caption: 'Saldo Akhir'} },
-			{ name: 'Username', type: 'text', html: { caption: 'Username', attr: 'size="10"' } }
-		],
-		actions: {
-			Reset: function () {
-				this.clear();
-			},
-			Save: function () {
-				this.save(function (data) {
-					if (data.status == 'success') {
-						w2ui['users'].add(data.records);
-						w2ui['users'].selectNone();
-						$().w2popup('close');
-					}
-				});
-				
-			}
-		}
 	}
-		
+
 }
 
 $(function () {
@@ -204,11 +49,8 @@ $(function () {
 	//initialization layout to main
 	w2ui.layout.content('left', $().w2sidebar(config.sidebar));
 	w2ui.layout.content('main', '<div style="padding: 10px">Slamat Datang</div>');
-	
-	// save to memory for re-use
-	$().w2form(config.form);
-	$().w2form(config.form2);
-
+	//var a = w2utils.formatDateTime((new Date()), 'mm-dd-yyyy');
+	//console.log(a);
 	//sidebar evenet listener
 	w2ui.sidebar.on('click', function (event) {
 		switch (event.target) {
@@ -218,20 +60,22 @@ $(function () {
 				w2ui.layout.content('main', '<div style="padding: 10px">Some HTML</div>');
 				break;
 			case 'level-1-1':
+				menu_identitas_bmt();
 				break;
 			case 'level-1-2':
-				//w2ui.layout.content('main', w2ui['users1']);
+				menu_daftar_akun();
 				break;
 			case 'level-1-3':
-				desObj();
-				w2ui.layout.content('main', $().w2grid(config.grid));
-				w2ui.layout.content('right', $().w2grid(config.grid2));
+				menu_pegawai();
 				break;
 			case 'level-1-4':
-				//w2ui.layout.content('main', w2ui['users1']);
+				menu_nasabah();
 				break;
 			case 'level-1-5':
-				//w2ui.layout.content('main', w2ui['users1']);
+				menu_supplier();
+				break;
+			case 'level-1-6':
+				menu_daftar_sandi();
 				break;
 			case 'html':
 				w2ui.layout.content('main', '<div style="padding: 10px">Some HTML</div>');
@@ -244,28 +88,106 @@ $(function () {
 		}
 	});
 	
-$('#toolbar').w2toolbar({
-	name  : 'toolbar',
-	right : 'text on the right',
-	items : [
-		{ type: 'check',  id: 'item1', caption: 'Check', img: 'icon-page', checked: true },
-		{ type: 'radio',  id: 'item3',  group: '1', caption: 'Radio 1', img: 'icon-add' },
-		{ type: 'radio',  id: 'item4',  group: '1', caption: 'Radio 2', img: 'icon-add' },
-	]
-});	
-	
-	
-	
-	
-	
-	
 
 });
 
 
 function desObj(){
-	$().w2destroy('users');
-	$().w2destroy('users1');
+	$().w2destroy('grid_identitas_bmt');
+	$().w2destroy('grid_detail_identitas_bmt');
+	$().w2destroy('grid_daftar_akun');
+	$().w2destroy('grid_detail_daftar_akun');
+	$().w2destroy('grid_pegawai');
+	$().w2destroy('grid_detail_pegawai');
+	$().w2destroy('grid_nasabah');
+	$().w2destroy('grid_detail_nasabah');
+	$().w2destroy('grid_supplier');
+	$().w2destroy('grid_detail_supplier');
+	$().w2destroy('grid_daftar_sandi');
+	$().w2destroy('grid_detail_daftar_sandi');
 }
 
+function menu_identitas_bmt(){
+	desObj();
+	w2ui.layout.content('main', $().w2grid(config_identitas_bmt.grid_identitas_bmt));
+	w2ui.layout.content('right', $().w2grid(config_identitas_bmt.grid_detail_identitas_bmt));
+	w2ui['grid_identitas_bmt'].load('index.php/ctrl_identitas_bmt/tester');
+	w2ui['grid_identitas_bmt'].on('reload', function(event) {
+		this.load('index.php/ctrl_identitas_bmt/tester');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+		w2ui['grid_detail_identitas_bmt'].clear();
+	});
+}
+
+function menu_daftar_akun(){
+	desObj();
+	w2ui.layout.content('main', $().w2grid(config_daftar_akun.grid_daftar_akun));
+	w2ui.layout.content('right', $().w2grid(config_daftar_akun.grid_detail_daftar_akun));
+	w2ui['grid_daftar_akun'].load('index.php/ctrl_daftar_akun/tester');
+	w2ui['grid_daftar_akun'].on('reload', function(event) {
+		this.load('index.php/ctrl_daftar_akun/tester');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+		w2ui['grid_detail_daftar_akun'].clear();
+	});
+}
+
+function menu_pegawai(){
+	desObj();
+	w2ui.layout.content('main', $().w2grid(config_pegawai.grid_pegawai));
+	w2ui.layout.content('right', $().w2grid(config_pegawai.grid_detail_pegawai));
+	w2ui['grid_pegawai'].load('index.php/ctrl_pegawai/tester');
+	w2ui['grid_pegawai'].on('reload', function(event) {
+		this.load('index.php/ctrl_pegawai/tester');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+		w2ui['grid_detail_pegawai'].clear();
+	});
+}
+
+function menu_nasabah(){
+	desObj();
+	w2ui.layout.content('main', $().w2grid(config_nasabah.grid_nasabah));
+	w2ui.layout.content('right', $().w2grid(config_nasabah.grid_detail_nasabah));
+	w2ui['grid_nasabah'].load('index.php/ctrl_nasabah/tester');
+	w2ui['grid_nasabah'].on('reload', function(event) {
+		this.load('index.php/ctrl_nasabah/tester');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+		w2ui['grid_detail_nasabah'].clear();
+	});
+}
+
+function menu_supplier(){
+	desObj();
+	w2ui.layout.content('main', $().w2grid(config_supplier.grid_supplier));
+	w2ui.layout.content('right', $().w2grid(config_supplier.grid_detail_supplier));
+	w2ui['grid_supplier'].load('index.php/ctrl_supplier/tester');
+	w2ui['grid_supplier'].on('reload', function(event) {
+		this.load('index.php/ctrl_supplier/tester');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+		w2ui['grid_detail_supplier'].clear();
+	});
+}
+
+function menu_daftar_sandi(){
+	desObj();
+	w2ui.layout.content('main', $().w2grid(config_daftar_sandi.grid_daftar_sandi));
+	w2ui.layout.content('right', $().w2grid(config_daftar_sandi.grid_detail_daftar_sandi));
+	w2ui['grid_daftar_sandi'].load('index.php/ctrl_daftar_sandi/tester');
+	w2ui['grid_daftar_sandi'].on('reload', function(event) {
+		this.load('index.php/ctrl_daftar_sandi/tester');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+		w2ui['grid_detail_daftar_sandi'].clear();
+	});
+}
 </script>

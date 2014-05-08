@@ -4,12 +4,11 @@
  *  Contact : 081808785851
  *  Email : warior.cakep@gmail.com
  */
-class Mod_identitas_bmt extends CI_Model {
+class Mod_daftar_sandi extends CI_Model {
 
 	public function getAll() {
 		//get all records from users table
-		$query = $this -> db -> get('identitas_bmt');
-
+		$query = $this -> db -> get('daftar_sandi');
 		if ($query -> num_rows() > 0) {
 			return $query -> result();
 		} else {
@@ -32,19 +31,17 @@ class Mod_identitas_bmt extends CI_Model {
     public function update() {
 		$data = $this->input->post("record", TRUE);
         $datalist = array(
-            'Nama_BMT' => $data["Nama_BMT"],
-            'Alamat_BMT' => $data["Alamat_BMT"],
-            'Status' => $data["Status"],
-            'Nomor_Registrasi' => $data["Nomor_Registrasi"],
-            'Tgl_Pembukuan' => date('Y-m-d', strtotime($data["Tgl_Pembukuan"]))
-        );		
-        $this->db->update( 'identitas_bmt', $datalist, array( 'Kode_Cabang' => $this->input->post( 'recid', true ) ) );
+            'Nama_Sandi' => $data["Nama_Sandi"],
+            'Akun_DB' => $data["Akun_DB"],
+            'Akun_KR' => $data["Akun_KR"]
+        );
+        $this->db->update( 'daftar_sandi', $datalist, array( 'Kode_Sandi' => $this->input->post( 'recid', true ) ) );
 		//return $datalist;
     }	
 
     public function create() {
  		$data = $this->input->post("record");
-        $this->db->insert( 'identitas_bmt', $data );
+        $this->db->insert( 'daftar_sandi', $data );
         //return $this->db->insert_id();
         return $data;
     }	
@@ -56,7 +53,7 @@ class Mod_identitas_bmt extends CI_Model {
         */
         $recid = intval( $recid );
         
-        $this->db->delete( 'identitas_bmt', array( 'Kode_Cabang' => $recid ) );
+        $this->db->delete( 'daftar_sandi', array( 'Kode_Sandi' => $recid ) );
     } //end delete	
     
 }// end of class

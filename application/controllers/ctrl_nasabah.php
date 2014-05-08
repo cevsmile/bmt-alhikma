@@ -47,11 +47,11 @@ class Ctrl_nasabah extends CI_Controller {
 	public function create() {
 		if (!empty($_POST)) {
 		   	$data = $this -> mod_nasabah -> create();
-			$data['recid']= $data['NIK'];
+			$data['recid']= $data['No_Urut_Nasabah'];
 			
 			$res = Array();
 			$res['status'] = 'success';
-			$res['recid'] = $data['NIK']; 
+			$res['recid'] = $data['No_Urut_Nasabah']; 
 			//$res['total'] = intval($data['NIK']) + 1;
 			$res['records'] = $data; 
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
@@ -79,14 +79,21 @@ class Ctrl_nasabah extends CI_Controller {
 		$data = $this -> mod_nasabah -> getAll();
 		$newaray = Array();
 		$sums = count($data);
-		$newaray['status'] = 'success';
-		$newaray['total'] = $sums;
-		$newaray['records'] = $data;
-		for ($i = 0; $i < $sums; $i++) {
-			$data[$i] -> recid = $data[$i]->NIK;
+		if ($sums==0){
+			$newaray['status']  = 'error';
+			$newaray['message'] = 'Data Masih Kosong';
+			echo json_encode($newaray);		
+		}else{
+			$newaray['status'] = 'success';
+			$newaray['total'] = $sums;
+			$newaray['records'] = $data;
+			for ($i = 0; $i < $sums; $i++) {
+				$data[$i] -> recid = $data[$i]->No_Urut_Nasabah;
+			}
+			echo json_encode($newaray);
 		}
-		echo json_encode($newaray);
 		//"<pre>"; die(print_r($data, TRUE));
 	}
+
 
 }// End of system area

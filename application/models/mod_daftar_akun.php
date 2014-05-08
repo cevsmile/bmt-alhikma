@@ -9,7 +9,6 @@ class Mod_daftar_akun extends CI_Model {
 	public function getAll() {
 		//get all records from users table
 		$query = $this -> db -> get('daftar_akun');
-
 		if ($query -> num_rows() > 0) {
 			return $query -> result();
 		} else {
@@ -32,20 +31,13 @@ class Mod_daftar_akun extends CI_Model {
     public function update() {
 		$data = $this->input->post("record", TRUE);
         $datalist = array(
-            'Nama' => $data["Nama"],
-            'Alamat' => $data["Alamat"],
-            'Nomor_KTP' => $data["Nomor_KTP"],
-            'Nomor_SIM' => $data["Nomor_SIM"],
-            'Jenis_Kelamin' => $data["Jenis_Kelamin"],
-            'Tanggal_Masuk' => $data["Tanggal_Masuk"],
-            'Tanggal_Keluar' => $data["Tanggal_Keluar"],
-            'Status' => $data["Status"],
-            'Pembaruan' => $data["Pembaruan"],
-            'Saldo_Awal' => $data["Saldo_Awal"],
-            'Saldo_Akhir' => $data["Saldo_Akhir"],
-            'Username' => $data["Username"]
-        );		
-        $this->db->update( 'daftar_akun', $datalist, array( 'NIK' => $this->input->post( 'recid', true ) ) );
+            'Nama_Akun' => $data["Nama_Akun"],
+            'Akun_DK' => $data["Akun_DK"],
+            'Akun_NL_LR' => $data["Akun_NL_LR"],
+            'Jumlah_Debit' => $data["Jumlah_Debit"],
+            'Jumlah_Kredit' => $data["Jumlah_Kredit"]
+        );
+        $this->db->update( 'daftar_akun', $datalist, array( 'Kode_Akun' => $this->input->post( 'recid', true ) ) );
 		//return $datalist;
     }	
 
@@ -63,7 +55,7 @@ class Mod_daftar_akun extends CI_Model {
         */
         $recid = intval( $recid );
         
-        $this->db->delete( 'daftar_akun', array( 'NIK' => $recid ) );
+        $this->db->delete( 'daftar_akun', array( 'Kode_Akun' => $recid ) );
     } //end delete	
     
 }// end of class

@@ -1,11 +1,11 @@
 <?php
 
-class Ctrl_pegawai extends CI_Controller {
+class Ctrl_supplier extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
 		$this -> validation();
-		$this -> load -> model('mod_pegawai');
+		$this -> load -> model('mod_supplier');
 	}
 
 	function validation() {
@@ -34,7 +34,7 @@ class Ctrl_pegawai extends CI_Controller {
 	public function update() {
 		//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
 		if (!empty($_POST)) {
-			$this -> mod_pegawai -> update();
+			$this -> mod_supplier -> update();
 			$res = Array();
 			$res['status'] = 'success';
 			$res['records'] = $_REQUEST['record'];
@@ -46,12 +46,12 @@ class Ctrl_pegawai extends CI_Controller {
 
 	public function create() {
 		if (!empty($_POST)) {
-		   	$data = $this -> mod_pegawai -> create();
-			$data['recid']= $data['NIK'];
+		   	$data = $this -> mod_supplier -> create();
+			$data['recid']= $data['Nomor_Urut_Supplier'];
 			
 			$res = Array();
 			$res['status'] = 'success';
-			$res['recid'] = $data['NIK']; 
+			$res['recid'] = $data['Nomor_Urut_Supplier']; 
 			//$res['total'] = intval($data['NIK']) + 1;
 			$res['records'] = $data; 
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
@@ -67,7 +67,7 @@ class Ctrl_pegawai extends CI_Controller {
 			return;
 		}
 
-		$this -> mod_pegawai -> delete($recid);
+		$this -> mod_supplier -> delete($recid);
 		$res = Array();
 		$res['status'] = 'success';
 		//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
@@ -76,7 +76,7 @@ class Ctrl_pegawai extends CI_Controller {
 	}
 
 	function tester() {
-		$data = $this -> mod_pegawai -> getAll();
+		$data = $this -> mod_supplier -> getAll();
 		$newaray = Array();
 		$sums = count($data);
 		if ($sums==0){
@@ -88,11 +88,10 @@ class Ctrl_pegawai extends CI_Controller {
 			$newaray['total'] = $sums;
 			$newaray['records'] = $data;
 			for ($i = 0; $i < $sums; $i++) {
-				$data[$i] -> recid = $data[$i]->NIK;
+				$data[$i] -> recid = $data[$i]->Nomor_Urut_Supplier;
 			}
 			echo json_encode($newaray);
 		}
 		//"<pre>"; die(print_r($data, TRUE));
 	}
-
 }// End of system area

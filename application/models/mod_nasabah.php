@@ -45,7 +45,7 @@ class Mod_nasabah extends CI_Model {
             'Saldo_Akhir' => $data["Saldo_Akhir"],
             'Username' => $data["Username"]
         );		
-        $this->db->update( 'nasabah', $datalist, array( 'NIK' => $this->input->post( 'recid', true ) ) );
+        $this->db->update( 'nasabah', $datalist, array( 'No_Urut_Nasabah' => $this->input->post( 'recid', true ) ) );
 		//return $datalist;
     }	
 
@@ -63,7 +63,7 @@ class Mod_nasabah extends CI_Model {
         */
         $recid = intval( $recid );
         
-        $this->db->delete( 'nasabah', array( 'NIK' => $recid ) );
+        $this->db->delete( 'nasabah', array( 'No_Urut_Nasabah' => $recid ) );
     } //end delete	
     
 }// end of class

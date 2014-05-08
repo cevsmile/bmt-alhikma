@@ -1,6 +1,6 @@
 /*
 Created		15/04/2014
-Modified		20/04/2014
+Modified		06/05/2014
 Project		Akutansi BMT
 Model		Utama
 Company		BMT AL-Hikma
@@ -42,7 +42,7 @@ drop table IF EXISTS Daftar_Akun;
 
 Create table Daftar_Akun (
 	Kode_Akun Char(4) NOT NULL,
-	nama_akun Varchar(50),
+	Nama_Akun Varchar(50),
 	Akun_DK Char(2),
 	Akun_NR_LR Char(2),
 	Jumlah_Debit Int,
@@ -53,9 +53,9 @@ Create table Identitas_BMT (
 	Kode_Cabang Char(3) NOT NULL,
 	Nama_BMT Varchar(200),
 	Alamat_BMT Varchar(200),
-	status Char(20),
+	Status Char(20),
 	Nomor_Registrasi Char(20),
-	Tgl_Pembukuan Char(20),
+	Tgl_Pembukuan Date,
  Primary Key (Kode_Cabang)) ENGINE = InnoDB;
 
 Create table Nasabah (
@@ -65,8 +65,8 @@ Create table Nasabah (
 	Nomor_KTP Char(16),
 	Nomor_SIM Char(12),
 	Jenis_Kelamin Char(1),
-	Tanggal_Masuk Datetime,
-	Tanggal_Keluar Datetime,
+	Tanggal_Masuk Date,
+	Tanggal_Keluar Date,
 	Status Char(1),
 	Pembaruan Datetime,
 	Saldo_Awal Int,
@@ -121,8 +121,8 @@ Create table Pegawai (
 	Nomor_KTP Char(16),
 	Nomor_SIM Char(12),
 	Jenis_Kelamin Char(1),
-	Tanggal_Masuk Datetime,
-	Tanggal_Keluar Datetime,
+	Tanggal_Masuk Date,
+	Tanggal_Keluar Date,
 	Status Char(1),
 	Pembaruan Datetime,
 	Saldo_Awal Int,
