@@ -1,46 +1,13 @@
 <?php
 
-class System_area extends CI_Controller {
+class Ctrl_daftar_kode_bantu extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
 		$this -> validation();
-		$this -> load -> model('mod_pegawai');
+		$this -> load -> model('mod_daftar_kode_bantu');
 	}
 
-	function bmt_center() {
-		$data['title'] = 'BMT System Home Page';
-		$data['main_content'] = 'system_area/welcome';
-		$this -> load -> view('system_area/vf_temp/vff_template', $data);
-	}
-
-	function menu_system_application() {
-		$data['title'] = 'BMT System Application';
-		$data['main_content'] = 'system_area/vf_system_application/vff_system_application';
-		$this -> load -> view('system_area/vf_temp/vff_template', $data);
-	}
-
-	function menu_data_processing() {
-		$data['title'] = 'BMT System Application';
-		$data['main_content'] = 'system_area/vf_data_processing/vff_data_processing';
-		$this -> load -> view('system_area/vf_temp/vff_template', $data);
-	}
-
-
-	function menu_tester() {
-		$data['title'] = 'BMT System Home Page';
-		$data['main_content'] = 'system_area/menu_tester/tester';
-		$this -> load -> view('system_area/vf_temp/vff_template', $data);
-	}
-
-	function menu_testing() {
-		$data['title'] = 'BMT System Home Page';
-		$data['main_content'] = 'system_area/testing/tester';
-		$this -> load -> view('system_area/vf_temp/vff_template', $data);
-	}
-
-
-	
 	function validation() {
 		$imlogin = $this -> session -> userdata('imlogin');
 
@@ -54,11 +21,6 @@ class System_area extends CI_Controller {
 		$this -> session -> sess_destroy();
 		redirect('site');
 	}
-
-
-
-
-
 /*
 	function read() {
 		echo json_encode($this -> pegawai -> getAll());
@@ -68,11 +30,11 @@ class System_area extends CI_Controller {
 		if (isset($recid))
 			echo json_encode($this -> pegawai -> getByRecid($recid));
 	}
-
+*/
 	public function update() {
 		//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
 		if (!empty($_POST)) {
-			$this -> pegawai -> update();
+			$this -> mod_daftar_kode_bantu -> update();
 			$res = Array();
 			$res['status'] = 'success';
 			$res['records'] = $_REQUEST['record'];
@@ -84,12 +46,12 @@ class System_area extends CI_Controller {
 
 	public function create() {
 		if (!empty($_POST)) {
-		   	$data = $this -> pegawai -> create();
-			$data['recid']= $data['NIK'];
+		   	$data = $this -> mod_daftar_kode_bantu -> create();
+			$data['recid']= $data['Kode_Pembantu'];
 			
 			$res = Array();
 			$res['status'] = 'success';
-			$res['recid'] = $data['NIK']; 
+			$res['recid'] = $data['Kode_Pembantu']; 
 			//$res['total'] = intval($data['NIK']) + 1;
 			$res['records'] = $data; 
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
@@ -105,7 +67,7 @@ class System_area extends CI_Controller {
 			return;
 		}
 
-		$this -> pegawai -> delete($recid);
+		$this -> mod_daftar_kode_bantu -> delete($recid);
 		$res = Array();
 		$res['status'] = 'success';
 		//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
@@ -114,17 +76,22 @@ class System_area extends CI_Controller {
 	}
 
 	function tester() {
-		$data = $this -> pegawai -> getAll();
+		$data = $this -> mod_daftar_kode_bantu -> getAll();
 		$newaray = Array();
 		$sums = count($data);
-		$newaray['status'] = 'success';
-		$newaray['total'] = $sums;
-		$newaray['records'] = $data;
-		for ($i = 0; $i < $sums; $i++) {
-			$data[$i] -> recid = $data[$i]->NIK;
+		if ($sums==0){
+			$newaray['status']  = 'error';
+			$newaray['message'] = 'Data Masih Kosong';
+			echo json_encode($newaray);		
+		}else{
+			$newaray['status'] = 'success';
+			$newaray['total'] = $sums;
+			$newaray['records'] = $data;
+			for ($i = 0; $i < $sums; $i++) {
+				$data[$i] -> recid = $data[$i]->Kode_Pembantu;
+			}
+			echo json_encode($newaray);
 		}
-		echo json_encode($newaray);
 		//"<pre>"; die(print_r($data, TRUE));
 	}
-*/
 }// End of system area
