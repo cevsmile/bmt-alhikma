@@ -5,6 +5,7 @@
 <?php $this->load->view('system_area/vf_system_application/vf_nasabah/vff_nasabah'); ?>
 <?php $this->load->view('system_area/vf_system_application/vf_supplier/vff_supplier'); ?>
 <?php $this->load->view('system_area/vf_system_application/vf_daftar_sandi/vff_daftar_sandi'); ?>
+<?php $this->load->view('system_area/vf_system_application/vf_user/vff_user'); ?>
 
 <script type="text/javascript">
 // widget configuration
@@ -29,7 +30,8 @@ var config = {
 					   { id: 'level-1-3', text: 'Pegawai', img: 'icon-page' },
 					   { id: 'level-1-4', text: 'Nasabah', img: 'icon-page' },
 					   { id: 'level-1-5', text: 'Supplier', img: 'icon-page' },
-					   { id: 'level-1-6', text: 'Daftar Sandi', img: 'icon-page' }
+					   { id: 'level-1-6', text: 'Daftar Sandi', img: 'icon-page' },
+					   { id: 'level-1-7', text: 'User', img: 'icon-page' }
 					 ]
 			},
 			{ id: 'level-2', text: 'Level 2', img: 'icon-folder',
@@ -57,7 +59,7 @@ $(function () {
 			case 'level-1':
 				desObj();
 				w2ui['layout'].hide('right', true);
-				w2ui.layout.content('main', '<div style="padding: 10px">Some HTML</div>');
+				w2ui.layout.content('main', '<div style="padding: 10px">This data should not be null, before you can proceed to another link, you should really fill this form completly.</div>');
 				break;
 			case 'level-1-1':
 				menu_identitas_bmt();
@@ -76,6 +78,9 @@ $(function () {
 				break;
 			case 'level-1-6':
 				menu_daftar_sandi();
+				break;
+			case 'level-1-7':
+				menu_user();
 				break;
 			case 'html':
 				w2ui.layout.content('main', '<div style="padding: 10px">Some HTML</div>');
@@ -105,6 +110,8 @@ function desObj(){
 	$().w2destroy('grid_detail_supplier');
 	$().w2destroy('grid_daftar_sandi');
 	$().w2destroy('grid_detail_daftar_sandi');
+	$().w2destroy('grid_user');
+	$().w2destroy('grid_detail_user');
 }
 
 function menu_identitas_bmt(){
@@ -188,6 +195,20 @@ function menu_daftar_sandi(){
 		this.reset();
 		this.refresh();
 		w2ui['grid_detail_daftar_sandi'].clear();
+	});
+}
+
+function menu_user(){
+	desObj();
+	w2ui.layout.content('main', $().w2grid(config_user.grid_user));
+	w2ui.layout.content('right', $().w2grid(config_user.grid_detail_user));
+	w2ui['grid_user'].load('index.php/ctrl_user/read');
+	w2ui['grid_user'].on('reload', function(event) {
+		this.load('index.php/ctrl_user/read');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+		w2ui['grid_detail_user'].clear();
 	});
 }
 </script>

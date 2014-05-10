@@ -14,5 +14,10 @@ Class Authentication {
 		}
 	}
 
+	public function logout() {
+		$CI =& get_instance();
+		$CI -> session -> sess_destroy();
+		redirect('site');
+	}
 
 }

@@ -12,15 +12,15 @@ class Installation extends CI_Model {
 
 	function add_user() {
 		$add_records = array(
-			'username'	=> $this -> input -> post('username'), 
-			'password'	=> md5($this -> input -> post('password')), 
-			'level'	=> $this -> input -> post('level')
+			'Username'	=> $this -> input -> post('Username'), 
+			'Password'	=> md5($this -> input -> post('Password')), 
+			'Level'	=> $this -> input -> post('Level')
 		);
 		$this->db->set($add_records);         
-		$this->db->set('log_date', 'CURRENT_DATE()', FALSE);
-		$this->db->set('log_time', 'CURRENT_TIME()', FALSE);
-		$insert = $this -> db -> insert('user', $add_records);
-		return $insert;
+		$this->db->set('Log_Date', 'CURRENT_DATE()', FALSE);
+		$this->db->set('Log_Time', 'CURRENT_TIME()', FALSE);
+		$data = $this -> db -> insert('user', $add_records);
+		return $data;
 	}
 
 

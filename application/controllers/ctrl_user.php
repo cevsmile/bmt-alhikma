@@ -1,35 +1,37 @@
 <?php
 
-class Ctrl_daftar_akun extends CI_Controller {
+class Ctrl_user extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
 		$this->load->library("authentication");
 		$this->authentication->validation();
-		$this -> load -> model('mod_daftar_akun');
+		$this -> load -> model('mod_user');
 	}
 
 	function update() {
 		//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
 		if (!empty($_POST)) {
-			$this -> mod_daftar_akun -> update();
+			$this -> mod_user -> update();
 			$res = Array();
 			$res['status'] = 'success';
 			$res['records'] = $_REQUEST['record'];
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
 			//$res['postData']= $_REQUEST;
 			echo json_encode($res);
+			
 		}
+		//$this->authentication->logout();
 	}
 
 	function create() {
 		if (!empty($_POST)) {
-		   	$data = $this -> mod_daftar_akun -> create();
-			$data['recid']= $data['Kode_Akun'];
+		   	$data = $this -> mod_user -> create();
+			$data['recid']= $data['Id_User'];
 			
 			$res = Array();
 			$res['status'] = 'success';
-			$res['recid'] = $data['Kode_Akun']; 
+			$res['recid'] = $data['Id_User']; 
 			//$res['total'] = intval($data['NIK']) + 1;
 			$res['records'] = $data; 
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
@@ -45,7 +47,7 @@ class Ctrl_daftar_akun extends CI_Controller {
 			return;
 		}
 
-		$this -> mod_daftar_akun -> delete($recid);
+		$this -> mod_user -> delete($recid);
 		$res = Array();
 		$res['status'] = 'success';
 		//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
@@ -54,7 +56,7 @@ class Ctrl_daftar_akun extends CI_Controller {
 	}
 
 	function read() {
-		$data = $this -> mod_daftar_akun -> getAll();
+		$data = $this -> mod_user -> getAll();
 		$newaray = Array();
 		$sums = count($data);
 		if ($sums==0){
@@ -66,7 +68,7 @@ class Ctrl_daftar_akun extends CI_Controller {
 			$newaray['total'] = $sums;
 			$newaray['records'] = $data;
 			for ($i = 0; $i < $sums; $i++) {
-				$data[$i] -> recid = $data[$i]->Kode_Akun;
+				$data[$i] -> recid = $data[$i]->Id_User;
 			}
 			echo json_encode($newaray);
 		}

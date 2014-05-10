@@ -13,21 +13,21 @@
 		</div>
 		<div class="panel-body">
 			<?php echo form_open('site/first_installation');
-			$username = array('name' => 'username', 'type' => 'text', 'value' => 'username');
-			$password = array('name' => 'password', 'type' => 'text', 'value' => 'password');
-			$level = array('name' => 'Jenis_Kelamin', 'type' => 'text', 'value' => 'level');
+			$Username = array('name' => 'Username', 'type' => 'text', 'value' => 'admin', 'maxlength' => '20', 'size' => '20');
+			$Password = array('name' => 'Password', 'type' => 'password', 'value' => 'admin', 'maxlength' => '32', 'size' => '32');
+			$Level = array('name' => 'Level', 'type' => 'int', 'value' => '1');
 			$submit = array('type' => 'submit', 'name' => 'submit', 'value' => 'Submit', 'class' => 'btn btn-primary');
 			?>
 		</div>
 		<table class="table">
 			<tr>
-				<td><?php echo form_label('Username', 'username'); ?></td><td><?php echo form_input($username); ?></td>
+				<td><?php echo form_label('Username', 'Username'); ?></td><td><?php echo form_input($Username); ?></td>
 			</tr>
 			<tr>
-				<td><?php echo form_label('Password', 'password'); ?></td><td><?php echo form_password($password); ?></td>
+				<td><?php echo form_label('Password', 'Password'); ?></td><td><?php echo form_password($Password); ?></td>
 			</tr>
 			<tr>
-				<td><?php echo form_label('Level', 'level'); ?></td><td><?php echo form_input($level); ?></td>
+				<td><?php echo form_label('Level', 'Level'); ?></td><td><?php echo form_input($Level); ?></td>
 			</tr>
 			<tr>
 				<td><?php echo form_submit($submit); ?></td><td><?php ?></td>

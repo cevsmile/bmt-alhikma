@@ -1,18 +1,18 @@
 <?php
 
-class Ctrl_daftar_kode_bantu extends CI_Controller {
+class Ctrl_nomor_rekening extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
 		$this->load->library("authentication");
 		$this->authentication->validation();
-		$this -> load -> model('mod_daftar_kode_bantu');
+		$this -> load -> model('mod_nomor_rekening');
 	}
 
 	function update() {
 		//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
 		if (!empty($_POST)) {
-			$this -> mod_daftar_kode_bantu -> update();
+			$this -> mod_nomor_rekening -> update();
 			$res = Array();
 			$res['status'] = 'success';
 			$res['records'] = $_REQUEST['record'];
@@ -24,12 +24,12 @@ class Ctrl_daftar_kode_bantu extends CI_Controller {
 
 	function create() {
 		if (!empty($_POST)) {
-		   	$data = $this -> mod_daftar_kode_bantu -> create();
-			$data['recid']= $data['Kode_Pembantu'];
+		   	$data = $this -> mod_nomor_rekening -> create();
+			$data['recid']= $data['Kode_Norek'];
 			
 			$res = Array();
 			$res['status'] = 'success';
-			$res['recid'] = $data['Kode_Pembantu']; 
+			$res['recid'] = $data['Kode_Norek']; 
 			//$res['total'] = intval($data['NIK']) + 1;
 			$res['records'] = $data; 
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
@@ -45,7 +45,7 @@ class Ctrl_daftar_kode_bantu extends CI_Controller {
 			return;
 		}
 
-		$this -> mod_daftar_kode_bantu -> delete($recid);
+		$this -> mod_nomor_rekening -> delete($recid);
 		$res = Array();
 		$res['status'] = 'success';
 		//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
@@ -54,7 +54,7 @@ class Ctrl_daftar_kode_bantu extends CI_Controller {
 	}
 
 	function read() {
-		$data = $this -> mod_daftar_kode_bantu -> getAll();
+		$data = $this -> mod_nomor_rekening -> getAll();
 		$newaray = Array();
 		$sums = count($data);
 		if ($sums==0){
@@ -66,7 +66,7 @@ class Ctrl_daftar_kode_bantu extends CI_Controller {
 			$newaray['total'] = $sums;
 			$newaray['records'] = $data;
 			for ($i = 0; $i < $sums; $i++) {
-				$data[$i] -> recid = $data[$i]->Kode_Pembantu;
+				$data[$i] -> recid = $data[$i]->Kode_Norek;
 			}
 			echo json_encode($newaray);
 		}

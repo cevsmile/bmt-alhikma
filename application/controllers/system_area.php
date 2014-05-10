@@ -8,9 +8,8 @@ class System_area extends CI_Controller {
 		$this->authentication->validation();
 	}
 
-	public function logout() {
-		$this -> session -> sess_destroy();
-		redirect('site');
+	function logout() {
+		$this->authentication->logout();
 	}
 
 

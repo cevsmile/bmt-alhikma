@@ -20,7 +20,7 @@ class Mod_user extends CI_Model {
 	public function getByRecid($recid) {
 		$recid = intval($recid);
 
-		$query = $this -> db -> where('NIK', $recid) -> limit(1) -> get('pegawai');
+		$query = $this -> db -> where('Id_User', $recid) -> limit(1) -> get('user');
 
 		if ($query -> num_rows() > 0) {
 			return $query -> row();
@@ -32,28 +32,29 @@ class Mod_user extends CI_Model {
     public function update() {
 		$data = $this->input->post("record", TRUE);
         $datalist = array(
-            'Nama' => $data["Nama"],
-            'Alamat' => $data["Alamat"],
-            'Nomor_KTP' => $data["Nomor_KTP"],
-            'Nomor_SIM' => $data["Nomor_SIM"],
-            'Jenis_Kelamin' => $data["Jenis_Kelamin"],
-            'Tanggal_Masuk' => $data["Tanggal_Masuk"],
-            'Tanggal_Keluar' => $data["Tanggal_Keluar"],
-            'Status' => $data["Status"],
-            'Pembaruan' => $data["Pembaruan"],
-            'Saldo_Awal' => $data["Saldo_Awal"],
-            'Saldo_Akhir' => $data["Saldo_Akhir"],
-            'Username' => $data["Username"]
+			'Username'	=> $this -> input -> post('Username'), 
+			'Password'	=> md5($this -> input -> post('Password')), 
+			'Level'	=> $this -> input -> post('Level')
         );		
-        $this->db->update( 'pegawai', $datalist, array( 'NIK' => $this->input->post( 'recid', true ) ) );
+		$this->db->set($datalist);         
+		$this->db->set('Log_Date', 'CURRENT_DATE()', FALSE);
+		$this->db->set('Log_Time', 'CURRENT_TIME()', FALSE);
+
+        $this->db->update( 'user', $datalist, array( 'Id_User' => $this->input->post( 'recid', true ) ) );
 		//return $datalist;
     }	
 
     public function create() {
- 		$data = $this->input->post("record");
-        $this->db->insert( 'pegawai', $data );
-        //return $this->db->insert_id();
-        return $data;
+		$datalist = array(
+			'Username'	=> $this -> input -> post('Username'), 
+			'Password'	=> md5($this -> input -> post('Password')), 
+			'Level'	=> $this -> input -> post('Level')
+		);
+		$this->db->set($datalist);         
+		$this->db->set('Log_Date', 'CURRENT_DATE()', FALSE);
+		$this->db->set('Log_Time', 'CURRENT_TIME()', FALSE);
+		$data = $this -> db -> insert('user', $datalist);
+		return $data;
     }	
     
     public function delete( $recid ) {
@@ -63,7 +64,7 @@ class Mod_user extends CI_Model {
         */
         $recid = intval( $recid );
         
-        $this->db->delete( 'pegawai', array( 'NIK' => $recid ) );
+        $this->db->delete( 'user', array( 'Id_User' => $recid ) );
     } //end delete	
     
 }// end of class

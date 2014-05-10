@@ -33,7 +33,7 @@ class Site extends CI_Controller {
 		//echo $query;
 		if ($query)// if data were found..
 		{
-			$data = array('username' => $this -> input -> post('username'), 'imlogin' => true);
+			$data = array('Username' => $this -> input -> post('Username'), 'imlogin' => true);
 
 			$this -> session -> set_userdata($data);
 			//saving data to session
