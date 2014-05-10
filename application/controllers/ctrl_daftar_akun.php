@@ -25,11 +25,11 @@ class Ctrl_daftar_akun extends CI_Controller {
 	function create() {
 		if (!empty($_POST)) {
 		   	$data = $this -> mod_daftar_akun -> create();
-			$data['recid']= $data['Kode_Akun'];
+			$data['recid']= $data['Id_Daftar_Akun'];
 			
 			$res = Array();
 			$res['status'] = 'success';
-			$res['recid'] = $data['Kode_Akun']; 
+			$res['recid'] = $data['Id_Daftar_Akun']; 
 			//$res['total'] = intval($data['NIK']) + 1;
 			$res['records'] = $data; 
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
@@ -66,7 +66,7 @@ class Ctrl_daftar_akun extends CI_Controller {
 			$newaray['total'] = $sums;
 			$newaray['records'] = $data;
 			for ($i = 0; $i < $sums; $i++) {
-				$data[$i] -> recid = $data[$i]->Kode_Akun;
+				$data[$i] -> recid = $data[$i]->Id_Daftar_Akun;
 			}
 			echo json_encode($newaray);
 		}

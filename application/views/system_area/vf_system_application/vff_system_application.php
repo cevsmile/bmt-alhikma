@@ -30,12 +30,11 @@ var config = {
 					   { id: 'level-1-3', text: 'Pegawai', img: 'icon-page' },
 					   { id: 'level-1-4', text: 'Nasabah', img: 'icon-page' },
 					   { id: 'level-1-5', text: 'Supplier', img: 'icon-page' },
-					   { id: 'level-1-6', text: 'Daftar Sandi', img: 'icon-page' },
-					   { id: 'level-1-7', text: 'User', img: 'icon-page' }
+					   { id: 'level-1-6', text: 'User', img: 'icon-page' }
 					 ]
 			},
-			{ id: 'level-2', text: 'Level 2', img: 'icon-folder',
-			  nodes: [ { id: 'level-2-1', text: 'Level 2.1', icon: 'fa fa-home' },
+			{ id: 'level-2', text: 'SECONDARY MASTER', img: 'icon-folder',
+			  nodes: [ { id: 'level-2-1', text: 'Daftar Sandi', img: 'icon-page' },
 					   { id: 'level-2-2', text: 'Level 2.2', icon: 'fa fa-home'  },
 					   { id: 'level-2-3', text: 'Barcode', icon: 'fa fa-barcode'  }
 					 ]
@@ -77,18 +76,15 @@ $(function () {
 				menu_supplier();
 				break;
 			case 'level-1-6':
-				menu_daftar_sandi();
-				break;
-			case 'level-1-7':
 				menu_user();
 				break;
-			case 'html':
-				w2ui.layout.content('main', '<div style="padding: 10px">Some HTML</div>');
-				$(w2ui.layout.el('main'))
-					.removeClass('w2ui-grid')
-					.css({ 
-						'border-left': '1px solid silver'
-					});
+			case 'level-2':
+				desObj();
+				w2ui['layout'].hide('right', true);
+				w2ui.layout.content('main', '<div style="padding: 10px">This data Required befor you can proceed to accounting data. Master Data associate to this item shoud be filled.</div>');
+				break;			
+			case 'level-2-1':
+				menu_daftar_sandi();
 				break;
 		}
 	});
@@ -184,20 +180,6 @@ function menu_supplier(){
 	});
 }
 
-function menu_daftar_sandi(){
-	desObj();
-	w2ui.layout.content('main', $().w2grid(config_daftar_sandi.grid_daftar_sandi));
-	w2ui.layout.content('right', $().w2grid(config_daftar_sandi.grid_detail_daftar_sandi));
-	w2ui['grid_daftar_sandi'].load('index.php/ctrl_daftar_sandi/read');
-	w2ui['grid_daftar_sandi'].on('reload', function(event) {
-		this.load('index.php/ctrl_daftar_sandi/read');
-		this.selectNone();
-		this.reset();
-		this.refresh();
-		w2ui['grid_detail_daftar_sandi'].clear();
-	});
-}
-
 function menu_user(){
 	desObj();
 	w2ui.layout.content('main', $().w2grid(config_user.grid_user));
@@ -211,4 +193,35 @@ function menu_user(){
 		w2ui['grid_detail_user'].clear();
 	});
 }
+/* working daftar sandi
+function menu_daftar_sandi(){
+	desObj();
+	w2ui.layout.content('main', $().w2grid(config_daftar_sandi.grid_daftar_sandi));
+	w2ui.layout.content('right', $().w2grid(config_daftar_sandi.grid_detail_daftar_sandi));
+	w2ui['grid_daftar_sandi'].load('index.php/ctrl_daftar_sandi/read');
+	w2ui['grid_daftar_sandi'].on('reload', function(event) {
+		this.load('index.php/ctrl_daftar_sandi/read');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+		w2ui['grid_detail_daftar_sandi'].clear();
+	});
+}
+*/
+function menu_daftar_sandi(){
+	desObj();
+	w2ui['layout'].content('main', w2ui['layout2']);
+	w2ui.layout.content('main', $().w2grid(config_daftar_sandi.grid_daftar_sandi));
+	w2ui.layout.content('right', $().w2grid(config_daftar_sandi.grid_detail_daftar_sandi));
+	w2ui['grid_daftar_sandi'].load('index.php/ctrl_daftar_sandi/read');
+	w2ui['grid_daftar_sandi'].on('reload', function(event) {
+		this.load('index.php/ctrl_daftar_sandi/read');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+		w2ui['grid_detail_daftar_sandi'].clear();
+	});
+}
+
+
 </script>

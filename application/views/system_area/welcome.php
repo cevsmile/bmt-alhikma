@@ -25,11 +25,12 @@
 	<h3></h3>
 	<div class="row">
 		<div class="col-xs-4">
+			Versi ini masih mendevelop versi admin single user. Akutansinya sendiri lebih susah ketimbang membuat program interfacenya. Sangat diharapkan bantuan teman-teman untuk melakukan tweaking database. Thanks.
 		</div>
 		<div class="col-xs-4">
+			User Role akan ditambahkan usai applikasi untuk admin selesai, memang susah sekali harus merubah sistem nanti, tapi sistem inti adalah target saya saat ini.
 		</div>
-		<div class="col-xs-4">
-		</div>
+		<div class="col-xs-4"></div>
 	</div>
 
 </div>

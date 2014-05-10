@@ -24,11 +24,11 @@ class Ctrl_daftar_sandi extends CI_Controller {
 	function create() {
 		if (!empty($_POST)) {
 		   	$data = $this -> mod_daftar_sandi -> create();
-			$data['recid']= $data['Kode_Sandi'];
+			$data['recid']= $data['Id_Daftar_Sandi'];
 			
 			$res = Array();
 			$res['status'] = 'success';
-			$res['recid'] = $data['Kode_Sandi']; 
+			$res['recid'] = $data['Id_Daftar_Sandi']; 
 			//$res['total'] = intval($data['NIK']) + 1;
 			$res['records'] = $data; 
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
@@ -65,7 +65,7 @@ class Ctrl_daftar_sandi extends CI_Controller {
 			$newaray['total'] = $sums;
 			$newaray['records'] = $data;
 			for ($i = 0; $i < $sums; $i++) {
-				$data[$i] -> recid = $data[$i]->Kode_Sandi;
+				$data[$i] -> recid = $data[$i]->Id_Daftar_Sandi;
 			}
 			echo json_encode($newaray);
 		}
