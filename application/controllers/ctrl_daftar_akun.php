@@ -4,7 +4,8 @@ class Ctrl_daftar_akun extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
-		$this -> validation();
+		$this->load->library("authentication");
+		$this->authentication->validation();
 		$this -> load -> model('mod_daftar_akun');
 	}
 
@@ -31,7 +32,7 @@ class Ctrl_daftar_akun extends CI_Controller {
 			echo json_encode($this -> pegawai -> getByRecid($recid));
 	}
 */
-	public function update() {
+	function update() {
 		//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
 		if (!empty($_POST)) {
 			$this -> mod_daftar_akun -> update();
@@ -44,7 +45,7 @@ class Ctrl_daftar_akun extends CI_Controller {
 		}
 	}
 
-	public function create() {
+	function create() {
 		if (!empty($_POST)) {
 		   	$data = $this -> mod_daftar_akun -> create();
 			$data['recid']= $data['Kode_Akun'];
@@ -61,7 +62,7 @@ class Ctrl_daftar_akun extends CI_Controller {
 		}
 	}
 
-	public function delete($recid = null) {
+	function delete($recid = null) {
 		if (is_null($recid)) {
 			echo 'ERROR: Id not provided.';
 			return;
@@ -75,7 +76,7 @@ class Ctrl_daftar_akun extends CI_Controller {
 		echo json_encode($res);
 	}
 
-	function tester() {
+	function read() {
 		$data = $this -> mod_daftar_akun -> getAll();
 		$newaray = Array();
 		$sums = count($data);

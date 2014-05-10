@@ -4,34 +4,12 @@ class Ctrl_daftar_kode_bantu extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
-		$this -> validation();
+		$this->load->library("authentication");
+		$this->authentication->validation();
 		$this -> load -> model('mod_daftar_kode_bantu');
 	}
 
-	function validation() {
-		$imlogin = $this -> session -> userdata('imlogin');
-
-		if (!isset($imlogin) || $imlogin != TRUE) {
-			redirect('site');
-			// kick users butt :D
-		}
-	}
-
-	function logout() {
-		$this -> session -> sess_destroy();
-		redirect('site');
-	}
-/*
-	function read() {
-		echo json_encode($this -> pegawai -> getAll());
-	}
-
-	function getByRecid($recid) {
-		if (isset($recid))
-			echo json_encode($this -> pegawai -> getByRecid($recid));
-	}
-*/
-	public function update() {
+	function update() {
 		//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
 		if (!empty($_POST)) {
 			$this -> mod_daftar_kode_bantu -> update();
@@ -44,7 +22,7 @@ class Ctrl_daftar_kode_bantu extends CI_Controller {
 		}
 	}
 
-	public function create() {
+	function create() {
 		if (!empty($_POST)) {
 		   	$data = $this -> mod_daftar_kode_bantu -> create();
 			$data['recid']= $data['Kode_Pembantu'];
@@ -61,7 +39,7 @@ class Ctrl_daftar_kode_bantu extends CI_Controller {
 		}
 	}
 
-	public function delete($recid = null) {
+	function delete($recid = null) {
 		if (is_null($recid)) {
 			echo 'ERROR: Id not provided.';
 			return;
@@ -75,7 +53,7 @@ class Ctrl_daftar_kode_bantu extends CI_Controller {
 		echo json_encode($res);
 	}
 
-	function tester() {
+	function read() {
 		$data = $this -> mod_daftar_kode_bantu -> getAll();
 		$newaray = Array();
 		$sums = count($data);

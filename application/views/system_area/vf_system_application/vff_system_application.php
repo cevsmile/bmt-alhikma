@@ -111,9 +111,9 @@ function menu_identitas_bmt(){
 	desObj();
 	w2ui.layout.content('main', $().w2grid(config_identitas_bmt.grid_identitas_bmt));
 	w2ui.layout.content('right', $().w2grid(config_identitas_bmt.grid_detail_identitas_bmt));
-	w2ui['grid_identitas_bmt'].load('index.php/ctrl_identitas_bmt/tester');
+	w2ui['grid_identitas_bmt'].load('index.php/ctrl_identitas_bmt/read');
 	w2ui['grid_identitas_bmt'].on('reload', function(event) {
-		this.load('index.php/ctrl_identitas_bmt/tester');
+		this.load('index.php/ctrl_identitas_bmt/read');
 		this.selectNone();
 		this.reset();
 		this.refresh();
@@ -125,9 +125,9 @@ function menu_daftar_akun(){
 	desObj();
 	w2ui.layout.content('main', $().w2grid(config_daftar_akun.grid_daftar_akun));
 	w2ui.layout.content('right', $().w2grid(config_daftar_akun.grid_detail_daftar_akun));
-	w2ui['grid_daftar_akun'].load('index.php/ctrl_daftar_akun/tester');
+	w2ui['grid_daftar_akun'].load('index.php/ctrl_daftar_akun/read');
 	w2ui['grid_daftar_akun'].on('reload', function(event) {
-		this.load('index.php/ctrl_daftar_akun/tester');
+		this.load('index.php/ctrl_daftar_akun/read');
 		this.selectNone();
 		this.reset();
 		this.refresh();
@@ -139,9 +139,9 @@ function menu_pegawai(){
 	desObj();
 	w2ui.layout.content('main', $().w2grid(config_pegawai.grid_pegawai));
 	w2ui.layout.content('right', $().w2grid(config_pegawai.grid_detail_pegawai));
-	w2ui['grid_pegawai'].load('index.php/ctrl_pegawai/tester');
+	w2ui['grid_pegawai'].load('index.php/ctrl_pegawai/read');
 	w2ui['grid_pegawai'].on('reload', function(event) {
-		this.load('index.php/ctrl_pegawai/tester');
+		this.load('index.php/ctrl_pegawai/read');
 		this.selectNone();
 		this.reset();
 		this.refresh();
@@ -153,9 +153,9 @@ function menu_nasabah(){
 	desObj();
 	w2ui.layout.content('main', $().w2grid(config_nasabah.grid_nasabah));
 	w2ui.layout.content('right', $().w2grid(config_nasabah.grid_detail_nasabah));
-	w2ui['grid_nasabah'].load('index.php/ctrl_nasabah/tester');
+	w2ui['grid_nasabah'].load('index.php/ctrl_nasabah/read');
 	w2ui['grid_nasabah'].on('reload', function(event) {
-		this.load('index.php/ctrl_nasabah/tester');
+		this.load('index.php/ctrl_nasabah/read');
 		this.selectNone();
 		this.reset();
 		this.refresh();
@@ -167,9 +167,9 @@ function menu_supplier(){
 	desObj();
 	w2ui.layout.content('main', $().w2grid(config_supplier.grid_supplier));
 	w2ui.layout.content('right', $().w2grid(config_supplier.grid_detail_supplier));
-	w2ui['grid_supplier'].load('index.php/ctrl_supplier/tester');
+	w2ui['grid_supplier'].load('index.php/ctrl_supplier/read');
 	w2ui['grid_supplier'].on('reload', function(event) {
-		this.load('index.php/ctrl_supplier/tester');
+		this.load('index.php/ctrl_supplier/read');
 		this.selectNone();
 		this.reset();
 		this.refresh();
@@ -181,9 +181,9 @@ function menu_daftar_sandi(){
 	desObj();
 	w2ui.layout.content('main', $().w2grid(config_daftar_sandi.grid_daftar_sandi));
 	w2ui.layout.content('right', $().w2grid(config_daftar_sandi.grid_detail_daftar_sandi));
-	w2ui['grid_daftar_sandi'].load('index.php/ctrl_daftar_sandi/tester');
+	w2ui['grid_daftar_sandi'].load('index.php/ctrl_daftar_sandi/read');
 	w2ui['grid_daftar_sandi'].on('reload', function(event) {
-		this.load('index.php/ctrl_daftar_sandi/tester');
+		this.load('index.php/ctrl_daftar_sandi/read');
 		this.selectNone();
 		this.reset();
 		this.refresh();

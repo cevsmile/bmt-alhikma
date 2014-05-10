@@ -21,19 +21,19 @@ class Site extends CI_Controller {
 	// Delete This Code if you already set up the application
 	function first_installation() {
 		$this -> load -> model('installation');
-		$query = $this -> installation -> add_pegawai();
+		$query = $this -> installation -> add_user();
 		redirect('');
 	}// end of first_installation function
 
-	//====================End Of Delete========================================
+	
 
 	function validate() {
 		$this -> load -> model('system_area');
 		$query = $this -> system_area -> check_user();
-		echo $query;
+		//echo $query;
 		if ($query)// if data were found..
 		{
-			$data = array('Username' => $this -> input -> post('Username'), 'imlogin' => true);
+			$data = array('username' => $this -> input -> post('username'), 'imlogin' => true);
 
 			$this -> session -> set_userdata($data);
 			//saving data to session

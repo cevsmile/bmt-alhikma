@@ -71,7 +71,7 @@ var config_daftar_akun = {
 			var record = this.get(event.recid);
 			
 			w2ui['grid_detail_daftar_akun'].add([
-				{ recid: 0, name: 'Kode Akun:', value: record.Kode_Akun },
+				{ recid: 0, name: 'Kode Akun:', value: record.Id_Daftar_Akun },
 				{ recid: 1, name: 'Nama Akun:', value: record.Nama_Akun },
 				{ recid: 2, name: 'Akun D/K:', value: record.Akun_DK },
 				{ recid: 3, name: 'Akun NR/LR:', value: record.Akun_NR_LR },
@@ -106,7 +106,7 @@ var config_daftar_akun = {
 			Save: function () {
 				this.save(function (data) {
 					if (data.status == 'success') {
-						w2ui['grid_daftar_akun'].set(data.records.Kode_Akun, data.records);
+						w2ui['grid_daftar_akun'].set(data.records.Id_Daftar_Akun, data.records);
 						w2ui['grid_daftar_akun'].refresh();
 						w2ui['grid_daftar_akun'].selectNone();
 						w2ui['grid_detail_daftar_akun'].clear();
@@ -120,7 +120,7 @@ var config_daftar_akun = {
 	form_add_daftar_akun: {
 		name: 'form_add_daftar_akun',
 		fields: [
-			{ name: 'Kode_Akun', type: 'text', required: true, html: { caption: 'Kode Akun', attr: 'size="10"' } },
+			{ name: 'Id_Daftar_Akun', type: 'text', required: true, html: { caption: 'Kode Akun', attr: 'size="10"' } },
 			{ name: 'Nama_Akun', type: 'text', required: true, html: { caption: 'Nama Akun', attr: 'size="40" maxlength="40"' } },
 			{ name: 'Akun_DK', type: 'text', required: true, html: { caption: 'Akun DK', attr: 'size="5" maxlength="2"' } },
 			{ name: 'Akun_NR_LR', type: 'text', html: { caption: 'Neraca Lajur/Laba Rugi', attr: 'size="5" maxlength="2"' } },
