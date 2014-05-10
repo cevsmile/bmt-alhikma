@@ -1,40 +1,18 @@
 <?php
 
-class Ctrl_daftar_kode_bantu extends CI_Controller {
+class Ctrl_nomor_rekening extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
-		$this -> validation();
-		$this -> load -> model('mod_daftar_kode_bantu');
+		$this->load->library("authentication");
+		$this->authentication->validation();
+		$this -> load -> model('mod_nomor_rekening');
 	}
 
-	function validation() {
-		$imlogin = $this -> session -> userdata('imlogin');
-
-		if (!isset($imlogin) || $imlogin != TRUE) {
-			redirect('site');
-			// kick users butt :D
-		}
-	}
-
-	function logout() {
-		$this -> session -> sess_destroy();
-		redirect('site');
-	}
-/*
-	function read() {
-		echo json_encode($this -> pegawai -> getAll());
-	}
-
-	function getByRecid($recid) {
-		if (isset($recid))
-			echo json_encode($this -> pegawai -> getByRecid($recid));
-	}
-*/
-	public function update() {
+	function update() {
 		//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
 		if (!empty($_POST)) {
-			$this -> mod_daftar_kode_bantu -> update();
+			$this -> mod_nomor_rekening -> update();
 			$res = Array();
 			$res['status'] = 'success';
 			$res['records'] = $_REQUEST['record'];
@@ -44,14 +22,14 @@ class Ctrl_daftar_kode_bantu extends CI_Controller {
 		}
 	}
 
-	public function create() {
+	function create() {
 		if (!empty($_POST)) {
-		   	$data = $this -> mod_daftar_kode_bantu -> create();
-			$data['recid']= $data['Kode_Pembantu'];
+		   	$data = $this -> mod_nomor_rekening -> create();
+			$data['recid']= $data['Kode_Norek'];
 			
 			$res = Array();
 			$res['status'] = 'success';
-			$res['recid'] = $data['Kode_Pembantu']; 
+			$res['recid'] = $data['Kode_Norek']; 
 			//$res['total'] = intval($data['NIK']) + 1;
 			$res['records'] = $data; 
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
@@ -61,13 +39,13 @@ class Ctrl_daftar_kode_bantu extends CI_Controller {
 		}
 	}
 
-	public function delete($recid = null) {
+	function delete($recid = null) {
 		if (is_null($recid)) {
 			echo 'ERROR: Id not provided.';
 			return;
 		}
 
-		$this -> mod_daftar_kode_bantu -> delete($recid);
+		$this -> mod_nomor_rekening -> delete($recid);
 		$res = Array();
 		$res['status'] = 'success';
 		//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
@@ -75,8 +53,8 @@ class Ctrl_daftar_kode_bantu extends CI_Controller {
 		echo json_encode($res);
 	}
 
-	function tester() {
-		$data = $this -> mod_daftar_kode_bantu -> getAll();
+	function read() {
+		$data = $this -> mod_nomor_rekening -> getAll();
 		$newaray = Array();
 		$sums = count($data);
 		if ($sums==0){
@@ -88,7 +66,7 @@ class Ctrl_daftar_kode_bantu extends CI_Controller {
 			$newaray['total'] = $sums;
 			$newaray['records'] = $data;
 			for ($i = 0; $i < $sums; $i++) {
-				$data[$i] -> recid = $data[$i]->Kode_Pembantu;
+				$data[$i] -> recid = $data[$i]->Kode_Norek;
 			}
 			echo json_encode($newaray);
 		}

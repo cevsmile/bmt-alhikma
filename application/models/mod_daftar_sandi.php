@@ -32,10 +32,10 @@ class Mod_daftar_sandi extends CI_Model {
 		$data = $this->input->post("record", TRUE);
         $datalist = array(
             'Nama_Sandi' => $data["Nama_Sandi"],
-            'Akun_DB' => $data["Akun_DB"],
-            'Akun_KR' => $data["Akun_KR"]
+            'Id_Daftar_Akun_Debit' => $data["Id_Daftar_Akun_Debit"],
+            'Id_Daftar_Akun_Kredit' => $data["Id_Daftar_Akun_Kredit"]
         );
-        $this->db->update( 'daftar_sandi', $datalist, array( 'Kode_Sandi' => $this->input->post( 'recid', true ) ) );
+        $this->db->update( 'daftar_sandi', $datalist, array( 'Id_Daftar_Sandi' => $this->input->post( 'recid', true ) ) );
 		//return $datalist;
     }	
 
@@ -53,7 +53,7 @@ class Mod_daftar_sandi extends CI_Model {
         */
         $recid = intval( $recid );
         
-        $this->db->delete( 'daftar_sandi', array( 'Kode_Sandi' => $recid ) );
+        $this->db->delete( 'daftar_sandi', array( 'Id_Daftar_Sandi' => $recid ) );
     } //end delete	
     
 }// end of class

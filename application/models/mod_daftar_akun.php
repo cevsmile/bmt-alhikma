@@ -37,7 +37,7 @@ class Mod_daftar_akun extends CI_Model {
             'Jumlah_Debit' => $data["Jumlah_Debit"],
             'Jumlah_Kredit' => $data["Jumlah_Kredit"]
         );
-        $this->db->update( 'daftar_akun', $datalist, array( 'Kode_Akun' => $this->input->post( 'recid', true ) ) );
+        $this->db->update( 'daftar_akun', $datalist, array( 'Id_Daftar_Akun' => $this->input->post( 'recid', true ) ) );
 		//return $datalist;
     }	
 
@@ -55,7 +55,7 @@ class Mod_daftar_akun extends CI_Model {
         */
         $recid = intval( $recid );
         
-        $this->db->delete( 'daftar_akun', array( 'Kode_Akun' => $recid ) );
+        $this->db->delete( 'daftar_akun', array( 'Id_Daftar_Akun' => $recid ) );
     } //end delete	
     
 }// end of class

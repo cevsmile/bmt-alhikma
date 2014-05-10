@@ -4,9 +4,14 @@ class System_area extends CI_Controller {
 
 	function __construct() {
 		parent::__construct();
-		$this -> validation();
-		$this -> load -> model('mod_pegawai');
+		$this->load->library("authentication");
+		$this->authentication->validation();
 	}
+
+	function logout() {
+		$this->authentication->logout();
+	}
+
 
 	function bmt_center() {
 		$data['title'] = 'BMT System Home Page';
@@ -41,19 +46,7 @@ class System_area extends CI_Controller {
 
 
 	
-	function validation() {
-		$imlogin = $this -> session -> userdata('imlogin');
 
-		if (!isset($imlogin) || $imlogin != TRUE) {
-			redirect('site');
-			// kick users butt :D
-		}
-	}
-
-	function logout() {
-		$this -> session -> sess_destroy();
-		redirect('site');
-	}
 
 
 
@@ -127,4 +120,5 @@ class System_area extends CI_Controller {
 		//"<pre>"; die(print_r($data, TRUE));
 	}
 */
-}// End of system area
+}
+// End of system area

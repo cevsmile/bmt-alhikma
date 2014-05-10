@@ -1,6 +1,16 @@
 <script type="text/javascript">
 // widget configuration
 var config_daftar_sandi = {
+	layout_daftar_sandi: {
+		name: 'layout_daftar_sandi',
+		padding: 4,
+		panels: [
+			{ type: 'left', size: '50%', resizable: true, minSize: 10 },
+			{ type: 'preview', size: '50%', resizable: true, minSize: 10 },
+			{ type: 'main', size: '50%', resizable: true, minSize: 10 }
+		]
+	},
+
 	grid_daftar_sandi: { 
         name : 'grid_daftar_sandi',
         header : 'Data Sandi BMT AL-Hikma',
@@ -37,8 +47,8 @@ var config_daftar_sandi = {
         columns: [
             { field: 'recid', caption: 'Kode Sandi', size: '150px', searchable: true, sortable: true },
             { field: 'Nama_Sandi', caption: 'Nama Sandi', size: '150px', searchable: true, sortable: true },
-            { field: 'Akun_DB', caption: 'Akun Debit', size: '150px', searchable: true, sortable: true },
-            { field: 'Akun_KR', caption: 'Akun Kredit', size: '100%', searchable: true, sortable: true }
+            { field: 'Id_Daftar_Akun_Debit', caption: 'Akun Debit', size: '150px', searchable: true, sortable: true },
+            { field: 'Id_Daftar_Akun_Kredit', caption: 'Akun Kredit', size: '100%', searchable: true, sortable: true }
         ],
         onAdd: function (event) {
 	        call_add_daftar_sandi(event.recid);
@@ -69,10 +79,10 @@ var config_daftar_sandi = {
 			var record = this.get(event.recid);
 			
 			w2ui['grid_detail_daftar_sandi'].add([
-				{ recid: 0, name: 'Kode Sandi:', value: record.Kode_Sandi},
+				{ recid: 0, name: 'Kode Sandi:', value: record.Id_Daftar_Sandi},
 				{ recid: 1, name: 'Nama Sandi:', value: record.Nama_Sandi },
-				{ recid: 2, name: 'Akun Debit:', value: record.Akun_DB },
-				{ recid: 3, name: 'Akun Kredit:', value: record.Akun_KR }
+				{ recid: 2, name: 'Akun Debit:', value: record.Id_Daftar_Akun_Debit },
+				{ recid: 3, name: 'Akun Kredit:', value: record.Id_Daftar_Akun_Kredit }
 			]);
 		}
 	},
@@ -90,8 +100,8 @@ var config_daftar_sandi = {
 		fields: [
 			{ name: 'recid', type: 'text', required: true, html: { caption: 'Kode Sandi', attr: 'size="20" readonly' } },
 			{ name: 'Nama_Sandi', type: 'text', required: true, html: { caption: 'Nama Sandi', attr: 'size="20" maxlength="20"' } },
-			{ name: 'Akun_DB', type: 'text', html: { caption: 'Akun Debit', attr: 'size="20" maxlength="20"' } },
-			{ name: 'Akun_KR', type: 'text', html: { caption: 'Akun Kredit', attr: 'size="20" maxlength="20"' } }
+			{ name: 'Id_Daftar_Akun_Debit', type: 'text', html: { caption: 'Akun Debit', attr: 'size="20" maxlength="20"' } },
+			{ name: 'Id_Daftar_Akun_Kredit', type: 'text', html: { caption: 'Akun Kredit', attr: 'size="20" maxlength="20"' } }
 		],
 		actions: {
 			Reset: function () {
@@ -100,7 +110,7 @@ var config_daftar_sandi = {
 			Save: function () {
 				this.save(function (data) {
 					if (data.status == 'success') {
-						w2ui['grid_daftar_sandi'].set(data.records.Kode_Sandi, data.records);
+						w2ui['grid_daftar_sandi'].set(data.records.Id_Daftar_Sandi, data.records);
 						w2ui['grid_daftar_sandi'].refresh();
 						w2ui['grid_daftar_sandi'].selectNone();
 						w2ui['grid_detail_daftar_sandi'].clear();
@@ -114,10 +124,10 @@ var config_daftar_sandi = {
 	form_add_daftar_sandi: {
 		name: 'form_add_daftar_sandi',
 		fields: [
-			{ name: 'Kode_Sandi', type: 'text', required: true, html: { caption: 'Kode Sandi', attr: 'size="20"' } },
+			{ name: 'Id_Daftar_Sandi', type: 'text', required: true, html: { caption: 'Kode Sandi', attr: 'size="20"' } },
 			{ name: 'Nama_Sandi', type: 'text', required: true, html: { caption: 'Nama Sandi', attr: 'size="20" maxlength="20"' } },
-			{ name: 'Akun_DB', type: 'text', html: { caption: 'Akun Debit', attr: 'size="20" maxlength="20"' } },
-			{ name: 'Akun_KR', type: 'text', html: { caption: 'Akun Kredit', attr: 'size="20" maxlength="20"' } }
+			{ name: 'Id_Daftar_Akun_Debit', type: 'text', required: true, html: { caption: 'Akun Debit', attr: 'size="20" maxlength="20" readonly' } },
+			{ name: 'Id_Daftar_Akun_Kredit', type: 'text', required: true, html: { caption: 'Akun Kredit', attr: 'size="20" maxlength="20" readonly' } }
 		],
 		actions: {
 			Reset: function () {
@@ -134,23 +144,94 @@ var config_daftar_sandi = {
 				
 			}
 		}
+	},
+	grid_dt_akun_debit: { 
+        name : 'grid_dt_akun_debit',
+        header : 'Daftar Akun BMT AL-Hikma',
+		show : {
+			toolbar : true,
+	        header : true,
+	        footer : true,
+	        lineNumbers: true
+		},
+        columns: [
+            { field: 'recid', caption: 'Kode Akun', size: '150px', searchable: true, sortable: true },
+            { field: 'Nama_Akun', caption: 'Nama Akun', size: '150px', searchable: true, sortable: true }
+		]
+	},
+	grid_dt_akun_kredit: { 
+        name : 'grid_dt_akun_kredit',
+        header : 'Daftar Akun BMT AL-Hikma',
+		show : {
+			toolbar : true,
+	        header : true,
+	        footer : true,
+	        lineNumbers: true
+		},
+        columns: [
+            { field: 'recid', caption: 'Kode Akun', size: '150px', searchable: true, sortable: true },
+            { field: 'Nama_Akun', caption: 'Nama Akun', size: '150px', searchable: true, sortable: true }
+		]
 	}
 		
 }
 
 $(function () {
-	$().w2form(config_daftar_sandi.form_add_daftar_sandi);
-	$().w2form(config_daftar_sandi.form_edit_daftar_sandi);
+	
+	//$().w2form(config_daftar_sandi.form_add_daftar_sandi);
+	
+	//$().w2form(config_daftar_sandi.form_edit_daftar_sandi);
 	
 });
 
 
 function call_edit_daftar_sandi(recid) {
+
+	$().w2destroy('form_edit_daftar_sandi');
+	$().w2destroy('form_add_daftar_sandi');
+	$().w2destroy('grid_dt_akun_debit');
+	$().w2destroy('grid_dt_akun_kredit');
+	
+	$().w2layout(config_daftar_sandi.layout_daftar_sandi);
+	w2ui.layout_daftar_sandi.content('left', $().w2form(config_daftar_sandi.form_edit_daftar_sandi));
+	w2ui.layout_daftar_sandi.content('main', $().w2grid(config_daftar_sandi.grid_dt_akun_debit));
+	w2ui.layout_daftar_sandi.content('preview', $().w2grid(config_daftar_sandi.grid_dt_akun_kredit));
+
+	load_data_to_grid();
+
+	w2ui.grid_dt_akun_debit.on('click', function(event) {
+		var grid = this;
+		var form_edit_daftar_sandi = w2ui.form_edit_daftar_sandi;
+		event.onComplete = function () {
+			var sel = grid.getSelection();
+			if (sel.length == 1) {
+				form_edit_daftar_sandi.record['Id_Daftar_Akun_Debit']  = sel[0];
+				form_edit_daftar_sandi.refresh();
+			} else {
+				form_edit_daftar_sandi.clear();
+			}
+		}
+	});
+	
+	w2ui.grid_dt_akun_kredit.on('click', function(event) {
+		var grid = this;
+		var form_edit_daftar_sandi = w2ui.form_edit_daftar_sandi;
+		event.onComplete = function () {
+			var sel = grid.getSelection();
+			if (sel.length == 1) {
+				form_edit_daftar_sandi.record['Id_Daftar_Akun_Kredit']  = sel[0];
+				form_edit_daftar_sandi.refresh();
+			} else {
+				form_edit_daftar_sandi.clear();
+			}
+		}
+	});	
+	
 	$().w2popup('open', {
 		title	: 'Edit Data Sandi BMT',
-		body	: '<div id="form_edit_daftar_sandi" style="width: 100%; height: 100%;"></div>',
+		body	: '<div id="popup_edit_daftar_sandi" style="width: 100%; height: 100%;"></div>',
 		style	: 'padding: 0px 0px 0px 0px',
-		width	: 500,
+		width	: 700,
 		height	: 600, 
 		showMax : true,
 		onMin	: function (event) {
@@ -169,7 +250,7 @@ function call_edit_daftar_sandi(recid) {
 		},
 		onOpen	: function (event) {
 			event.onComplete = function () {
-				$('#w2ui-popup #form_edit_daftar_sandi').w2render('form_edit_daftar_sandi');
+				$('#w2ui-popup #popup_edit_daftar_sandi').w2render('layout_daftar_sandi');
 				w2ui['form_edit_daftar_sandi'].url = {save: 'index.php/ctrl_daftar_sandi/update/'};
 				
 			}
@@ -179,12 +260,53 @@ function call_edit_daftar_sandi(recid) {
 }
 
 function call_add_daftar_sandi(recid) {
+	$().w2destroy('layout_daftar_sandi');
+	$().w2destroy('form_add_daftar_sandi');
+	$().w2destroy('grid_dt_akun_debit');
+	$().w2destroy('grid_dt_akun_kredit');
+	
+	$().w2layout(config_daftar_sandi.layout_daftar_sandi);
+	w2ui.layout_daftar_sandi.content('left', $().w2form(config_daftar_sandi.form_add_daftar_sandi));
+	w2ui.layout_daftar_sandi.content('main', $().w2grid(config_daftar_sandi.grid_dt_akun_debit));
+	w2ui.layout_daftar_sandi.content('preview', $().w2grid(config_daftar_sandi.grid_dt_akun_kredit));
+
+	load_data_to_grid();
+
+	
+	w2ui.grid_dt_akun_debit.on('click', function(event) {
+		var grid = this;
+		var form_add_daftar_sandi = w2ui.form_add_daftar_sandi;
+		event.onComplete = function () {
+			var sel = grid.getSelection();
+			if (sel.length == 1) {
+				form_add_daftar_sandi.record['Id_Daftar_Akun_Debit']  = sel[0];
+				form_add_daftar_sandi.refresh();
+			} else {
+				form_add_daftar_sandi.clear();
+			}
+		}
+	});
+	
+	w2ui.grid_dt_akun_kredit.on('click', function(event) {
+		var grid = this;
+		var form_add_daftar_sandi = w2ui.form_add_daftar_sandi;
+		event.onComplete = function () {
+			var sel = grid.getSelection();
+			if (sel.length == 1) {
+				form_add_daftar_sandi.record['Id_Daftar_Akun_Kredit']  = sel[0];
+				form_add_daftar_sandi.refresh();
+			} else {
+				form_add_daftar_sandi.clear();
+			}
+		}
+	});	
+		
 	$().w2popup('open', {
 		title	: 'Add Daftar Sandi BMT',
-		body	: '<div id="form_add_daftar_sandi" style="width: 100%; height: 100%;"></div>',
+		body	: '<div id="popup_add_daftar_sandi" style="width: 100%; height: 100%;"></div>',
 		style	: 'padding: 0px 0px 0px 0px',
-		width	: 500,
-		height	: 400, 
+		width	: 700,
+		height	: 600, 
 		showMax : true,
 		onMin	: function (event) {
 			$(w2ui.form_add_daftar_sandi.box).hide();
@@ -202,9 +324,16 @@ function call_add_daftar_sandi(recid) {
 		},
 		onOpen	: function (event) {
 			event.onComplete = function () {
+				
+				$('#w2ui-popup #popup_add_daftar_sandi').w2render('layout_daftar_sandi');
+				w2ui['form_add_daftar_sandi'].url = {save: 'index.php/ctrl_daftar_sandi/create/'};
+				
+			/*	
+				
 				$('#w2ui-popup #form_add_daftar_sandi').w2render('form_add_daftar_sandi');
 				w2ui['form_add_daftar_sandi'].url = {save: 'index.php/ctrl_daftar_sandi/create/'};
 				w2ui['form_add_daftar_sandi'].action('Reset');
+			*/
 			}
 		}
 	});
@@ -261,5 +390,24 @@ function call_delete_daftar_sandi(delrecid){
 		},
 	});	
 	
+}
+
+
+function load_data_to_grid(){
+	w2ui['grid_dt_akun_debit'].load('index.php/ctrl_daftar_akun/read');
+	w2ui['grid_dt_akun_debit'].on('reload', function(event) {
+		this.load('index.php/ctrl_daftar_akun/read');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+	});
+
+	w2ui['grid_dt_akun_kredit'].load('index.php/ctrl_daftar_akun/read');
+	w2ui['grid_dt_akun_kredit'].on('reload', function(event) {
+		this.load('index.php/ctrl_daftar_akun/read');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+	});	
 }
 </script>

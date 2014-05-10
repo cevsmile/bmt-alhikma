@@ -1,7 +1,7 @@
 <?php 
 $attributes = array('class' => "navbar-form navbar-right", 'role' => 'form');
-$Username = array('name' => 'Username', 'type' => 'text', 'value' => 'admin', 'placeholder' => 'Email', 'class' => 'form-control');
-$Password = array('name' => 'Password', 'type' => 'password', 'value' => 'admin', 'placeholder' => 'Password', 'class' => 'form-control');
+$username = array('name' => 'username', 'type' => 'text', 'value' => 'admin', 'placeholder' => 'Email', 'class' => 'form-control');
+$password = array('name' => 'password', 'type' => 'password', 'value' => 'admin', 'placeholder' => 'Password', 'class' => 'form-control');
 $Subkan = array('type' => 'submit', 'name' => 'submit', 'value' => 'Sign in', 'class' => 'btn btn-success');
 ?>
 
@@ -19,10 +19,10 @@ $Subkan = array('type' => 'submit', 'name' => 'submit', 'value' => 'Sign in', 'c
 		<div class="navbar-collapse collapse">
 			<?php echo form_open('site/validate', $attributes); ?>
 			<div class="form-group">
-				<?php echo form_input($Username); ?>
+				<?php echo form_input($username); ?>
 			</div>
 			<div class="form-group">
-				<?php echo form_password($Password); ?>
+				<?php echo form_password($password); ?>
 			</div>
 			<?php echo form_submit($Subkan);
 				echo form_close();

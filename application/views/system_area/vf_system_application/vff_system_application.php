@@ -5,6 +5,7 @@
 <?php $this->load->view('system_area/vf_system_application/vf_nasabah/vff_nasabah'); ?>
 <?php $this->load->view('system_area/vf_system_application/vf_supplier/vff_supplier'); ?>
 <?php $this->load->view('system_area/vf_system_application/vf_daftar_sandi/vff_daftar_sandi'); ?>
+<?php $this->load->view('system_area/vf_system_application/vf_user/vff_user'); ?>
 
 <script type="text/javascript">
 // widget configuration
@@ -29,11 +30,11 @@ var config = {
 					   { id: 'level-1-3', text: 'Pegawai', img: 'icon-page' },
 					   { id: 'level-1-4', text: 'Nasabah', img: 'icon-page' },
 					   { id: 'level-1-5', text: 'Supplier', img: 'icon-page' },
-					   { id: 'level-1-6', text: 'Daftar Sandi', img: 'icon-page' }
+					   { id: 'level-1-6', text: 'User', img: 'icon-page' }
 					 ]
 			},
-			{ id: 'level-2', text: 'Level 2', img: 'icon-folder',
-			  nodes: [ { id: 'level-2-1', text: 'Level 2.1', icon: 'fa fa-home' },
+			{ id: 'level-2', text: 'SECONDARY MASTER', img: 'icon-folder',
+			  nodes: [ { id: 'level-2-1', text: 'Daftar Sandi', img: 'icon-page' },
 					   { id: 'level-2-2', text: 'Level 2.2', icon: 'fa fa-home'  },
 					   { id: 'level-2-3', text: 'Barcode', icon: 'fa fa-barcode'  }
 					 ]
@@ -57,7 +58,7 @@ $(function () {
 			case 'level-1':
 				desObj();
 				w2ui['layout'].hide('right', true);
-				w2ui.layout.content('main', '<div style="padding: 10px">Some HTML</div>');
+				w2ui.layout.content('main', '<div style="padding: 10px">This data should not be null, before you can proceed to another link, you should really fill this form completly.</div>');
 				break;
 			case 'level-1-1':
 				menu_identitas_bmt();
@@ -75,15 +76,15 @@ $(function () {
 				menu_supplier();
 				break;
 			case 'level-1-6':
-				menu_daftar_sandi();
+				menu_user();
 				break;
-			case 'html':
-				w2ui.layout.content('main', '<div style="padding: 10px">Some HTML</div>');
-				$(w2ui.layout.el('main'))
-					.removeClass('w2ui-grid')
-					.css({ 
-						'border-left': '1px solid silver'
-					});
+			case 'level-2':
+				desObj();
+				w2ui['layout'].hide('right', true);
+				w2ui.layout.content('main', '<div style="padding: 10px">This data Required befor you can proceed to accounting data. Master Data associate to this item shoud be filled.</div>');
+				break;			
+			case 'level-2-1':
+				menu_daftar_sandi();
 				break;
 		}
 	});
@@ -105,15 +106,17 @@ function desObj(){
 	$().w2destroy('grid_detail_supplier');
 	$().w2destroy('grid_daftar_sandi');
 	$().w2destroy('grid_detail_daftar_sandi');
+	$().w2destroy('grid_user');
+	$().w2destroy('grid_detail_user');
 }
 
 function menu_identitas_bmt(){
 	desObj();
 	w2ui.layout.content('main', $().w2grid(config_identitas_bmt.grid_identitas_bmt));
 	w2ui.layout.content('right', $().w2grid(config_identitas_bmt.grid_detail_identitas_bmt));
-	w2ui['grid_identitas_bmt'].load('index.php/ctrl_identitas_bmt/tester');
+	w2ui['grid_identitas_bmt'].load('index.php/ctrl_identitas_bmt/read');
 	w2ui['grid_identitas_bmt'].on('reload', function(event) {
-		this.load('index.php/ctrl_identitas_bmt/tester');
+		this.load('index.php/ctrl_identitas_bmt/read');
 		this.selectNone();
 		this.reset();
 		this.refresh();
@@ -125,9 +128,9 @@ function menu_daftar_akun(){
 	desObj();
 	w2ui.layout.content('main', $().w2grid(config_daftar_akun.grid_daftar_akun));
 	w2ui.layout.content('right', $().w2grid(config_daftar_akun.grid_detail_daftar_akun));
-	w2ui['grid_daftar_akun'].load('index.php/ctrl_daftar_akun/tester');
+	w2ui['grid_daftar_akun'].load('index.php/ctrl_daftar_akun/read');
 	w2ui['grid_daftar_akun'].on('reload', function(event) {
-		this.load('index.php/ctrl_daftar_akun/tester');
+		this.load('index.php/ctrl_daftar_akun/read');
 		this.selectNone();
 		this.reset();
 		this.refresh();
@@ -139,9 +142,9 @@ function menu_pegawai(){
 	desObj();
 	w2ui.layout.content('main', $().w2grid(config_pegawai.grid_pegawai));
 	w2ui.layout.content('right', $().w2grid(config_pegawai.grid_detail_pegawai));
-	w2ui['grid_pegawai'].load('index.php/ctrl_pegawai/tester');
+	w2ui['grid_pegawai'].load('index.php/ctrl_pegawai/read');
 	w2ui['grid_pegawai'].on('reload', function(event) {
-		this.load('index.php/ctrl_pegawai/tester');
+		this.load('index.php/ctrl_pegawai/read');
 		this.selectNone();
 		this.reset();
 		this.refresh();
@@ -153,9 +156,9 @@ function menu_nasabah(){
 	desObj();
 	w2ui.layout.content('main', $().w2grid(config_nasabah.grid_nasabah));
 	w2ui.layout.content('right', $().w2grid(config_nasabah.grid_detail_nasabah));
-	w2ui['grid_nasabah'].load('index.php/ctrl_nasabah/tester');
+	w2ui['grid_nasabah'].load('index.php/ctrl_nasabah/read');
 	w2ui['grid_nasabah'].on('reload', function(event) {
-		this.load('index.php/ctrl_nasabah/tester');
+		this.load('index.php/ctrl_nasabah/read');
 		this.selectNone();
 		this.reset();
 		this.refresh();
@@ -167,9 +170,9 @@ function menu_supplier(){
 	desObj();
 	w2ui.layout.content('main', $().w2grid(config_supplier.grid_supplier));
 	w2ui.layout.content('right', $().w2grid(config_supplier.grid_detail_supplier));
-	w2ui['grid_supplier'].load('index.php/ctrl_supplier/tester');
+	w2ui['grid_supplier'].load('index.php/ctrl_supplier/read');
 	w2ui['grid_supplier'].on('reload', function(event) {
-		this.load('index.php/ctrl_supplier/tester');
+		this.load('index.php/ctrl_supplier/read');
 		this.selectNone();
 		this.reset();
 		this.refresh();
@@ -177,17 +180,48 @@ function menu_supplier(){
 	});
 }
 
+function menu_user(){
+	desObj();
+	w2ui.layout.content('main', $().w2grid(config_user.grid_user));
+	w2ui.layout.content('right', $().w2grid(config_user.grid_detail_user));
+	w2ui['grid_user'].load('index.php/ctrl_user/read');
+	w2ui['grid_user'].on('reload', function(event) {
+		this.load('index.php/ctrl_user/read');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+		w2ui['grid_detail_user'].clear();
+	});
+}
+/* working daftar sandi
 function menu_daftar_sandi(){
 	desObj();
 	w2ui.layout.content('main', $().w2grid(config_daftar_sandi.grid_daftar_sandi));
 	w2ui.layout.content('right', $().w2grid(config_daftar_sandi.grid_detail_daftar_sandi));
-	w2ui['grid_daftar_sandi'].load('index.php/ctrl_daftar_sandi/tester');
+	w2ui['grid_daftar_sandi'].load('index.php/ctrl_daftar_sandi/read');
 	w2ui['grid_daftar_sandi'].on('reload', function(event) {
-		this.load('index.php/ctrl_daftar_sandi/tester');
+		this.load('index.php/ctrl_daftar_sandi/read');
 		this.selectNone();
 		this.reset();
 		this.refresh();
 		w2ui['grid_detail_daftar_sandi'].clear();
 	});
 }
+*/
+function menu_daftar_sandi(){
+	desObj();
+	w2ui['layout'].content('main', w2ui['layout2']);
+	w2ui.layout.content('main', $().w2grid(config_daftar_sandi.grid_daftar_sandi));
+	w2ui.layout.content('right', $().w2grid(config_daftar_sandi.grid_detail_daftar_sandi));
+	w2ui['grid_daftar_sandi'].load('index.php/ctrl_daftar_sandi/read');
+	w2ui['grid_daftar_sandi'].on('reload', function(event) {
+		this.load('index.php/ctrl_daftar_sandi/read');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+		w2ui['grid_detail_daftar_sandi'].clear();
+	});
+}
+
+
 </script>

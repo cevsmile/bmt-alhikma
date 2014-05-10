@@ -1,37 +1,14 @@
 <?php
 
 class Ctrl_daftar_sandi extends CI_Controller {
-
 	function __construct() {
 		parent::__construct();
-		$this -> validation();
+		$this->load->library("authentication");
+		$this->authentication->validation();
 		$this -> load -> model('mod_daftar_sandi');
 	}
 
-	function validation() {
-		$imlogin = $this -> session -> userdata('imlogin');
-
-		if (!isset($imlogin) || $imlogin != TRUE) {
-			redirect('site');
-			// kick users butt :D
-		}
-	}
-
-	function logout() {
-		$this -> session -> sess_destroy();
-		redirect('site');
-	}
-/*
-	function read() {
-		echo json_encode($this -> pegawai -> getAll());
-	}
-
-	function getByRecid($recid) {
-		if (isset($recid))
-			echo json_encode($this -> pegawai -> getByRecid($recid));
-	}
-*/
-	public function update() {
+	function update() {
 		//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
 		if (!empty($_POST)) {
 			$this -> mod_daftar_sandi -> update();
@@ -44,14 +21,14 @@ class Ctrl_daftar_sandi extends CI_Controller {
 		}
 	}
 
-	public function create() {
+	function create() {
 		if (!empty($_POST)) {
 		   	$data = $this -> mod_daftar_sandi -> create();
-			$data['recid']= $data['Kode_Sandi'];
+			$data['recid']= $data['Id_Daftar_Sandi'];
 			
 			$res = Array();
 			$res['status'] = 'success';
-			$res['recid'] = $data['Kode_Sandi']; 
+			$res['recid'] = $data['Id_Daftar_Sandi']; 
 			//$res['total'] = intval($data['NIK']) + 1;
 			$res['records'] = $data; 
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
@@ -61,7 +38,7 @@ class Ctrl_daftar_sandi extends CI_Controller {
 		}
 	}
 
-	public function delete($recid = null) {
+	function delete($recid = null) {
 		if (is_null($recid)) {
 			echo 'ERROR: Id tidak tersedia.';
 			return;
@@ -75,7 +52,7 @@ class Ctrl_daftar_sandi extends CI_Controller {
 		echo json_encode($res);
 	}
 
-	function tester() {
+	function read() {
 		$data = $this -> mod_daftar_sandi -> getAll();
 		$newaray = Array();
 		$sums = count($data);
@@ -88,7 +65,7 @@ class Ctrl_daftar_sandi extends CI_Controller {
 			$newaray['total'] = $sums;
 			$newaray['records'] = $data;
 			for ($i = 0; $i < $sums; $i++) {
-				$data[$i] -> recid = $data[$i]->Kode_Sandi;
+				$data[$i] -> recid = $data[$i]->Id_Daftar_Sandi;
 			}
 			echo json_encode($newaray);
 		}
