@@ -1,6 +1,6 @@
 /*
 Created		15/04/2014
-Modified		09/05/2014
+Modified		11/05/2014
 Project		Akutansi BMT
 Model		Utama
 Company		BMT AL-Hikma
@@ -25,6 +25,7 @@ Database		mySQL 5
 
 
 
+drop table IF EXISTS Bank_Lain;
 drop table IF EXISTS Nomor_Rekening;
 drop table IF EXISTS Daftar_Akun;
 drop table IF EXISTS User;
@@ -65,15 +66,15 @@ Create table Nasabah (
  Primary Key (Id_Nasabah)) ENGINE = InnoDB;
 
 Create table Daftar_Sandi (
-	id_daftar_sandi Char(20) NOT NULL,
-	Nama_Sandi Char(20),
-	Kode_Akun_Debit Char(4),
-	Kode_Akun_Kredit Char(4),
- Primary Key (id_daftar_sandi)) ENGINE = InnoDB;
+	Id_Daftar_Sandi Char(2) NOT NULL,
+	Id_Daftar_Akun_Debit Char(4),
+	Id_Daftar_Akun_Kredit Char(4),
+	Nama_Sandi Varchar(50),
+ Primary Key (Id_Daftar_Sandi)) ENGINE = InnoDB;
 
 Create table KAS (
-	id_daftar_sandi Char(20) NOT NULL,
 	Kode_Norek Char(20) NOT NULL,
+	Id_Daftar_Sandi Char(2) NOT NULL,
 	Validasi Varchar(200),
 	Jumlah Int,
 	Log_Date Date,
@@ -81,8 +82,8 @@ Create table KAS (
 	log_user Char(20)) ENGINE = InnoDB;
 
 Create table Jurnal_Beli_Kredit (
-	id_daftar_sandi Char(20) NOT NULL,
 	Kode_Norek Char(20) NOT NULL,
+	Id_Daftar_Sandi Char(2) NOT NULL,
 	Tanggal Datetime,
 	Faktur Char(20),
 	Jumlah_Pembelian Int,
@@ -108,8 +109,8 @@ Create table Pegawai (
  Primary Key (NIK)) ENGINE = InnoDB;
 
 Create table Bank (
-	id_daftar_sandi Char(20) NOT NULL,
 	Kode_Norek Char(20) NOT NULL,
+	Id_Daftar_Sandi Char(2) NOT NULL,
 	Validasi Char(5),
 	Jumlah Int,
 	Log_Date Date NOT NULL,
@@ -118,7 +119,7 @@ Create table Bank (
 
 Create table Jurnal_Jual (
 	Kode_Norek Char(20) NOT NULL,
-	id_daftar_sandi Char(20) NOT NULL,
+	Id_Daftar_Sandi Char(2) NOT NULL,
 	Tanggal Date,
 	Faktur Char(20),
 	Jumlah_Jual Int,
@@ -135,13 +136,13 @@ Create table Supplier (
  Primary Key (Id_Supplier)) ENGINE = InnoDB;
 
 Create table User (
-	id_user Char(20) NOT NULL,
-	username Char(20),
-	password Char(20),
-	log_date Date,
-	log_time Time,
-	level Char(1),
- Primary Key (id_user)) ENGINE = InnoDB;
+	Id_User Int NOT NULL AUTO_INCREMENT,
+	Username Char(20),
+	Password Char(32),
+	Log_Date Date,
+	Log_Time Time,
+	Level Int,
+ Primary Key (Id_User)) ENGINE = InnoDB;
 
 Create table Daftar_Akun (
 	Id_Daftar_Akun Char(4) NOT NULL,
@@ -160,10 +161,19 @@ Create table Nomor_Rekening (
 	Id_Daftar_Akun Char(4) NOT NULL,
 	Id_Supplier Char(20),
 	NIK Int,
-	log_date Date,
-	log_time Time,
-	log_user Char(20),
+	Log_Date Date NOT NULL,
+	Log_Time Time NOT NULL,
+	Log_User Char(20) NOT NULL,
  Primary Key (Kode_Norek)) ENGINE = InnoDB;
+
+Create table Bank_Lain (
+	Kode_Norek Char(20) NOT NULL,
+	Id_Daftar_Sandi Char(2) NOT NULL,
+	Validasi Char(5),
+	Jumlah Int,
+	Log_Date Date NOT NULL,
+	Log_Time Time NOT NULL,
+	Log_User Char(20) NOT NULL) ENGINE = InnoDB;
 
 
 
@@ -178,19 +188,21 @@ Create table Nomor_Rekening (
 
 Alter table Nomor_Rekening add Foreign Key (Kode_Cabang) references Identitas_BMT (Kode_Cabang) on delete  restrict on update  restrict;
 Alter table Nomor_Rekening add Foreign Key (Id_Nasabah) references Nasabah (Id_Nasabah) on delete  restrict on update  restrict;
-Alter table KAS add Foreign Key (id_daftar_sandi) references Daftar_Sandi (id_daftar_sandi) on delete  restrict on update  restrict;
-Alter table Bank add Foreign Key (id_daftar_sandi) references Daftar_Sandi (id_daftar_sandi) on delete  restrict on update  restrict;
-Alter table Jurnal_Beli_Kredit add Foreign Key (id_daftar_sandi) references Daftar_Sandi (id_daftar_sandi) on delete  restrict on update  restrict;
-Alter table Jurnal_Jual add Foreign Key (id_daftar_sandi) references Daftar_Sandi (id_daftar_sandi) on delete  restrict on update  restrict;
+Alter table KAS add Foreign Key (Id_Daftar_Sandi) references Daftar_Sandi (Id_Daftar_Sandi) on delete  restrict on update  restrict;
+Alter table Bank add Foreign Key (Id_Daftar_Sandi) references Daftar_Sandi (Id_Daftar_Sandi) on delete  restrict on update  restrict;
+Alter table Jurnal_Beli_Kredit add Foreign Key (Id_Daftar_Sandi) references Daftar_Sandi (Id_Daftar_Sandi) on delete  restrict on update  restrict;
+Alter table Jurnal_Jual add Foreign Key (Id_Daftar_Sandi) references Daftar_Sandi (Id_Daftar_Sandi) on delete  restrict on update  restrict;
+Alter table Bank_Lain add Foreign Key (Id_Daftar_Sandi) references Daftar_Sandi (Id_Daftar_Sandi) on delete  restrict on update  restrict;
 Alter table Nomor_Rekening add Foreign Key (NIK) references Pegawai (NIK) on delete  restrict on update  restrict;
 Alter table Nomor_Rekening add Foreign Key (Id_Supplier) references Supplier (Id_Supplier) on delete  restrict on update  restrict;
 Alter table Nomor_Rekening add Foreign Key (Id_Daftar_Akun) references Daftar_Akun (Id_Daftar_Akun) on delete  restrict on update  restrict;
-Alter table Daftar_Sandi add Foreign Key (Kode_Akun_Debit) references Daftar_Akun (Id_Daftar_Akun) on delete  restrict on update  restrict;
-Alter table Daftar_Sandi add Foreign Key (Kode_Akun_Kredit) references Daftar_Akun (Id_Daftar_Akun) on delete  restrict on update  restrict;
+Alter table Daftar_Sandi add Foreign Key (Id_Daftar_Akun_Debit) references Daftar_Akun (Id_Daftar_Akun) on delete  restrict on update  restrict;
+Alter table Daftar_Sandi add Foreign Key (Id_Daftar_Akun_Kredit) references Daftar_Akun (Id_Daftar_Akun) on delete  restrict on update  restrict;
 Alter table KAS add Foreign Key (Kode_Norek) references Nomor_Rekening (Kode_Norek) on delete  restrict on update  restrict;
 Alter table Jurnal_Jual add Foreign Key (Kode_Norek) references Nomor_Rekening (Kode_Norek) on delete  restrict on update  restrict;
 Alter table Bank add Foreign Key (Kode_Norek) references Nomor_Rekening (Kode_Norek) on delete  restrict on update  restrict;
 Alter table Jurnal_Beli_Kredit add Foreign Key (Kode_Norek) references Nomor_Rekening (Kode_Norek) on delete  restrict on update  restrict;
+Alter table Bank_Lain add Foreign Key (Kode_Norek) references Nomor_Rekening (Kode_Norek) on delete  restrict on update  restrict;
 
 
 
