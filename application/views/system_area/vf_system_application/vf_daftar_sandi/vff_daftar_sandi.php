@@ -3,11 +3,11 @@
 var config_daftar_sandi = {
 	layout_daftar_sandi: {
 		name: 'layout_daftar_sandi',
-		padding: 4,
+		padding: 2,
 		panels: [
-			{ type: 'left', size: '50%', resizable: true, minSize: 10 },
-			{ type: 'preview', size: '50%', resizable: true, minSize: 10 },
-			{ type: 'main', size: '50%', resizable: true, minSize: 10 }
+			{ type: 'left', size: '50%', resizable: true, minSize: 50 },
+			{ type: 'preview', size: '50%', resizable: true, minSize: 70 },
+			{ type: 'main', size: '50%', resizable: true, minSize: 50 }
 		]
 	},
 
@@ -156,7 +156,7 @@ var config_daftar_sandi = {
 		},
         columns: [
             { field: 'recid', caption: 'Kode Akun', size: '150px', searchable: true, sortable: true },
-            { field: 'Nama_Akun', caption: 'Nama Akun', size: '150px', searchable: true, sortable: true }
+            { field: 'Nama_Akun', caption: 'Nama Akun', size: '100%', searchable: true, sortable: true }
 		]
 	},
 	grid_dt_akun_kredit: { 
@@ -170,7 +170,7 @@ var config_daftar_sandi = {
 		},
         columns: [
             { field: 'recid', caption: 'Kode Akun', size: '150px', searchable: true, sortable: true },
-            { field: 'Nama_Akun', caption: 'Nama Akun', size: '150px', searchable: true, sortable: true }
+            { field: 'Nama_Akun', caption: 'Nama Akun', size: '100%', searchable: true, sortable: true }
 		]
 	}
 		
@@ -187,8 +187,8 @@ $(function () {
 
 function call_edit_daftar_sandi(recid) {
 
+	$().w2destroy('layout_daftar_sandi');
 	$().w2destroy('form_edit_daftar_sandi');
-	$().w2destroy('form_add_daftar_sandi');
 	$().w2destroy('grid_dt_akun_debit');
 	$().w2destroy('grid_dt_akun_kredit');
 	
@@ -235,17 +235,17 @@ function call_edit_daftar_sandi(recid) {
 		height	: 600, 
 		showMax : true,
 		onMin	: function (event) {
-			$(w2ui.form_edit_daftar_sandi.box).hide();
+			$(w2ui.layout_daftar_sandi.box).hide();
 			event.onComplete = function () {
-				$(w2ui.form_edit_daftar_sandi.box).show();
-				w2ui.form_edit_daftar_sandi.resize();
+				$(w2ui.layout_daftar_sandi.box).show();
+				w2ui.layout_daftar_sandi.resize();
 			}
 		},
 		onMax	: function (event) {
-			$(w2ui.form_edit_daftar_sandi.box).hide();
+			$(w2ui.layout_daftar_sandi.box).hide();
 			event.onComplete = function () {
-				$(w2ui.form_edit_daftar_sandi.box).show();
-				w2ui.form_edit_daftar_sandi.resize();
+				$(w2ui.layout_daftar_sandi.box).show();
+				w2ui.layout_daftar_sandi.resize();
 			}
 		},
 		onOpen	: function (event) {
@@ -309,17 +309,17 @@ function call_add_daftar_sandi(recid) {
 		height	: 600, 
 		showMax : true,
 		onMin	: function (event) {
-			$(w2ui.form_add_daftar_sandi.box).hide();
+			$(w2ui.layout_daftar_sandi.box).hide();
 			event.onComplete = function () {
-				$(w2ui.form_add_daftar_sandi.box).show();
-				w2ui.form_add_daftar_sandi.resize();
+				$(w2ui.layout_daftar_sandi.box).show();
+				w2ui.layout_daftar_sandi.resize();
 			}
 		},
 		onMax	: function (event) {
-			$(w2ui.form_add_daftar_sandi.box).hide();
+			$(w2ui.layout_daftar_sandi.box).hide();
 			event.onComplete = function () {
-				$(w2ui.form_add_daftar_sandi.box).show();
-				w2ui.form_add_daftar_sandi.resize();
+				$(w2ui.layout_daftar_sandi.box).show();
+				w2ui.layout_daftar_sandi.resize();
 			}
 		},
 		onOpen	: function (event) {

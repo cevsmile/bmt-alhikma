@@ -93,11 +93,11 @@ var config_daftar_akun = {
 		name: 'form_edit_daftar_akun',
 		fields: [
 			{ name: 'recid', type: 'text', required: true, html: { caption: 'Kode Akun', attr: 'size="10" readonly' } },
-			{ name: 'Nama_Akun', type: 'text', required: true, html: { caption: 'Nama Akun', attr: 'size="40" maxlength="40"' } },
-			{ name: 'Akun_DK', type: 'text', required: true, html: { caption: 'Akun D/K', attr: 'size="5" maxlength="2"' } },
+			{ name: 'Nama_Akun', type: 'text', html: { caption: 'Nama Akun', attr: 'size="40" maxlength="40"' } },
+			{ name: 'Akun_DK', type: 'text', html: { caption: 'Akun D/K', attr: 'size="5" maxlength="2"' } },
 			{ name: 'Akun_NR_LR', type: 'text', html: { caption: 'Neraca Lajur/Laba Rugi', attr: 'size="5" maxlength="2"' } },
 			{ name: 'Jumlah_Debit', type: 'int', html: { caption: 'Jumlah di Debit'} },
-			{ name: 'Jumlah_Kredit', type: 'int', required: true, html: { caption: 'Jumlah di Kredit'} }
+			{ name: 'Jumlah_Kredit', type: 'int', html: { caption: 'Jumlah di Kredit'} }
 		],
 		actions: {
 			Reset: function () {
@@ -121,8 +121,8 @@ var config_daftar_akun = {
 		name: 'form_add_daftar_akun',
 		fields: [
 			{ name: 'Id_Daftar_Akun', type: 'text', required: true, html: { caption: 'Kode Akun', attr: 'size="10"' } },
-			{ name: 'Nama_Akun', type: 'text', required: true, html: { caption: 'Nama Akun', attr: 'size="40" maxlength="40"' } },
-			{ name: 'Akun_DK', type: 'text', required: true, html: { caption: 'Akun DK', attr: 'size="5" maxlength="2"' } },
+			{ name: 'Nama_Akun', type: 'text', html: { caption: 'Nama Akun', attr: 'size="40" maxlength="40"' } },
+			{ name: 'Akun_DK', type: 'text', html: { caption: 'Akun DK', attr: 'size="5" maxlength="2"' } },
 			{ name: 'Akun_NR_LR', type: 'text', html: { caption: 'Neraca Lajur/Laba Rugi', attr: 'size="5" maxlength="2"' } },
 			{ name: 'Jumlah_Debit', type: 'int', html: { caption: 'Jumlah Debit'} },
 			{ name: 'Jumlah_Kredit', type: 'int', html: { caption: 'Jumlah Kredit'} }
