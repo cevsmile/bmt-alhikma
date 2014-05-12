@@ -35,11 +35,11 @@ var config_daftar_akun = {
 			}
 		},
         columns: [
-            { field: 'recid', caption: 'Kode Akun', size: '150px', searchable: true, sortable: true },
-            { field: 'Nama_Akun', caption: 'Nama Akun', size: '150px', searchable: true, sortable: true },
-            { field: 'Akun_DK', caption: 'Alamat DK', size: '150px', searchable: true, sortable: true },
-            { field: 'Akun_NR_LR', caption: 'Neraca Lajur/Laba Rugi', size: '100%', searchable: true, sortable: true },
-            { field: 'Jumlah_Debit', caption: 'Jumlah Debit', size: '100%', searchable: true, sortable: true },
+            { field: 'recid', caption: 'Kode Akun', size: '50px', searchable: true, sortable: true },
+            { field: 'Nama_Akun', caption: 'Nama Akun', size: '100%', searchable: true, sortable: true },
+            { field: 'Akun_DK', caption: 'Posisi D/K', size: '150px', searchable: true, sortable: true },
+            { field: 'Akun_NR_LR', caption: 'Neraca Lajur/Laba Rugi', size: '150px', searchable: true, sortable: true },
+            { field: 'Jumlah_Debit', caption: 'Jumlah Debit', size: '100px', searchable: true, sortable: true },
             { field: 'Jumlah_Kredit', caption: 'Jumlah Kredit', size: '100%', searchable: true, sortable: true }
         ],
         onAdd: function (event) {
