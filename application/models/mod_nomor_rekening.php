@@ -56,7 +56,7 @@ class Mod_nomor_rekening extends CI_Model {
 		$this->db->set($datalist);         
 		$this->db->set('Log_Date', 'CURRENT_DATE()', FALSE);
 		$this->db->set('Log_Time', 'CURRENT_TIME()', FALSE);
-		$data = $this -> db -> insert('user', $datalist);
+		$data = $this -> db -> insert('nomor_rekening', $datalist);
 		return $data;
     }	
     

@@ -1,6 +1,6 @@
 /*
 Created		15/04/2014
-Modified		12/05/2014
+Modified		13/05/2014
 Project		Akutansi BMT
 Model		Utama
 Company		BMT AL-Hikma
@@ -159,7 +159,7 @@ Create table Nomor_Rekening (
 	Id_Daftar_Akun Char(4) NOT NULL,
 	Id_Nasabah Int,
 	Id_Supplier Char(20),
-	NIK Int NOT NULL,
+	NIK Int,
 	Log_Date Date NOT NULL,
 	Log_Time Time NOT NULL,
 	Log_User Char(20) NOT NULL,
