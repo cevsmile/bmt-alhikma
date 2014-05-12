@@ -39,7 +39,7 @@ class Mod_identitas_bmt extends CI_Model {
             'Tgl_Pembukuan' => date('Y-m-d', strtotime($data["Tgl_Pembukuan"]))
         );		
         $this->db->update( 'identitas_bmt', $datalist, array( 'Kode_Cabang' => $this->input->post( 'recid', true ) ) );
-		//return $datalist;
+		return $datalist;
     }	
 
     public function create() {

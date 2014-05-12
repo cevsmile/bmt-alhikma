@@ -197,7 +197,7 @@ function call_edit_daftar_sandi(recid) {
 	w2ui.layout_daftar_sandi.content('main', $().w2grid(config_daftar_sandi.grid_dt_akun_debit));
 	w2ui.layout_daftar_sandi.content('preview', $().w2grid(config_daftar_sandi.grid_dt_akun_kredit));
 
-	load_data_to_grid();
+	load_data_to_grid_daftar_sandi();
 
 	w2ui.grid_dt_akun_debit.on('click', function(event) {
 		var grid = this;
@@ -270,7 +270,7 @@ function call_add_daftar_sandi(recid) {
 	w2ui.layout_daftar_sandi.content('main', $().w2grid(config_daftar_sandi.grid_dt_akun_debit));
 	w2ui.layout_daftar_sandi.content('preview', $().w2grid(config_daftar_sandi.grid_dt_akun_kredit));
 
-	load_data_to_grid();
+	load_data_to_grid_daftar_sandi();
 
 	
 	w2ui.grid_dt_akun_debit.on('click', function(event) {
@@ -393,7 +393,7 @@ function call_delete_daftar_sandi(delrecid){
 }
 
 
-function load_data_to_grid(){
+function load_data_to_grid_daftar_sandi(){
 	w2ui['grid_dt_akun_debit'].load('index.php/ctrl_daftar_akun/read');
 	w2ui['grid_dt_akun_debit'].on('reload', function(event) {
 		this.load('index.php/ctrl_daftar_akun/read');

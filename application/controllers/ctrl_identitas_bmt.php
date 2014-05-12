@@ -11,10 +11,16 @@ class Ctrl_identitas_bmt extends CI_Controller {
 	function update() {
 		//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
 		if (!empty($_POST)) {
-			$this -> mod_identitas_bmt -> update();
+			$data = $this -> mod_identitas_bmt -> update();
 			$res = Array();
 			$res['status'] = 'success';
-			$res['records'] = $_REQUEST['record'];
+			$res['records'] = $data;
+			$res['records']['Tgl_Pembukuan'] = date('m/d/Y', strtotime($data['Tgl_Pembukuan']));
+			$res['records']['Kode_Cabang'] = $this->input->post( 'recid', true );
+			$res['records']['selected'] = true;
+			//echo "<pre>"; die(print_r($_REQUEST['record'], TRUE));
+			
+			//$res['records'] = $_REQUEST['record'];
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
 			//$res['postData']= $_REQUEST;
 			echo json_encode($res);
@@ -66,7 +72,7 @@ class Ctrl_identitas_bmt extends CI_Controller {
 			$newaray['records'] = $data;
 			for ($i = 0; $i < $sums; $i++) {
 				$data[$i] -> recid = $data[$i]->Kode_Cabang;
-				$data[$i] -> Tanggal_Pembukuan = $data[$i]->Kode_Cabang;
+				$data[$i] -> Tgl_Pembukuan = date('m/d/Y', strtotime($data[$i]->Tgl_Pembukuan));
 			}
 			echo json_encode($newaray);
 		}

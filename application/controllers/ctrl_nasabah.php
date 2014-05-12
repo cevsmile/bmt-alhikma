@@ -11,10 +11,14 @@ class Ctrl_nasabah extends CI_Controller {
 	function update() {
 		//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
 		if (!empty($_POST)) {
-			$this -> mod_nasabah -> update();
+			$data = $this -> mod_nasabah -> update();
 			$res = Array();
 			$res['status'] = 'success';
-			$res['records'] = $_REQUEST['record'];
+			$res['records'] = $data;
+			$res['records']['Tanggal_Masuk'] = date('m/d/Y', strtotime($data['Tanggal_Masuk']));
+			$res['records']['Tanggal_Keluar'] = date('m/d/Y', strtotime($data['Tanggal_Keluar']));
+			$res['records']['Id_Nasabah'] = $this->input->post( 'recid', true );
+			$res['records']['selected'] = true;
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
 			//$res['postData']= $_REQUEST;
 			echo json_encode($res);
@@ -24,11 +28,11 @@ class Ctrl_nasabah extends CI_Controller {
 	function create() {
 		if (!empty($_POST)) {
 		   	$data = $this -> mod_nasabah -> create();
-			$data['recid']= $data['No_Urut_Nasabah'];
+			$data['recid']= $data['Id_Nasabah'];
 			
 			$res = Array();
 			$res['status'] = 'success';
-			$res['recid'] = $data['No_Urut_Nasabah']; 
+			$res['recid'] = $data['Id_Nasabah']; 
 			//$res['total'] = intval($data['NIK']) + 1;
 			$res['records'] = $data; 
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
@@ -65,7 +69,9 @@ class Ctrl_nasabah extends CI_Controller {
 			$newaray['total'] = $sums;
 			$newaray['records'] = $data;
 			for ($i = 0; $i < $sums; $i++) {
-				$data[$i] -> recid = $data[$i]->No_Urut_Nasabah;
+				$data[$i] -> recid = $data[$i]->Id_Nasabah;
+				$data[$i] -> Tanggal_Masuk = date('m/d/Y', strtotime($data[$i]->Tanggal_Masuk));
+				$data[$i] -> Tanggal_Keluar = date('m/d/Y', strtotime($data[$i]->Tanggal_Keluar));
 			}
 			echo json_encode($newaray);
 		}

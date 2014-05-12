@@ -37,23 +37,33 @@ class Mod_nasabah extends CI_Model {
             'Nomor_KTP' => $data["Nomor_KTP"],
             'Nomor_SIM' => $data["Nomor_SIM"],
             'Jenis_Kelamin' => $data["Jenis_Kelamin"],
-            'Tanggal_Masuk' => $data["Tanggal_Masuk"],
-            'Tanggal_Keluar' => $data["Tanggal_Keluar"],
+            'Tanggal_Masuk' => date('Y-m-d', strtotime($data["Tanggal_Masuk"])),
+            'Tanggal_Keluar' => date('Y-m-d', strtotime($data["Tanggal_Keluar"])),
             'Status' => $data["Status"],
-            'Pembaruan' => $data["Pembaruan"],
             'Saldo_Awal' => $data["Saldo_Awal"],
-            'Saldo_Akhir' => $data["Saldo_Akhir"],
-            'Username' => $data["Username"]
+            'Saldo_Akhir' => $data["Saldo_Akhir"]
         );		
-        $this->db->update( 'nasabah', $datalist, array( 'No_Urut_Nasabah' => $this->input->post( 'recid', true ) ) );
-		//return $datalist;
+        $this->db->update( 'nasabah', $datalist, array( 'Id_Nasabah' => $this->input->post( 'recid', true ) ) );
+		return $datalist;
     }	
 
     public function create() {
- 		$data = $this->input->post("record");
-        $this->db->insert( 'nasabah', $data );
-        //return $this->db->insert_id();
-        return $data;
+ 		$data = $this->input->post("record", TRUE);
+        $datalist = array(
+            'Nama' => $data["Nama"],
+            'Alamat' => $data["Alamat"],
+            'Nomor_KTP' => $data["Nomor_KTP"],
+            'Nomor_SIM' => $data["Nomor_SIM"],
+            'Jenis_Kelamin' => $data["Jenis_Kelamin"],
+            'Tanggal_Masuk' => date('Y-m-d', strtotime($data["Tanggal_Masuk"])),
+            'Tanggal_Keluar' => date('Y-m-d', strtotime($data["Tanggal_Keluar"])),
+            'Status' => $data["Status"],
+            'Saldo_Awal' => $data["Saldo_Awal"],
+            'Saldo_Akhir' => $data["Saldo_Akhir"]
+        );
+		//$this->db->set($datalist);
+		$this -> db -> insert('nasabah', $datalist);
+		return $datalist;
     }	
     
     public function delete( $recid ) {
@@ -63,7 +73,7 @@ class Mod_nasabah extends CI_Model {
         */
         $recid = intval( $recid );
         
-        $this->db->delete( 'nasabah', array( 'No_Urut_Nasabah' => $recid ) );
+        $this->db->delete( 'nasabah', array( 'Id_Nasabah' => $recid ) );
     } //end delete	
     
 }// end of class

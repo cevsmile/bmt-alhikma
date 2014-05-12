@@ -92,11 +92,11 @@ var config_identitas_bmt = {
 	form_edit_identitas_bmt: {
 		name: 'form_edit_identitas_bmt',
 		fields: [
-			{ name: 'recid', type: 'text', html: { caption: 'Kode Cabang', attr: 'size="10" readonly' } },
-			{ name: 'Nama_BMT', type: 'text', required: true, html: { caption: 'Nama BMT', attr: 'size="40" maxlength="40"' } },
-			{ name: 'Alamat_BMT', type: 'text', required: true, html: { caption: 'Alamat BMT', attr: 'size="40" maxlength="40"' } },
-			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="10"' } },
-			{ name: 'Nomor_Registrasi', type: 'text', html: { caption: 'Nomor SIM', attr: 'size="10"' } },
+			{ name: 'recid', type: 'text', required: true, html: { caption: 'Kode Cabang', attr: 'size="3" readonly' } },
+			{ name: 'Nama_BMT', type: 'textarea', html: { caption: 'Nama BMT', attr: 'size="200" maxlength="200"' } },
+			{ name: 'Alamat_BMT', type: 'textarea',html: { caption: 'Alamat BMT', attr: 'size="200" maxlength="200"' } },
+			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="20"' } },
+			{ name: 'Nomor_Registrasi', type: 'text', html: { caption: 'Nomor SIM', attr: 'size="20"' } },
 			{ name: 'Tgl_Pembukuan', type: 'date', required: true, html: { caption: 'Tanggal Pembukuan'} }
 		],
 		actions: {
@@ -106,6 +106,7 @@ var config_identitas_bmt = {
 			Save: function () {
 				this.save(function (data) {
 					if (data.status == 'success') {
+						//menumpuk baris data lama dengan data baru dari controller
 						w2ui['grid_identitas_bmt'].set(data.records.Kode_Cabang, data.records);
 						w2ui['grid_identitas_bmt'].refresh();
 						w2ui['grid_identitas_bmt'].selectNone();
@@ -120,9 +121,9 @@ var config_identitas_bmt = {
 	form_add_identitas_bmt: {
 		name: 'form_add_identitas_bmt',
 		fields: [
-			{ name: 'Kode_Cabang', type: 'text', required: true, html: { caption: 'Kode Cabang', attr: 'size="10"' } },
-			{ name: 'Nama_BMT', type: 'text', required: true, html: { caption: 'Nama BMT', attr: 'size="40" maxlength="40"' } },
-			{ name: 'Alamat_BMT', type: 'text', required: true, html: { caption: 'Alamat BMT', attr: 'size="40" maxlength="40"' } },
+			{ name: 'Kode_Cabang', type: 'text', required: true, html: { caption: 'Kode Cabang', attr: 'size="3"' } },
+			{ name: 'Nama_BMT', type: 'textarea', html: { caption: 'Nama BMT', attr: 'size="200" maxlength="200"' } },
+			{ name: 'Alamat_BMT', type: 'textarea', html: { caption: 'Alamat BMT', attr: 'size="200" maxlength="200"' } },
 			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="10"' } },
 			{ name: 'Nomor_Registrasi', type: 'text', html: { caption: 'Nomor Registrasi', attr: 'size="10"' } },
 			{ name: 'Tgl_Pembukuan', type: 'date', required: true, html: { caption: 'Tanggal Pembukuan'} }
@@ -179,6 +180,7 @@ function call_edit_identitas_bmt(recid) {
 			event.onComplete = function () {
 				$('#w2ui-popup #form_edit_identitas_bmt').w2render('form_edit_identitas_bmt');
 				w2ui['form_edit_identitas_bmt'].url = {save: 'index.php/ctrl_identitas_bmt/update/'};
+				w2ui['form_edit_identitas_bmt'].refresh();
 				
 			}
 		}
@@ -247,7 +249,6 @@ function call_delete_identitas_bmt(delrecid){
 							w2ui['grid_detail_identitas_bmt'].clear();
 							$().w2popup('close');
 						}
-					// if error, it is already displayed by w2form
 					});
 				},
 				"cancel": function () {

@@ -4,9 +4,9 @@
 <?php $this->load->view('system_area/vf_system_application/vf_pegawai/vff_pegawai'); ?>
 <?php $this->load->view('system_area/vf_system_application/vf_nasabah/vff_nasabah'); ?>
 <?php $this->load->view('system_area/vf_system_application/vf_supplier/vff_supplier'); ?>
-<?php $this->load->view('system_area/vf_system_application/vf_daftar_sandi/vff_daftar_sandi'); ?>
 <?php $this->load->view('system_area/vf_system_application/vf_user/vff_user'); ?>
-
+<?php $this->load->view('system_area/vf_system_application/vf_daftar_sandi/vff_daftar_sandi'); ?>
+<?php $this->load->view('system_area/vf_system_application/vf_nomor_rekening/vff_nomor_rekening'); ?>
 <script type="text/javascript">
 // widget configuration
 var config = {
@@ -35,7 +35,7 @@ var config = {
 			},
 			{ id: 'level-2', text: 'SECONDARY MASTER', img: 'icon-folder',
 			  nodes: [ { id: 'level-2-1', text: 'Daftar Sandi', img: 'icon-page' },
-					   { id: 'level-2-2', text: 'Level 2.2', icon: 'fa fa-home'  },
+					   { id: 'level-2-2', text: 'Nomor Rekening', img: 'icon-page'  },
 					   { id: 'level-2-3', text: 'Barcode', icon: 'fa fa-barcode'  }
 					 ]
 			}
@@ -86,6 +86,9 @@ $(function () {
 			case 'level-2-1':
 				menu_daftar_sandi();
 				break;
+			case 'level-2-2':
+				menu_nomor_rekening();
+				break;
 		}
 	});
 	
@@ -104,10 +107,12 @@ function desObj(){
 	$().w2destroy('grid_detail_nasabah');
 	$().w2destroy('grid_supplier');
 	$().w2destroy('grid_detail_supplier');
-	$().w2destroy('grid_daftar_sandi');
-	$().w2destroy('grid_detail_daftar_sandi');
 	$().w2destroy('grid_user');
 	$().w2destroy('grid_detail_user');
+	$().w2destroy('grid_daftar_sandi');
+	$().w2destroy('grid_detail_daftar_sandi');
+	$().w2destroy('grid_nomor_rekening');
+	$().w2destroy('grid_detail_nomor_rekening');
 }
 
 function menu_identitas_bmt(){
@@ -223,5 +228,20 @@ function menu_daftar_sandi(){
 	});
 }
 
+
+function menu_nomor_rekening(){
+	desObj();
+	w2ui['layout'].content('main', w2ui['layout2']);
+	w2ui.layout.content('main', $().w2grid(config_nomor_rekening.grid_nomor_rekening));
+	w2ui.layout.content('right', $().w2grid(config_nomor_rekening.grid_detail_nomor_rekening));
+	w2ui['grid_nomor_rekening'].load('index.php/ctrl_nomor_rekening/read');
+	w2ui['grid_nomor_rekening'].on('reload', function(event) {
+		this.load('index.php/ctrl_nomor_rekening/read');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+		w2ui['grid_detail_nomor_rekening'].clear();
+	});
+}
 
 </script>

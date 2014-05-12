@@ -35,12 +35,11 @@ var config_nasabah = {
 			}
 		},
         columns: [
-            { field: 'recid', caption: 'No. Urut Nasabah', size: '150px', searchable: true, sortable: true },
+            { field: 'recid', caption: 'ID Nasabah', size: '150px', searchable: true, sortable: true },
             { field: 'Nama', caption: 'Nama', size: '150px', searchable: true, sortable: true },
             { field: 'Alamat', caption: 'Alamat', size: '150px', searchable: true, sortable: true },
-            { field: 'Jenis_Kelamin', caption: 'Jenis Kelamin', size: '100%', searchable: true, sortable: true },
-            { field: 'Tanggal_Masuk', caption: 'Tanggal Masuk', size: '100%', searchable: true, sortable: true },
-            { field: 'Username', caption: 'Username', size: '100%', searchable: true, sortable: true }
+            { field: 'Nomor_KTP', caption: 'Nomor KTP', size: '100%', searchable: true, sortable: true },
+            { field: 'Status', caption: 'Status', size: '100%', searchable: true, sortable: true }
         ],
         onAdd: function (event) {
 	        call_add_nasabah(event.recid);
@@ -71,7 +70,7 @@ var config_nasabah = {
 			var record = this.get(event.recid);
 			
 			w2ui['grid_detail_nasabah'].add([
-				{ recid: 0, name: 'No. Urut :', value: record.No_Urut_Nasabah },
+				{ recid: 0, name: 'No. Urut :', value: record.Id_Nasabah },
 				{ recid: 1, name: 'Nama:', value: record.Nama },
 				{ recid: 2, name: 'Alamat:', value: record.Alamat },
 				{ recid: 3, name: 'Nomor KTP:', value: record.Nomor_KTP },
@@ -80,10 +79,8 @@ var config_nasabah = {
 				{ recid: 6, name: 'Tanggal Masuk:', value: record.Tanggal_Masuk },
 				{ recid: 7, name: 'Tanggal Keluar:', value: record.Tanggal_Keluar },
 				{ recid: 8, name: 'Status:', value: record.Status },
-				{ recid: 9, name: 'Pembaruan:', value: record.Pembaruan },
-				{ recid: 10, name: 'Saldo Awal:', value: record.Saldo_Awal },
-				{ recid: 11, name: 'Saldo Akhir:', value: record.Saldo_Akhir },
-				{ recid: 12, name: 'Username:', value: record.Username }
+				{ recid: 9, name: 'Saldo Awal:', value: record.Saldo_Awal },
+				{ recid: 10, name: 'Saldo Akhir:', value: record.Saldo_Akhir }
 			]);
 		}
 	},
@@ -99,19 +96,17 @@ var config_nasabah = {
 	form_edit_nasabah: {
 		name: 'form_edit_nasabah',
 		fields: [
-			{ name: 'recid', type: 'text', html: { caption: 'No. Urut', attr: 'size="10" readonly' } },
-			{ name: 'Nama', type: 'text', required: true, html: { caption: 'Nama', attr: 'size="40" maxlength="40"' } },
-			{ name: 'Alamat', type: 'text', required: true, html: { caption: 'Alamat', attr: 'size="40" maxlength="40"' } },
-			{ name: 'Nomor_KTP', type: 'text', html: { caption: 'Nomor KTP', attr: 'size="10"' } },
-			{ name: 'Nomor_SIM', type: 'text', html: { caption: 'Nomor SIM', attr: 'size="10"' } },
-			{ name: 'Jenis_Kelamin', type: 'text', html: { caption: 'Jenis Kelamin', attr: 'size="10"' } },
+			{ name: 'recid', type: 'text', required: true, html: { caption: 'ID Nasabah', attr: 'size="10" readonly' } },
+			{ name: 'Nama', type: 'textarea', html: { caption: 'Nama', attr: 'size="150" maxlength="150"' } },
+			{ name: 'Alamat', type: 'textarea', html: { caption: 'Alamat', attr: 'size="200" maxlength="200"' } },
+			{ name: 'Nomor_KTP', type: 'text', html: { caption: 'Nomor KTP', attr: 'size="20" maxlength="16"' } },
+			{ name: 'Nomor_SIM', type: 'text', html: { caption: 'Nomor SIM', attr: 'size="20" maxlength="12"' } },
+			{ name: 'Jenis_Kelamin', type: 'text', html: { caption: 'Jenis Kelamin', attr: 'size="20" maxlength="6"' } },
 			{ name: 'Tanggal_Masuk', type: 'date', html: { caption: 'Tanggal Masuk'} },
 			{ name: 'Tanggal_Keluar', type: 'date', html: { caption: 'Tanggal Keluar'} },
-			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="10"' } },
-			{ name: 'Pembaruan', type: 'date', html: { caption: 'Pembaruan'} },
+			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="2" maxlength="1"' } },
 			{ name: 'Saldo_Awal', type: 'int', html: { caption: 'Saldo Awal'} },
-			{ name: 'Saldo_Akhir', type: 'int', html: { caption: 'Saldo Akhir'} },
-			{ name: 'Username', type: 'text', html: { caption: 'Username', attr: 'size="10"' } }
+			{ name: 'Saldo_Akhir', type: 'int', html: { caption: 'Saldo Akhir'} }
 		],
 		actions: {
 			Reset: function () {
@@ -120,7 +115,7 @@ var config_nasabah = {
 			Save: function () {
 				this.save(function (data) {
 					if (data.status == 'success') {
-						w2ui['grid_nasabah'].set(data.records.NIK, data.records);
+						w2ui['grid_nasabah'].set(data.records.Id_Nasabah, data.records);
 						w2ui['grid_nasabah'].refresh();
 						w2ui['grid_nasabah'].selectNone();
 						w2ui['grid_detail_nasabah'].clear();
@@ -134,19 +129,17 @@ var config_nasabah = {
 	form_add_nasabah: {
 		name: 'form_add_nasabah',
 		fields: [
-			{ name: 'No_Urut_Nasabah', type: 'text', required: true, html: { caption: 'No. Urut', attr: 'size="10"' } },
-			{ name: 'Nama', type: 'text', required: true, html: { caption: 'Nama', attr: 'size="40" maxlength="40"' } },
-			{ name: 'Alamat', type: 'text', required: true, html: { caption: 'Alamat', attr: 'size="40" maxlength="40"' } },
-			{ name: 'Nomor_KTP', type: 'text', html: { caption: 'Nomor KTP', attr: 'size="10"' } },
-			{ name: 'Nomor_SIM', type: 'text', html: { caption: 'Nomor SIM', attr: 'size="10"' } },
-			{ name: 'Jenis_Kelamin', type: 'text', html: { caption: 'Jenis Kelamin', attr: 'size="10"' } },
+			//{ name: 'Id_Nasabah', type: 'text', required: true, html: { caption: 'ID Nasabah', attr: 'size="10" readonly' } },
+			{ name: 'Nama', type: 'textarea', html: { caption: 'Nama', attr: 'size="150" maxlength="150"' } },
+			{ name: 'Alamat', type: 'textarea', html: { caption: 'Alamat', attr: 'size="200" maxlength="200"' } },
+			{ name: 'Nomor_KTP', type: 'text', html: { caption: 'Nomor KTP', attr: 'size="20" maxlength="16"' } },
+			{ name: 'Nomor_SIM', type: 'text', html: { caption: 'Nomor SIM', attr: 'size="20" maxlength="12"' } },
+			{ name: 'Jenis_Kelamin', type: 'text', html: { caption: 'Jenis Kelamin', attr: 'size="20" maxlength="6"' } },
 			{ name: 'Tanggal_Masuk', type: 'date', html: { caption: 'Tanggal Masuk'} },
 			{ name: 'Tanggal_Keluar', type: 'date', html: { caption: 'Tanggal Keluar'} },
-			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="10"' } },
-			{ name: 'Pembaruan', type: 'date', html: { caption: 'Pembaruan'} },
+			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="2" maxlength="1"' } },
 			{ name: 'Saldo_Awal', type: 'int', html: { caption: 'Saldo Awal'} },
-			{ name: 'Saldo_Akhir', type: 'int', html: { caption: 'Saldo Akhir'} },
-			{ name: 'Username', type: 'text', html: { caption: 'Username', attr: 'size="10"' } }
+			{ name: 'Saldo_Akhir', type: 'int', html: { caption: 'Saldo Akhir'} }
 		],
 		actions: {
 			Reset: function () {
