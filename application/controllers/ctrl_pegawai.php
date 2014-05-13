@@ -11,10 +11,13 @@ class Ctrl_pegawai extends CI_Controller {
 	function update() {
 		//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
 		if (!empty($_POST)) {
-			$this -> mod_pegawai -> update();
+			$data = $this -> mod_pegawai -> update();
 			$res = Array();
 			$res['status'] = 'success';
-			$res['records'] = $_REQUEST['record'];
+			$res['records'] = $data;
+			$res['records']['Tanggal_Masuk'] = date('m/d/Y', strtotime($data['Tanggal_Masuk']));
+			$res['records']['Tanggal_Keluar'] = date('m/d/Y', strtotime($data['Tanggal_Keluar']));
+			$res['records']['selected'] = true;
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
 			//$res['postData']= $_REQUEST;
 			echo json_encode($res);
@@ -25,15 +28,13 @@ class Ctrl_pegawai extends CI_Controller {
 		if (!empty($_POST)) {
 		   	$data = $this -> mod_pegawai -> create();
 			$data['recid']= $data['NIK'];
-			
 			$res = Array();
 			$res['status'] = 'success';
 			$res['recid'] = $data['NIK']; 
-			//$res['total'] = intval($data['NIK']) + 1;
 			$res['records'] = $data; 
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
 			//$res['postData']= $_REQUEST;
-			//echo "<pre>"; die(print_r($res, TRUE));
+			//echo "<pre>"; die(print_r($data, TRUE));
 			echo json_encode($res);
 		}
 	}
