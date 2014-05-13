@@ -48,6 +48,7 @@ class Mod_pegawai extends CI_Model {
     public function create() {
  		$data = $this->input->post("record", TRUE);
         $datalist = array(
+        	'NIK' => $data["NIK"],
             'Nama' => $data["Nama"],
             'Alamat' => $data["Alamat"],
             'Nomor_KTP' => $data["Nomor_KTP"],
@@ -57,9 +58,8 @@ class Mod_pegawai extends CI_Model {
             'Tanggal_Keluar' => date('Y-m-d', strtotime($data["Tanggal_Keluar"])),
             'Status' => $data["Status"]
         );
-		//$this->db->set($datalist);
-		$this -> db -> insert('nasabah', $datalist);
-		$datalist['Id_Nasabah']= $this->db->insert_id();
+		$this -> db -> insert('pegawai', $datalist);
+		//$datalist['NIK']= $this->db->insert_id();
 		return $datalist;
     }	
     
