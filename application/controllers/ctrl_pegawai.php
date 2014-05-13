@@ -32,9 +32,9 @@ class Ctrl_pegawai extends CI_Controller {
 			$res['status'] = 'success';
 			$res['recid'] = $data['NIK']; 
 			$res['records'] = $data; 
-			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
-			//$res['postData']= $_REQUEST;
-			//echo "<pre>"; die(print_r($data, TRUE));
+			$res['records']['Tanggal_Masuk'] = date('m/d/Y', strtotime($data['Tanggal_Masuk']));
+			$res['records']['Tanggal_Keluar'] = date('m/d/Y', strtotime($data['Tanggal_Keluar']));
+			$res['records']['selected'] = true;
 			echo json_encode($res);
 		}
 	}
@@ -55,20 +55,29 @@ class Ctrl_pegawai extends CI_Controller {
 
 	function read() {
 		$data = $this -> mod_pegawai -> getAll();
-		$newaray = Array();
+		$res = Array();
 		$sums = count($data);
 		if ($sums==0){
-			$newaray['status']  = 'error';
-			$newaray['message'] = 'Data Masih Kosong';
-			echo json_encode($newaray);		
+			$res['status']  = 'error';
+			$res['message'] = 'Data Masih Kosong';
+			echo json_encode($res);		
 		}else{
-			$newaray['status'] = 'success';
-			$newaray['total'] = $sums;
-			$newaray['records'] = $data;
+			$res['status'] = 'success';
+			$res['total'] = $sums;
+			$res['records'] = $data;
 			for ($i = 0; $i < $sums; $i++) {
 				$data[$i] -> recid = $data[$i]->NIK;
+				
+				if ( $data[$i] -> Tanggal_Masuk  != ""){
+					$data[$i] -> Tanggal_Masuk = date('m/d/Y', strtotime($data[$i]->Tanggal_Masuk));
+				}
+
+				if ( $data[$i] -> Tanggal_Keluar  != ""){
+					$data[$i] -> Tanggal_Keluar = date('m/d/Y', strtotime($data[$i]->Tanggal_Keluar));
+				}
+
 			}
-			echo json_encode($newaray);
+			echo json_encode($res);
 		}
 		//"<pre>"; die(print_r($data, TRUE));
 	}
