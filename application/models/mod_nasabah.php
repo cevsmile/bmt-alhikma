@@ -37,10 +37,22 @@ class Mod_nasabah extends CI_Model {
             'Nomor_KTP' => $data["Nomor_KTP"],
             'Nomor_SIM' => $data["Nomor_SIM"],
             'Jenis_Kelamin' => $data["Jenis_Kelamin"],
-            'Tanggal_Masuk' => date('Y-m-d', strtotime($data["Tanggal_Masuk"])),
-            'Tanggal_Keluar' => date('Y-m-d', strtotime($data["Tanggal_Keluar"])),
             'Status' => $data["Status"]
-        );		
+        );
+		//$this->db->set($datalist);
+		//$this->db->set('Tanggal_Masuk', 'NULL' , FALSE)
+		if ( $data["Tanggal_Masuk"] == ""){
+			$datalist['Tanggal_Masuk'] = null;
+		} else {
+			$datalist['Tanggal_Masuk'] = date('Y-m-d', strtotime($data["Tanggal_Masuk"]));
+		}
+		
+		if ( $data["Tanggal_Keluar"] == ""){
+			$datalist['Tanggal_Keluar'] = null;
+		} else {
+			$datalist['Tanggal_Keluar'] = date('Y-m-d', strtotime($data["Tanggal_Keluar"]));
+		}		
+		
         $this->db->update( 'nasabah', $datalist, array( 'Id_Nasabah' => $this->input->post( 'recid', true ) ) );
 		return $datalist;
     }	
@@ -48,19 +60,30 @@ class Mod_nasabah extends CI_Model {
     public function create() {
  		$data = $this->input->post("record", TRUE);
         $datalist = array(
+        	'Id_Nasabah' => $data["Id_Nasabah"],
             'Nama' => $data["Nama"],
             'Alamat' => $data["Alamat"],
             'Nomor_KTP' => $data["Nomor_KTP"],
             'Nomor_SIM' => $data["Nomor_SIM"],
             'Jenis_Kelamin' => $data["Jenis_Kelamin"],
-            'Tanggal_Masuk' => date('Y-m-d', strtotime($data["Tanggal_Masuk"])),
-            'Tanggal_Keluar' => date('Y-m-d', strtotime($data["Tanggal_Keluar"])),
             'Status' => $data["Status"]
         );
-		//$this->db->set($datalist);
+		$this->db->set($datalist);
+		
+		if ( $data["Tanggal_Masuk"] == ""){
+			$this->db->set('Tanggal_Masuk', 'NULL' , FALSE);
+		} else {
+			$datalist['Tanggal_Masuk'] = date('Y-m-d', strtotime($data["Tanggal_Masuk"]));
+		}
+		
+		if ( $data["Tanggal_Keluar"] == ""){
+			$this->db->set('Tanggal_Keluar', 'NULL' , FALSE);
+		} else {
+			$datalist['Tanggal_Keluar'] = date('Y-m-d', strtotime($data["Tanggal_Keluar"]));
+		}
+		
 		$this -> db -> insert('nasabah', $datalist);
-		$datalist['Id_Nasabah']= $this->db->insert_id();
-		return $datalist;
+		return $data;
     }	
     
     public function delete( $recid ) {

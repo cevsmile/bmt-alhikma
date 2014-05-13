@@ -125,7 +125,7 @@ var config_nasabah = {
 	form_add_nasabah: {
 		name: 'form_add_nasabah',
 		fields: [
-			//{ name: 'Id_Nasabah', type: 'text', required: true, html: { caption: 'ID Nasabah', attr: 'size="10" readonly' } },
+			{ name: 'Id_Nasabah', type: 'text', required: true, html: { caption: 'ID Nasabah', attr: 'size="10"' } },
 			{ name: 'Nama', type: 'textarea', html: { caption: 'Nama', attr: 'size="150" maxlength="150"' } },
 			{ name: 'Alamat', type: 'textarea', html: { caption: 'Alamat', attr: 'size="200" maxlength="200"' } },
 			{ name: 'Nomor_KTP', type: 'text', html: { caption: 'Nomor KTP', attr: 'size="20" maxlength="16"' } },
