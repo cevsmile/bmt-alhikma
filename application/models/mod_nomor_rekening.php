@@ -35,7 +35,9 @@ class Mod_nomor_rekening extends CI_Model {
             'Id_Nasabah' => $data["Id_Nasabah"],
             'Id_Supplier' => $data["Id_Supplier"],
             'NIK' => $data["NIK"],
-            'Id_Daftar_Akun' => $data["Id_Daftar_Akun"]
+            'Id_Daftar_Akun' => $data["Id_Daftar_Akun"],
+            'Saldo_Awal' => $data["Saldo_Awal"],
+            'Saldo_Akhir' => $data["Saldo_Akhir"]
         );
 		$this->db->set($datalist);
 		$this->db->set('Log_Date', 'CURRENT_DATE()', FALSE);
@@ -47,11 +49,13 @@ class Mod_nomor_rekening extends CI_Model {
     public function create() {
     	$data = $this->input->post("record");
 		$datalist = array(
+			'NIK'	=> $this -> input -> post('NIK'), 
 			'Kode_Cabang'	=> $this -> input -> post('Kode_Cabang'), 
 			'Id_Nasabah'	=> $this -> input -> post('Id_Nasabah'), 
 			'Id_Supplier'	=> $this -> input -> post('Id_Supplier'), 
-			'NIK'	=> $this -> input -> post('NIK'), 
-			'Id_Daftar_Akun'	=> $this -> input -> post('Id_Daftar_Akun')
+			'Id_Daftar_Akun'	=> $this -> input -> post('Id_Daftar_Akun'),
+            'Saldo_Awal' => $data["Saldo_Awal"],
+            'Saldo_Akhir' => $data["Saldo_Akhir"]
 		);
 		$this->db->set($datalist);         
 		$this->db->set('Log_Date', 'CURRENT_DATE()', FALSE);

@@ -39,9 +39,7 @@ class Mod_nasabah extends CI_Model {
             'Jenis_Kelamin' => $data["Jenis_Kelamin"],
             'Tanggal_Masuk' => date('Y-m-d', strtotime($data["Tanggal_Masuk"])),
             'Tanggal_Keluar' => date('Y-m-d', strtotime($data["Tanggal_Keluar"])),
-            'Status' => $data["Status"],
-            'Saldo_Awal' => $data["Saldo_Awal"],
-            'Saldo_Akhir' => $data["Saldo_Akhir"]
+            'Status' => $data["Status"]
         );		
         $this->db->update( 'nasabah', $datalist, array( 'Id_Nasabah' => $this->input->post( 'recid', true ) ) );
 		return $datalist;
@@ -57,12 +55,11 @@ class Mod_nasabah extends CI_Model {
             'Jenis_Kelamin' => $data["Jenis_Kelamin"],
             'Tanggal_Masuk' => date('Y-m-d', strtotime($data["Tanggal_Masuk"])),
             'Tanggal_Keluar' => date('Y-m-d', strtotime($data["Tanggal_Keluar"])),
-            'Status' => $data["Status"],
-            'Saldo_Awal' => $data["Saldo_Awal"],
-            'Saldo_Akhir' => $data["Saldo_Akhir"]
+            'Status' => $data["Status"]
         );
 		//$this->db->set($datalist);
 		$this -> db -> insert('nasabah', $datalist);
+		$datalist['Id_Nasabah']= $this->db->insert_id();
 		return $datalist;
     }	
     

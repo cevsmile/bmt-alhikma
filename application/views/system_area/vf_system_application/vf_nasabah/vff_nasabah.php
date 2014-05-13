@@ -78,9 +78,7 @@ var config_nasabah = {
 				{ recid: 5, name: 'Jenis Kelamin:', value: record.Jenis_Kelamin },
 				{ recid: 6, name: 'Tanggal Masuk:', value: record.Tanggal_Masuk },
 				{ recid: 7, name: 'Tanggal Keluar:', value: record.Tanggal_Keluar },
-				{ recid: 8, name: 'Status:', value: record.Status },
-				{ recid: 9, name: 'Saldo Awal:', value: record.Saldo_Awal },
-				{ recid: 10, name: 'Saldo Akhir:', value: record.Saldo_Akhir }
+				{ recid: 8, name: 'Status:', value: record.Status }
 			]);
 		}
 	},
@@ -104,9 +102,7 @@ var config_nasabah = {
 			{ name: 'Jenis_Kelamin', type: 'text', html: { caption: 'Jenis Kelamin', attr: 'size="20" maxlength="6"' } },
 			{ name: 'Tanggal_Masuk', type: 'date', html: { caption: 'Tanggal Masuk'} },
 			{ name: 'Tanggal_Keluar', type: 'date', html: { caption: 'Tanggal Keluar'} },
-			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="2" maxlength="1"' } },
-			{ name: 'Saldo_Awal', type: 'int', html: { caption: 'Saldo Awal'} },
-			{ name: 'Saldo_Akhir', type: 'int', html: { caption: 'Saldo Akhir'} }
+			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="2" maxlength="1"' } }
 		],
 		actions: {
 			Reset: function () {
@@ -137,9 +133,7 @@ var config_nasabah = {
 			{ name: 'Jenis_Kelamin', type: 'text', html: { caption: 'Jenis Kelamin', attr: 'size="20" maxlength="6"' } },
 			{ name: 'Tanggal_Masuk', type: 'date', html: { caption: 'Tanggal Masuk'} },
 			{ name: 'Tanggal_Keluar', type: 'date', html: { caption: 'Tanggal Keluar'} },
-			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="2" maxlength="1"' } },
-			{ name: 'Saldo_Awal', type: 'int', html: { caption: 'Saldo Awal'} },
-			{ name: 'Saldo_Akhir', type: 'int', html: { caption: 'Saldo Akhir'} }
+			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="2" maxlength="1"' } }
 		],
 		actions: {
 			Reset: function () {

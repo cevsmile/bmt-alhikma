@@ -35,7 +35,7 @@ var config_pegawai = {
 			}
 		},
         columns: [
-            { field: 'recid', caption: 'ID Nasabah', size: '150px', searchable: true, sortable: true },
+            { field: 'recid', caption: 'ID Pegawai', size: '150px', searchable: true, sortable: true },
             { field: 'Nama', caption: 'Nama', size: '150px', searchable: true, sortable: true },
             { field: 'Alamat', caption: 'Alamat', size: '150px', searchable: true, sortable: true },
             { field: 'Nomor_KTP', caption: 'Nomor KTP', size: '100%', searchable: true, sortable: true },
@@ -78,9 +78,7 @@ var config_pegawai = {
 				{ recid: 5, name: 'Jenis Kelamin:', value: record.Jenis_Kelamin },
 				{ recid: 6, name: 'Tanggal Masuk:', value: record.Tanggal_Masuk },
 				{ recid: 7, name: 'Tanggal Keluar:', value: record.Tanggal_Keluar },
-				{ recid: 8, name: 'Status:', value: record.Status },
-				{ recid: 9, name: 'Saldo Awal:', value: record.Saldo_Awal },
-				{ recid: 10, name: 'Saldo Akhir:', value: record.Saldo_Akhir }
+				{ recid: 8, name: 'Status:', value: record.Status }
 			]);
 		}		        
 	},
@@ -96,7 +94,7 @@ var config_pegawai = {
 	form_edit_pegawai: {
 		name: 'form_edit_pegawai',
 		fields: [
-			{ name: 'recid', type: 'text', required: true, html: { caption: 'ID Nasabah', attr: 'size="10" readonly' } },
+			{ name: 'recid', type: 'text', required: true, html: { caption: 'ID Pegawai', attr: 'size="10" readonly' } },
 			{ name: 'Nama', type: 'textarea', html: { caption: 'Nama', attr: 'size="150" maxlength="150"' } },
 			{ name: 'Alamat', type: 'textarea', html: { caption: 'Alamat', attr: 'size="200" maxlength="200"' } },
 			{ name: 'Nomor_KTP', type: 'text', html: { caption: 'Nomor KTP', attr: 'size="20" maxlength="16"' } },
@@ -104,9 +102,7 @@ var config_pegawai = {
 			{ name: 'Jenis_Kelamin', type: 'text', html: { caption: 'Jenis Kelamin', attr: 'size="20" maxlength="6"' } },
 			{ name: 'Tanggal_Masuk', type: 'date', html: { caption: 'Tanggal Masuk'} },
 			{ name: 'Tanggal_Keluar', type: 'date', html: { caption: 'Tanggal Keluar'} },
-			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="2" maxlength="1"' } },
-			{ name: 'Saldo_Awal', type: 'int', html: { caption: 'Saldo Awal'} },
-			{ name: 'Saldo_Akhir', type: 'int', html: { caption: 'Saldo Akhir'} }
+			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="2" maxlength="1"' } }
 		],
 		actions: {
 			Reset: function () {
@@ -129,17 +125,15 @@ var config_pegawai = {
 	form_add_pegawai: {
 		name: 'form_add_pegawai',
 		fields: [
-			//{ name: 'NIK', type: 'text', required: true, html: { caption: 'NIK', attr: 'size="10"' } },
+			{ name: 'NIK', type: 'text', required: true, html: { caption: 'NIK', attr: 'size="10" ' } },
 			{ name: 'Nama', type: 'textarea', html: { caption: 'Nama', attr: 'size="150" maxlength="150"' } },
 			{ name: 'Alamat', type: 'textarea', html: { caption: 'Alamat', attr: 'size="200" maxlength="200"' } },
 			{ name: 'Nomor_KTP', type: 'text', html: { caption: 'Nomor KTP', attr: 'size="20" maxlength="16"' } },
 			{ name: 'Nomor_SIM', type: 'text', html: { caption: 'Nomor SIM', attr: 'size="20" maxlength="12"' } },
-			{ name: 'Jenis_Kelamin', type: 'text', html: { caption: 'Jenis Kelamin', attr: 'size="20" maxlength="6"' } },
+			{ name: 'Jenis_Kelamin', type: 'list',  options: { items: ['Pria', 'Wanita'] } },
 			{ name: 'Tanggal_Masuk', type: 'date', html: { caption: 'Tanggal Masuk'} },
 			{ name: 'Tanggal_Keluar', type: 'date', html: { caption: 'Tanggal Keluar'} },
-			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="2" maxlength="1"' } },
-			{ name: 'Saldo_Awal', type: 'int', html: { caption: 'Saldo Awal'} },
-			{ name: 'Saldo_Akhir', type: 'int', html: { caption: 'Saldo Akhir'} }
+			{ name: 'Status', type: 'text', html: { caption: 'Status', attr: 'size="2" maxlength="1"' } }
 		],
 		actions: {
 			Reset: function () {

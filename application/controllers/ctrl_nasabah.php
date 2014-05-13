@@ -29,15 +29,13 @@ class Ctrl_nasabah extends CI_Controller {
 		if (!empty($_POST)) {
 		   	$data = $this -> mod_nasabah -> create();
 			$data['recid']= $data['Id_Nasabah'];
-			
 			$res = Array();
 			$res['status'] = 'success';
 			$res['recid'] = $data['Id_Nasabah']; 
-			//$res['total'] = intval($data['NIK']) + 1;
 			$res['records'] = $data; 
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
 			//$res['postData']= $_REQUEST;
-			//echo "<pre>"; die(print_r($res, TRUE));
+			//echo "<pre>"; die(print_r($data, TRUE));
 			echo json_encode($res);
 		}
 	}
@@ -63,7 +61,7 @@ class Ctrl_nasabah extends CI_Controller {
 		if ($sums==0){
 			$newaray['status']  = 'error';
 			$newaray['message'] = 'Data Masih Kosong';
-			echo json_encode($newaray);		
+			echo json_encode($newaray);
 		}else{
 			$newaray['status'] = 'success';
 			$newaray['total'] = $sums;

@@ -39,19 +39,28 @@ class Mod_pegawai extends CI_Model {
             'Jenis_Kelamin' => $data["Jenis_Kelamin"],
             'Tanggal_Masuk' => date('Y-m-d', strtotime($data["Tanggal_Masuk"])),
             'Tanggal_Keluar' => date('Y-m-d', strtotime($data["Tanggal_Keluar"])),
-            'Status' => $data["Status"],
-            'Saldo_Awal' => $data["Saldo_Awal"],
-            'Saldo_Akhir' => $data["Saldo_Akhir"]
+            'Status' => $data["Status"]
         );
         $this->db->update( 'pegawai', $datalist, array( 'NIK' => $this->input->post( 'recid', true ) ) );
 		return $datalist;
     }	
 
     public function create() {
- 		$data = $this->input->post("record");
-        $this->db->insert( 'pegawai', $data );
-        //return $this->db->insert_id();
-        return $data;
+ 		$data = $this->input->post("record", TRUE);
+        $datalist = array(
+            'Nama' => $data["Nama"],
+            'Alamat' => $data["Alamat"],
+            'Nomor_KTP' => $data["Nomor_KTP"],
+            'Nomor_SIM' => $data["Nomor_SIM"],
+            'Jenis_Kelamin' => $data["Jenis_Kelamin"],
+            'Tanggal_Masuk' => date('Y-m-d', strtotime($data["Tanggal_Masuk"])),
+            'Tanggal_Keluar' => date('Y-m-d', strtotime($data["Tanggal_Keluar"])),
+            'Status' => $data["Status"]
+        );
+		//$this->db->set($datalist);
+		$this -> db -> insert('nasabah', $datalist);
+		$datalist['Id_Nasabah']= $this->db->insert_id();
+		return $datalist;
     }	
     
     public function delete( $recid ) {
