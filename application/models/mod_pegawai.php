@@ -37,10 +37,22 @@ class Mod_pegawai extends CI_Model {
             'Nomor_KTP' => $data["Nomor_KTP"],
             'Nomor_SIM' => $data["Nomor_SIM"],
             'Jenis_Kelamin' => $data["Jenis_Kelamin"],
-            'Tanggal_Masuk' => date('Y-m-d', strtotime($data["Tanggal_Masuk"])),
-            'Tanggal_Keluar' => date('Y-m-d', strtotime($data["Tanggal_Keluar"])),
             'Status' => $data["Status"]
         );
+		//$this->db->set($datalist);
+		//$this->db->set('Tanggal_Masuk', 'NULL' , FALSE)
+		if ( $data["Tanggal_Masuk"] == ""){
+			$datalist['Tanggal_Masuk'] = null;
+		} else {
+			$datalist['Tanggal_Masuk'] = date('Y-m-d', strtotime($data["Tanggal_Masuk"]));
+		}
+		
+		if ( $data["Tanggal_Keluar"] == ""){
+			$datalist['Tanggal_Keluar'] = null;
+		} else {
+			$datalist['Tanggal_Keluar'] = date('Y-m-d', strtotime($data["Tanggal_Keluar"]));
+		}		
+		
         $this->db->update( 'pegawai', $datalist, array( 'NIK' => $this->input->post( 'recid', true ) ) );
 		return $datalist;
     }	

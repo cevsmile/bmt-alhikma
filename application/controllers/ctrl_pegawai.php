@@ -9,17 +9,29 @@ class Ctrl_pegawai extends CI_Controller {
 	}
 
 	function update() {
-		//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
 		if (!empty($_POST)) {
-			$data = $this -> mod_pegawai -> update();
+			$datalist = $this -> mod_pegawai -> update();
 			$res = Array();
 			$res['status'] = 'success';
-			$res['records'] = $data;
-			$res['records']['Tanggal_Masuk'] = date('m/d/Y', strtotime($data['Tanggal_Masuk']));
-			$res['records']['Tanggal_Keluar'] = date('m/d/Y', strtotime($data['Tanggal_Keluar']));
+			$res['records'] = $datalist;
+			$res['records']['NIK'] = $this->input->post( 'recid', true );
+			
+			if ( $datalist["Tanggal_Masuk"] != null){
+				$res['records']['Tanggal_Masuk'] = date('m/d/Y', strtotime($datalist['Tanggal_Masuk']));
+			} else {
+				$res['records']['Tanggal_Masuk'] = "";
+			}
+			
+			if ( $datalist["Tanggal_Keluar"] != null){
+				$res['records']['Tanggal_Keluar'] = date('m/d/Y', strtotime($datalist['Tanggal_Keluar']));
+			} else {
+				$res['records']['Tanggal_Keluar'] = "";
+			}	
+
 			$res['records']['selected'] = true;
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
 			//$res['postData']= $_REQUEST;
+			//echo "<pre>"; die(print_r($_POST, TRUE));
 			echo json_encode($res);
 		}
 	}
@@ -31,9 +43,16 @@ class Ctrl_pegawai extends CI_Controller {
 			$res = Array();
 			$res['status'] = 'success';
 			$res['recid'] = $data['NIK']; 
-			$res['records'] = $data; 
-			$res['records']['Tanggal_Masuk'] = date('m/d/Y', strtotime($data['Tanggal_Masuk']));
-			$res['records']['Tanggal_Keluar'] = date('m/d/Y', strtotime($data['Tanggal_Keluar']));
+			$res['records'] = $data;
+			
+			if ( $data["Tanggal_Masuk"] != ""){
+				$res['records']['Tanggal_Masuk'] = date('m/d/Y', strtotime($data['Tanggal_Masuk']));
+			}
+			
+			if ( $data["Tanggal_Keluar"] != ""){
+				$res['records']['Tanggal_Keluar'] = date('m/d/Y', strtotime($data['Tanggal_Keluar']));
+			}			
+				
 			$res['records']['selected'] = true;
 			echo json_encode($res);
 		}
@@ -67,15 +86,10 @@ class Ctrl_pegawai extends CI_Controller {
 			$res['records'] = $data;
 			for ($i = 0; $i < $sums; $i++) {
 				$data[$i] -> recid = $data[$i]->NIK;
-				
-				if ( $data[$i] -> Tanggal_Masuk  != ""){
-					$data[$i] -> Tanggal_Masuk = date('m/d/Y', strtotime($data[$i]->Tanggal_Masuk));
-				}
-
-				if ( $data[$i] -> Tanggal_Keluar  != ""){
-					$data[$i] -> Tanggal_Keluar = date('m/d/Y', strtotime($data[$i]->Tanggal_Keluar));
-				}
-
+				if ( $data[$i] -> Tanggal_Masuk  != "") 
+					 $data[$i] -> Tanggal_Masuk = date('m/d/Y', strtotime($data[$i]->Tanggal_Masuk));
+				if ( $data[$i] -> Tanggal_Keluar  != "") 
+					 $data[$i] -> Tanggal_Keluar = date('m/d/Y', strtotime($data[$i]->Tanggal_Keluar));
 			}
 			echo json_encode($res);
 		}
