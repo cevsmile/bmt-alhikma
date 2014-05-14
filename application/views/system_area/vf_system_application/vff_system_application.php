@@ -50,8 +50,6 @@ $(function () {
 	//initialization layout to main
 	w2ui.layout.content('left', $().w2sidebar(config.sidebar));
 	w2ui.layout.content('main', '<div style="padding: 10px">Slamat Datang</div>');
-	//var a = w2utils.formatDateTime((new Date()), 'mm-dd-yyyy');
-	//console.log(a);
 	//sidebar evenet listener
 	w2ui.sidebar.on('click', function (event) {
 		switch (event.target) {

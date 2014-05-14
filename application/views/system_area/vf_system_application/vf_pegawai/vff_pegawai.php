@@ -63,7 +63,6 @@ var config_pegawai = {
 			var delrecid= w2ui['grid_pegawai'].getSelection();
 			event.preventDefault();
 			call_delete_pegawai(delrecid);
-			//console.log(delrecid);
 		},	        
 		onClick: function (event) {
 			w2ui['grid_detail_pegawai'].clear();
@@ -94,7 +93,7 @@ var config_pegawai = {
 	form_edit_pegawai: {
 		name: 'form_edit_pegawai',
 		fields: [
-			{ name: 'recid', type: 'text', required: true, html: { caption: 'ID Pegawai', attr: 'size="10" readonly' } },
+			{ name: 'recid', type: 'text', required: true, html: { caption: 'ID Pegawai', attr: 'size="10" readonly '} },
 			{ name: 'Nama', type: 'textarea', html: { caption: 'Nama', attr: 'size="150" maxlength="150"' } },
 			{ name: 'Alamat', type: 'textarea', html: { caption: 'Alamat', attr: 'size="200" maxlength="200"' } },
 			{ name: 'Nomor_KTP', type: 'text', html: { caption: 'Nomor KTP', attr: 'size="20" maxlength="16"' } },
@@ -125,7 +124,7 @@ var config_pegawai = {
 	form_add_pegawai: {
 		name: 'form_add_pegawai',
 		fields: [
-			{ name: 'NIK', type: 'text', required: true, html: { caption: 'NIK', attr: 'size="10" ' } },
+			{ name: 'NIK', type: 'text', required: true, html: { caption: 'NIK', attr: 'size="10" readonly' } },
 			{ name: 'Nama', type: 'textarea', html: { caption: 'Nama', attr: 'size="150" maxlength="150"' } },
 			{ name: 'Alamat', type: 'textarea', html: { caption: 'Alamat', attr: 'size="200" maxlength="200"' } },
 			{ name: 'Nomor_KTP', type: 'text', html: { caption: 'Nomor KTP', attr: 'size="20" maxlength="16"' } },
@@ -138,6 +137,7 @@ var config_pegawai = {
 		actions: {
 			Reset: function () {
 				this.clear();
+				genCode();
 			},
 			Save: function () {
 				this.save(function (data) {
@@ -195,9 +195,10 @@ function call_edit_pegawai(recid) {
 }
 
 function call_add_pegawai(recid) {
+
 	$().w2popup('open', {
 		title	: 'Add Pegawai',
-		body	: '<div id="form_add_pegawai" style="width: 100%; height: 100%;"></div>',
+		body	: '<div id="popup_form_add_pegawai" style="width: 100%; height: 100%;"></div>',
 		style	: 'padding: 0px 0px 0px 0px',
 		width	: 500,
 		height	: 600, 
@@ -218,9 +219,11 @@ function call_add_pegawai(recid) {
 		},
 		onOpen	: function (event) {
 			event.onComplete = function () {
-				$('#w2ui-popup #form_add_pegawai').w2render('form_add_pegawai');
+				$('#w2ui-popup #popup_form_add_pegawai').w2render('form_add_pegawai');
 				w2ui['form_add_pegawai'].url = {save: 'index.php/ctrl_pegawai/create/'};
-				w2ui['form_add_pegawai'].action('Reset');
+				//w2ui['form_add_pegawai'].action('Reset');
+				//$('#NIK').w2tag('Klik Untuk Auto Generate Kode');
+				genCode();
 			}
 		}
 	});
@@ -278,4 +281,14 @@ function call_delete_pegawai(delrecid){
 	});	
 	
 }
+
+function genCode(){
+	  $.get("index.php/ctrl_pegawai/getLastRec",function(data){
+	  		w2ui['form_add_pegawai'].record.NIK = data;
+	  		//$('#NIK').val(data);
+	  		w2ui['form_add_pegawai'].refresh();
+	  });
+}
+
+
 </script>

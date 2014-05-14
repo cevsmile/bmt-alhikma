@@ -75,7 +75,6 @@ var config_nomor_rekening = {
 			var delrecid= w2ui['grid_nomor_rekening'].getSelection();
 			event.preventDefault();
 			call_delete_nomor_rekening(delrecid);
-			//console.log(delrecid);
 		},	        
 		onClick: function (event) {
 			w2ui['grid_detail_nomor_rekening'].clear();

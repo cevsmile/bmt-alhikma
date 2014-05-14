@@ -94,6 +94,12 @@ class Mod_pegawai extends CI_Model {
         $recid = intval( $recid );
         
         $this->db->delete( 'pegawai', array( 'NIK' => $recid ) );
-    } //end delete	
+    } //end delete
+    
+    
+ 	public function getLastRec() {
+		$query = $this->db->count_all('pegawai');
+		return $query;
+	}
     
 }// end of class

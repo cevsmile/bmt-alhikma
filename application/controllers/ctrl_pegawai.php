@@ -96,4 +96,12 @@ class Ctrl_pegawai extends CI_Controller {
 		//"<pre>"; die(print_r($data, TRUE));
 	}
 
+	function getLastRec() {
+		$data = $this -> mod_pegawai -> getLastRec();
+		$res = $data + 1;
+		echo json_encode($res);
+	}
+
+
+
 }// End of system area
