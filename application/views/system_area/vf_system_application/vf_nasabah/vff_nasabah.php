@@ -125,7 +125,7 @@ var config_nasabah = {
 	form_add_nasabah: {
 		name: 'form_add_nasabah',
 		fields: [
-			{ name: 'Id_Nasabah', type: 'text', required: true, html: { caption: 'ID Nasabah', attr: 'size="10"' } },
+			{ name: 'Id_Nasabah', type: 'text', required: true, html: { caption: 'ID Nasabah', attr: 'size="10" readonly' } },
 			{ name: 'Nama', type: 'textarea', html: { caption: 'Nama', attr: 'size="150" maxlength="150"' } },
 			{ name: 'Alamat', type: 'textarea', html: { caption: 'Alamat', attr: 'size="200" maxlength="200"' } },
 			{ name: 'Nomor_KTP', type: 'text', html: { caption: 'Nomor KTP', attr: 'size="20" maxlength="16"' } },
@@ -220,7 +220,8 @@ function call_add_nasabah(recid) {
 			event.onComplete = function () {
 				$('#w2ui-popup #form_add_nasabah').w2render('form_add_nasabah');
 				w2ui['form_add_nasabah'].url = {save: 'index.php/ctrl_nasabah/create/'};
-				w2ui['form_add_nasabah'].action('Reset');
+				//w2ui['form_add_nasabah'].action('Reset');
+				gen_Id_Nasabah();
 			}
 		}
 	});
@@ -278,4 +279,13 @@ function call_delete_nasabah(delrecid){
 	});	
 	
 }
+
+function gen_Id_Nasabah(){
+	  $.get("index.php/ctrl_nasabah/getLastRec",function(data){
+	  		w2ui['form_add_nasabah'].record.Id_Nasabah = data;
+	  		//$('#NIK').val(data);
+	  		w2ui['form_add_nasabah'].refresh();
+	  });
+}
+
 </script>

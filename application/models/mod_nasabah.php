@@ -95,5 +95,10 @@ class Mod_nasabah extends CI_Model {
         
         $this->db->delete( 'nasabah', array( 'Id_Nasabah' => $recid ) );
     } //end delete	
-    
+
+    public function getLastRec() {
+		$query = $this->db->count_all('nasabah');
+		return $query;
+	}
+      
 }// end of class
