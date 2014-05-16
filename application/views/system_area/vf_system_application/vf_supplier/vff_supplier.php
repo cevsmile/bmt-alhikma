@@ -69,7 +69,7 @@ var config_supplier = {
 			var record = this.get(event.recid);
 			
 			w2ui['grid_detail_supplier'].add([
-				{ recid: 0, name: 'Nomor Urut Supplier:', value: record.Nomor_Urut_Supplier },
+				{ recid: 0, name: 'Nomor Urut Supplier:', value: record.Id_Supplier },
 				{ recid: 1, name: 'Nama Supplier:', value: record.Nama },
 				{ recid: 2, name: 'Alamat Supplier:', value: record.Alamat },
 				{ recid: 3, name: 'NPWP Supplier:', value: record.NPWP }
@@ -114,14 +114,15 @@ var config_supplier = {
 	form_add_supplier: {
 		name: 'form_add_supplier',
 		fields: [
-			{ name: 'Nomor_Urut_Supplier', type: 'text', required: true, html: { caption: 'Nomor Urut Supplier', attr: 'size="20"' } },
-			{ name: 'Nama', type: 'text', required: true, html: { caption: 'Nama Supplier', attr: 'size="20" maxlength="20"' } },
-			{ name: 'Alamat', type: 'text', required: true, html: { caption: 'Alamat Supplier', attr: 'size="20" maxlength="20"' } },
+			{ name: 'Id_Supplier', type: 'text', required: true, html: { caption: 'Nomor Urut Supplier', attr: 'size="20" readonly' } },
+			{ name: 'Nama', type: 'text', html: { caption: 'Nama Supplier', attr: 'size="20" maxlength="20"' } },
+			{ name: 'Alamat', type: 'text', html: { caption: 'Alamat Supplier', attr: 'size="20" maxlength="20"' } },
 			{ name: 'NPWP', type: 'text', html: { caption: 'NPWP Supplier', attr: 'size="20" maxlength="20"' } }
 		],
 		actions: {
 			Reset: function () {
 				this.clear();
+				gen_Id_Supplier();
 			},
 			Save: function () {
 				this.save(function (data) {
@@ -204,7 +205,7 @@ function call_add_supplier(recid) {
 			event.onComplete = function () {
 				$('#w2ui-popup #form_add_supplier').w2render('form_add_supplier');
 				w2ui['form_add_supplier'].url = {save: 'index.php/ctrl_supplier/create/'};
-				w2ui['form_add_supplier'].action('Reset');
+				gen_Id_Supplier();
 			}
 		}
 	});
@@ -262,4 +263,14 @@ function call_delete_supplier(delrecid){
 	});	
 	
 }
+
+function gen_Id_Supplier(){
+	  $.get("index.php/ctrl_supplier/getLastRec",function(data){
+	  		w2ui['form_add_supplier'].record.Id_Supplier = data;
+	  		//$('#NIK').val(data);
+	  		w2ui['form_add_supplier'].refresh();
+	  });
+}
+
+
 </script>

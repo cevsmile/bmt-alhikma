@@ -137,7 +137,7 @@ var config_pegawai = {
 		actions: {
 			Reset: function () {
 				this.clear();
-				genCode();
+				gen_NIK();
 			},
 			Save: function () {
 				this.save(function (data) {
@@ -223,7 +223,7 @@ function call_add_pegawai(recid) {
 				w2ui['form_add_pegawai'].url = {save: 'index.php/ctrl_pegawai/create/'};
 				//w2ui['form_add_pegawai'].action('Reset');
 				//$('#NIK').w2tag('Klik Untuk Auto Generate Kode');
-				genCode();
+				gen_NIK();
 			}
 		}
 	});
@@ -282,7 +282,7 @@ function call_delete_pegawai(delrecid){
 	
 }
 
-function genCode(){
+function gen_NIK(){
 	  $.get("index.php/ctrl_pegawai/getLastRec",function(data){
 	  		w2ui['form_add_pegawai'].record.NIK = data;
 	  		//$('#NIK').val(data);

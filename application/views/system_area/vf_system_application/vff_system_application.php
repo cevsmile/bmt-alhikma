@@ -14,10 +14,10 @@ var config = {
 		name: 'layout',
 		padding: 4,
 		panels: [
-			{ type: 'top', size: '10%', resizable: true, minSize: 10 },
+			//{ type: 'top', size: '10%', resizable: true, minSize: 10 },
 			{ type: 'left', size: '15%', resizable: true, minSize: 10 },
 			{ type: 'right', size: '25%', resizable: true, minSize: 10, hidden : true },
-			{ type: 'bottom', size: '10%', resizable: true, minSize: 10 },
+			//{ type: 'bottom', size: '10%', resizable: true, minSize: 10 },
 			{ type: 'main', minSize: 300 }
 		]
 	},

@@ -35,7 +35,7 @@ class Mod_supplier extends CI_Model {
             'Alamat' => $data["Alamat"],
             'NPWP' => $data["NPWP"]
         );
-        $this->db->update( 'supplier', $datalist, array( 'Nomor_Urut_Supplier' => $this->input->post( 'recid', true ) ) );
+        $this->db->update( 'supplier', $datalist, array( 'Id_Supplier' => $this->input->post( 'recid', true ) ) );
 		//return $datalist;
     }	
 
@@ -53,7 +53,13 @@ class Mod_supplier extends CI_Model {
         */
         $recid = intval( $recid );
         
-        $this->db->delete( 'supplier', array( 'Nomor_Urut_Supplier' => $recid ) );
+        $this->db->delete( 'supplier', array( 'Id_Supplier' => $recid ) );
     } //end delete	
+
+    public function getLastRec() {
+		$query = $this->db->count_all('supplier');
+		return $query;
+	}
     
+       
 }// end of class

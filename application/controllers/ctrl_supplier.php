@@ -24,11 +24,11 @@ class Ctrl_supplier extends CI_Controller {
 	function create() {
 		if (!empty($_POST)) {
 		   	$data = $this -> mod_supplier -> create();
-			$data['recid']= $data['Nomor_Urut_Supplier'];
+			$data['recid']= $data['Id_Supplier'];
 			
 			$res = Array();
 			$res['status'] = 'success';
-			$res['recid'] = $data['Nomor_Urut_Supplier']; 
+			$res['recid'] = $data['Id_Supplier']; 
 			//$res['total'] = intval($data['NIK']) + 1;
 			$res['records'] = $data; 
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
@@ -65,10 +65,17 @@ class Ctrl_supplier extends CI_Controller {
 			$newaray['total'] = $sums;
 			$newaray['records'] = $data;
 			for ($i = 0; $i < $sums; $i++) {
-				$data[$i] -> recid = $data[$i]->Nomor_Urut_Supplier;
+				$data[$i] -> recid = $data[$i]->Id_Supplier;
 			}
 			echo json_encode($newaray);
 		}
 		//"<pre>"; die(print_r($data, TRUE));
 	}
+
+	function getLastRec() {
+		$data = $this -> mod_supplier -> getLastRec();
+		$res = $data + 1;
+		echo json_encode($res);
+	}
+
 }// End of system area

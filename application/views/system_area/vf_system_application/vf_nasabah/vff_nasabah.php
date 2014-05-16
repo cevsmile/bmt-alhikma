@@ -138,6 +138,7 @@ var config_nasabah = {
 		actions: {
 			Reset: function () {
 				this.clear();
+				gen_Id_Nasabah();
 			},
 			Save: function () {
 				this.save(function (data) {
