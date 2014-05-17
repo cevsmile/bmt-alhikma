@@ -46,21 +46,26 @@ class Mod_nomor_rekening extends CI_Model {
 		//return $datalist;
     }	
 
+
+
+//This is crusial, i have to add user logged on this field, and that field should not null.
+//better way to do that is linked it to my user master table. but for development, i didnt use it right now.
     public function create() {
-    	$data = $this->input->post("record");
+    	$data = $this->input->post("record", TRUE);
 		$datalist = array(
-			'NIK'	=> $this -> input -> post('NIK'), 
-			'Kode_Cabang'	=> $this -> input -> post('Kode_Cabang'), 
-			'Id_Nasabah'	=> $this -> input -> post('Id_Nasabah'), 
-			'Id_Supplier'	=> $this -> input -> post('Id_Supplier'), 
-			'Id_Daftar_Akun'	=> $this -> input -> post('Id_Daftar_Akun'),
-            'Saldo_Awal' => $data["Saldo_Awal"],
-            'Saldo_Akhir' => $data["Saldo_Akhir"]
+			'Kode_Norek'		=> $data["Kode_Norek"], 
+			'Kode_Cabang'		=> $data["Kode_Cabang"], 
+			'Id_Daftar_Akun'	=> $data["Id_Daftar_Akun"],
+			'Id_Nasabah'		=> empty($data["Id_Nasabah"]) ? NULL : $data["Id_Nasabah"],
+			'Id_Supplier'		=> empty($data["Id_Supplier"]) ? NULL : $data["Id_Supplier"],
+            'NIK' 				=> empty($data["NIK"]) ? NULL : $data["NIK"],
+            'Saldo_Awal' 		=> $data["Saldo_Awal"],
+            'Saldo_Akhir' 		=> $data["Saldo_Akhir"]
 		);
-		$this->db->set($datalist);         
+		$this->db->set($datalist);
 		$this->db->set('Log_Date', 'CURRENT_DATE()', FALSE);
 		$this->db->set('Log_Time', 'CURRENT_TIME()', FALSE);
-		$data = $this -> db -> insert('nomor_rekening', $datalist);
+		$this -> db -> insert('nomor_rekening', $datalist);
 		return $data;
     }	
     

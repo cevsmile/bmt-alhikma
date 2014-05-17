@@ -23,6 +23,7 @@ class Ctrl_nomor_rekening extends CI_Controller {
 	}
 
 	function create() {
+		//echo "<pre>"; die(print_r($_POST, TRUE));
 		if (!empty($_POST)) {
 		   	$data = $this -> mod_nomor_rekening -> create();
 			$data['recid']= $data['Kode_Norek'];

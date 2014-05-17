@@ -45,13 +45,13 @@ var config_nomor_rekening = {
 		},
         columns: [
             { field: 'recid', caption: 'Kode Nomor Rekening', size: '150px', searchable: true, sortable: true },
-            { field: 'Kode_Cabang', caption: 'Kode Cabang', size: '150px', searchable: true, sortable: true },
-            { field: 'Id_Daftar_Akun', caption: 'ID Daftar AKun', size: '100%', searchable: true, sortable: true },
-            { field: 'Id_Nasabah', caption: 'ID Nasabah', size: '150px', searchable: true, sortable: true },
-            { field: 'Id_Supplier', caption: 'ID Supplier', size: '150px', searchable: true, sortable: true },
-            { field: 'NIK', caption: 'NIK Pegawai', size: '150px', searchable: true, sortable: true },
-            { field: 'Saldo_Awal', caption: 'Saldo Awal', size: '150px', searchable: true, sortable: true },
-            { field: 'Saldo_Akhir', caption: 'Saldo Akhir', size: '150px', searchable: true, sortable: true }
+            { field: 'Kode_Cabang', caption: 'Kode Cabang', size: '100px', searchable: true, sortable: true },
+            { field: 'Id_Daftar_Akun', caption: 'ID Daftar AKun', size: '100px', searchable: true, sortable: true },
+            { field: 'Id_Nasabah', caption: 'ID Nasabah', size: '100px', searchable: true, sortable: true },
+            { field: 'Id_Supplier', caption: 'ID Supplier', size: '100px', searchable: true, sortable: true },
+            { field: 'NIK', caption: 'NIK Pegawai', size: '100px', searchable: true, sortable: true },
+            { field: 'Saldo_Awal', caption: 'Saldo Awal', size: '100px', searchable: true, sortable: true },
+            { field: 'Saldo_Akhir', caption: 'Saldo Akhir', size: '100%', searchable: true, sortable: true }
         ],
         onAdd: function (event) {
 	        call_add_nomor_rekening(event.recid);
@@ -107,12 +107,14 @@ var config_nomor_rekening = {
 	form_edit_nomor_rekening: {
 		name: 'form_edit_nomor_rekening',
 		fields: [
-			{ name: 'recid', type: 'text', required: true, html: { caption: 'Nomor Rekening', attr: 'size="20" readonly' } },
-			{ name: 'Kode_Cabang', type: 'text', required: true, html: { caption: 'Kode Cabang', attr: 'size="20" maxlength="20"' } },
-			{ name: 'Id_Daftar_Akun', type: 'text', required: true, html: { caption: 'Daftar Akun', attr: 'size="20" maxlength="20"' } },
-			{ name: 'Id_Nasabah', type: 'text', html: { caption: 'ID Nasabah', attr: 'size="20" maxlength="20"' } },
-			{ name: 'Id_Supplier', type: 'text', html: { caption: 'ID Supplier', attr: 'size="20" maxlength="20"' } },
-			{ name: 'NIK', type: 'text', html: { caption: 'NIK', attr: 'size="20" maxlength="20"' } }
+			{ name: 'recid', type: 'text', required: true, html: { caption: 'Nomor Rekening', attr: 'size="20" readonly ' } },
+			//{ name: 'Kode_Cabang', type: 'text', required: true, html: { caption: 'Kode Cabang', attr: 'size="20" maxlength="20" readonly onclick="openPopup_Kode_Cabang()"' } },
+			//{ name: 'Id_Daftar_Akun', type: 'text', required: true, html: { caption: 'Daftar Akun', attr: 'size="20" maxlength="20" readonly onclick="openPopup_Id_Daftar_Akun()"' } },
+			//{ name: 'Id_Nasabah', type: 'text', html: { caption: 'ID Nasabah', attr: 'size="20" maxlength="20" readonly onclick="openPopup_Id_Nasabah()"' } },
+			//{ name: 'Id_Supplier', type: 'text', html: { caption: 'ID Supplier', attr: 'size="20" maxlength="20" readonly onclick="openPopup_Id_Supplier()"' } },
+			//{ name: 'NIK', type: 'text', html: { caption: 'NIK', attr: 'size="20" maxlength="20" readonly onclick="openPopup_NIK()"' } },
+			{ name: 'Saldo_Awal', type: 'text', html: { caption: 'Saldo Awal' } },
+			{ name: 'Saldo_Akhir', type: 'text', html: { caption: 'Saldo Akhir' } }
 		],
 		actions: {
 			Reset: function () {
@@ -253,8 +255,8 @@ function call_edit_nomor_rekening(recid) {
 	$().w2layout(config_nomor_rekening.layout_nomor_rekening);
 	w2ui.layout_nomor_rekening.content('main', $().w2form(config_nomor_rekening.form_edit_nomor_rekening));
 
-	load_data_to_grid();
-
+	//load_data_to_grid();
+/*
 	w2ui.grid_dt_akun_debit.on('click', function(event) {
 		var grid = this;
 		var form_edit_nomor_rekening = w2ui.form_edit_nomor_rekening;
@@ -282,7 +284,7 @@ function call_edit_nomor_rekening(recid) {
 			}
 		}
 	});	
-	
+*/	
 	$().w2popup('open', {
 		title	: 'Edit Data Sandi BMT',
 		body	: '<div id="popup_edit_nomor_rekening" style="width: 100%; height: 100%;"></div>',
@@ -324,6 +326,7 @@ function call_add_nomor_rekening(recid) {
 	$().w2layout(config_nomor_rekening.layout_nomor_rekening);
 	w2ui.layout_nomor_rekening.content('main', $().w2form(config_nomor_rekening.form_add_nomor_rekening));
 
+
 	//re populating string
 	w2ui.form_add_nomor_rekening.on('refresh', function () {
 		var Kode_Cabang = [this.record.Kode_Cabang],
@@ -331,9 +334,10 @@ function call_add_nomor_rekening(recid) {
 			Id_Nasabah = [this.record.Id_Nasabah],
 			Id_Supplier = [this.record.Id_Supplier],
 			NIK = [this.record.NIK];
-		this.record.Kode_Norek= Kode_Cabang+'.'+Id_Daftar_Akun+'.'+Id_Nasabah+Id_Supplier+NIK;
-	});				
 		
+		this.record.Kode_Norek = Kode_Cabang+'.'+Id_Daftar_Akun+'.'+Id_Nasabah+Id_Supplier+NIK;
+	});				
+	
 	$().w2popup('open', {
 		title	: 'Add Daftar Sandi BMT',
 		body	: '<div id="popup_add_nomor_rekening" style="width: 100%; height: 100%;"></div>',
@@ -511,9 +515,9 @@ function openPopup_Id_Nasabah(){
 		event.onComplete = function () {
 			var sel = grid.getSelection();
 			if (sel.length == 1) {
+				form_add_nomor_rekening.record.Id_Supplier = null;
+				form_add_nomor_rekening.record.NIK = null;
 				form_add_nomor_rekening.record.Id_Nasabah  = sel[0];
-				form_add_nomor_rekening.record.Id_Supplier = '';
-				form_add_nomor_rekening.record.NIK = '';
 				form_add_nomor_rekening.refresh();
 			} else {
 				form_add_nomor_rekening.clear();
@@ -543,9 +547,9 @@ function openPopup_Id_Supplier(){
 		event.onComplete = function () {
 			var sel = grid.getSelection();
 			if (sel.length == 1) {
-				form_add_nomor_rekening.record.Id_Nasabah  = '';
+				form_add_nomor_rekening.record.Id_Nasabah  = null;
+				form_add_nomor_rekening.record.NIK = null;
 				form_add_nomor_rekening.record.Id_Supplier = sel[0];
-				form_add_nomor_rekening.record.NIK = '';
 				form_add_nomor_rekening.refresh();
 			} else {
 				form_add_nomor_rekening.clear();
@@ -575,8 +579,8 @@ function openPopup_NIK(){
 		event.onComplete = function () {
 			var sel = grid.getSelection();
 			if (sel.length == 1) {
-				form_add_nomor_rekening.record.Id_Nasabah  = '';
-				form_add_nomor_rekening.record.Id_Supplier = '';
+				form_add_nomor_rekening.record.Id_Nasabah  = null;
+				form_add_nomor_rekening.record.Id_Supplier = null;
 				form_add_nomor_rekening.record.NIK = sel[0];
 				form_add_nomor_rekening.refresh();
 			} else {
