@@ -123,10 +123,13 @@ var config_nomor_rekening = {
 			Save: function () {
 				this.save(function (data) {
 					if (data.status == 'success') {
+						/*
 						w2ui['grid_nomor_rekening'].set(data.records.Kode_Norek, data.records);
 						w2ui['grid_nomor_rekening'].refresh();
 						w2ui['grid_nomor_rekening'].selectNone();
 						w2ui['grid_detail_nomor_rekening'].clear();
+						*/
+						w2ui['grid_nomor_rekening'].load('index.php/ctrl_nomor_rekening/read');
 						$().w2popup('close');
 					}
 				});				
@@ -153,8 +156,9 @@ var config_nomor_rekening = {
 			Save: function () {
 				this.save(function (data) {
 					if (data.status == 'success') {
-						w2ui['grid_nomor_rekening'].add(data.records);
-						w2ui['grid_nomor_rekening'].selectNone();
+						w2ui['grid_nomor_rekening'].load('index.php/ctrl_nomor_rekening/read');
+						//w2ui['grid_nomor_rekening'].add(data.records);
+						//w2ui['grid_nomor_rekening'].selectNone();
 						$().w2popup('close');
 					}
 				});
@@ -255,36 +259,6 @@ function call_edit_nomor_rekening(recid) {
 	$().w2layout(config_nomor_rekening.layout_nomor_rekening);
 	w2ui.layout_nomor_rekening.content('main', $().w2form(config_nomor_rekening.form_edit_nomor_rekening));
 
-	//load_data_to_grid();
-/*
-	w2ui.grid_dt_akun_debit.on('click', function(event) {
-		var grid = this;
-		var form_edit_nomor_rekening = w2ui.form_edit_nomor_rekening;
-		event.onComplete = function () {
-			var sel = grid.getSelection();
-			if (sel.length == 1) {
-				form_edit_nomor_rekening.record['Id_Daftar_Akun_Debit']  = sel[0];
-				form_edit_nomor_rekening.refresh();
-			} else {
-				form_edit_nomor_rekening.clear();
-			}
-		}
-	});
-	
-	w2ui.grid_dt_akun_kredit.on('click', function(event) {
-		var grid = this;
-		var form_edit_nomor_rekening = w2ui.form_edit_nomor_rekening;
-		event.onComplete = function () {
-			var sel = grid.getSelection();
-			if (sel.length == 1) {
-				form_edit_nomor_rekening.record['Id_Daftar_Akun_Kredit']  = sel[0];
-				form_edit_nomor_rekening.refresh();
-			} else {
-				form_edit_nomor_rekening.clear();
-			}
-		}
-	});	
-*/	
 	$().w2popup('open', {
 		title	: 'Edit Data Sandi BMT',
 		body	: '<div id="popup_edit_nomor_rekening" style="width: 100%; height: 100%;"></div>',
@@ -375,6 +349,7 @@ function call_add_nomor_rekening(recid) {
 
 
 function call_delete_nomor_rekening(delrecid){
+	console.log(delrecid);
 	$().w2destroy('deletedialog');
 	$('#deletedialog').w2form({ 
 		name: 'deletedialog',

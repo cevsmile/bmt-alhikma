@@ -10,14 +10,24 @@ class Ctrl_nomor_rekening extends CI_Controller {
 	}
 
 	function update() {
-		//debuggiing ci		echo "<pre>"; die(print_r($_POST, TRUE));
 		if (!empty($_POST)) {
-			$this -> mod_nomor_rekening -> update();
+			$datalist = $this -> mod_nomor_rekening -> update();
 			$res = Array();
 			$res['status'] = 'success';
-			$res['records'] = $_REQUEST['record'];
+			$res['records'] = $datalist;
+			$res['records']['Kode_Norek'] = $this->input->post( 'recid', true );
+/*			
+
+			if ( $datalist["Log_Date"] != null){
+				$res['records']['Log_Date'] = date('m/d/Y', strtotime($datalist['Log_Date']));
+			} else {
+				$res['records']['Log_Date'] = "";
+			}
+*/
+			$res['records']['selected'] = true;
 			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
 			//$res['postData']= $_REQUEST;
+			//echo "<pre>"; die(print_r($_POST, TRUE));
 			echo json_encode($res);
 		}
 	}

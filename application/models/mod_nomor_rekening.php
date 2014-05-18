@@ -31,25 +31,15 @@ class Mod_nomor_rekening extends CI_Model {
     public function update() {
 		$data = $this->input->post("record", TRUE);
         $datalist = array(
-            'Kode_Cabang' => $data["Kode_Cabang"],
-            'Id_Nasabah' => $data["Id_Nasabah"],
-            'Id_Supplier' => $data["Id_Supplier"],
-            'NIK' => $data["NIK"],
-            'Id_Daftar_Akun' => $data["Id_Daftar_Akun"],
             'Saldo_Awal' => $data["Saldo_Awal"],
-            'Saldo_Akhir' => $data["Saldo_Akhir"]
+            'Saldo_Akhir' => $data["Saldo_Akhir"],
         );
 		$this->db->set($datalist);
-		$this->db->set('Log_Date', 'CURRENT_DATE()', FALSE);
-		$this->db->set('Log_Time', 'CURRENT_TIME()', FALSE);
+		$this->db->set('Log_Date', 'NOW()', FALSE);
+		$this->db->set('Log_Time', 'NOW()', FALSE);
         $this->db->update( 'nomor_rekening', $datalist, array( 'Kode_Norek' => $this->input->post( 'recid', true ) ) );
-		//return $datalist;
     }	
 
-
-
-//This is crusial, i have to add user logged on this field, and that field should not null.
-//better way to do that is linked it to my user master table. but for development, i didnt use it right now.
     public function create() {
     	$data = $this->input->post("record", TRUE);
 		$datalist = array(
@@ -60,7 +50,8 @@ class Mod_nomor_rekening extends CI_Model {
 			'Id_Supplier'		=> empty($data["Id_Supplier"]) ? NULL : $data["Id_Supplier"],
             'NIK' 				=> empty($data["NIK"]) ? NULL : $data["NIK"],
             'Saldo_Awal' 		=> $data["Saldo_Awal"],
-            'Saldo_Akhir' 		=> $data["Saldo_Akhir"]
+            'Saldo_Akhir' 		=> $data["Saldo_Akhir"],
+            'Log_User'			=> $this->session->userdata('username')
 		);
 		$this->db->set($datalist);
 		$this->db->set('Log_Date', 'CURRENT_DATE()', FALSE);
@@ -70,12 +61,12 @@ class Mod_nomor_rekening extends CI_Model {
     }	
     
     public function delete( $recid ) {
+    	//echo "<pre>"; die(print_r($recid, TRUE));
         /*
         * Any non-digit character will be excluded after passing $id
         * from intval function. This is done for security reason.
         */
-        $recid = intval( $recid );
-        
+        //$recid = intval( $recid );
         $this->db->delete( 'nomor_rekening', array( 'Kode_Norek' => $recid ) );
     } //end delete	
     
