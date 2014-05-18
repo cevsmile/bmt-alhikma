@@ -51,7 +51,7 @@ class Mod_nomor_rekening extends CI_Model {
             'NIK' 				=> empty($data["NIK"]) ? NULL : $data["NIK"],
             'Saldo_Awal' 		=> $data["Saldo_Awal"],
             'Saldo_Akhir' 		=> $data["Saldo_Akhir"],
-            'Log_User'			=> $this->session->userdata('username')
+            'Log_User'			=> $this->session->userdata('Username')
 		);
 		$this->db->set($datalist);
 		$this->db->set('Log_Date', 'CURRENT_DATE()', FALSE);

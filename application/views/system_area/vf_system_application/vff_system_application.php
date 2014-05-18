@@ -38,6 +38,14 @@ var config = {
 					   { id: 'level-2-2', text: 'Nomor Rekening', img: 'icon-page'  },
 					   { id: 'level-2-3', text: 'Barcode', icon: 'fa fa-barcode'  }
 					 ]
+			},
+			{ id: 'level-3', text: 'PROCESS', img: 'icon-folder',
+			  nodes: [ { id: 'level-3-1', text: 'KAS', img: 'icon-page' },
+					   { id: 'level-3-2', text: 'Bank', img: 'icon-page' },
+					   { id: 'level-3-3', text: 'Bank Lain', img: 'icon-page' },
+					   { id: 'level-3-4', text: 'J. Beli Kredit', img: 'icon-page' },
+					   { id: 'level-3-5', text: 'J. Jual Kredit', img: 'icon-page' }
+					 ]
 			}
 		]
 	}
@@ -86,6 +94,26 @@ $(function () {
 				break;
 			case 'level-2-2':
 				menu_nomor_rekening();
+				break;
+			case 'level-3':
+				desObj();
+				w2ui['layout'].hide('right', true);
+				w2ui.layout.content('main', '<div style="padding: 10px">You can fill this form after completing master anda secondary master data.</div>');
+				break;
+			case 'level-3-1':
+				//menu_identitas_bmt();
+				break;
+			case 'level-3-2':
+				//menu_daftar_akun();
+				break;
+			case 'level-3-3':
+				//menu_pegawai();
+				break;
+			case 'level-3-4':
+				//menu_daftar_akun();
+				break;
+			case 'level-3-5':
+				//menu_pegawai();
 				break;
 		}
 	});

@@ -36,7 +36,7 @@ class Site extends CI_Controller {
 		if ($query)// if data were found..
 		{
 			$data = array(
-				'username' => $this -> input -> post('username'), 
+				'Username' => $this -> input -> post('Username'), 
 				'imlogin' => true
 			);
 
