@@ -7,6 +7,7 @@
 <?php $this->load->view('system_area/vf_system_application/vf_user/vff_user'); ?>
 <?php $this->load->view('system_area/vf_system_application/vf_daftar_sandi/vff_daftar_sandi'); ?>
 <?php $this->load->view('system_area/vf_system_application/vf_nomor_rekening/vff_nomor_rekening'); ?>
+<?php $this->load->view('system_area/vf_system_application/vf_kas/vff_kas'); ?>
 <script type="text/javascript">
 // widget configuration
 var config = {
@@ -101,7 +102,7 @@ $(function () {
 				w2ui.layout.content('main', '<div style="padding: 10px">You can fill this form after completing master anda secondary master data.</div>');
 				break;
 			case 'level-3-1':
-				//menu_identitas_bmt();
+				menu_kas();
 				break;
 			case 'level-3-2':
 				//menu_daftar_akun();
@@ -139,6 +140,8 @@ function desObj(){
 	$().w2destroy('grid_detail_daftar_sandi');
 	$().w2destroy('grid_nomor_rekening');
 	$().w2destroy('grid_detail_nomor_rekening');
+	$().w2destroy('grid_kas');
+	$().w2destroy('grid_detail_kas');
 }
 
 function menu_identitas_bmt(){
@@ -224,21 +227,7 @@ function menu_user(){
 		w2ui['grid_detail_user'].clear();
 	});
 }
-/* working daftar sandi
-function menu_daftar_sandi(){
-	desObj();
-	w2ui.layout.content('main', $().w2grid(config_daftar_sandi.grid_daftar_sandi));
-	w2ui.layout.content('right', $().w2grid(config_daftar_sandi.grid_detail_daftar_sandi));
-	w2ui['grid_daftar_sandi'].load('index.php/ctrl_daftar_sandi/read');
-	w2ui['grid_daftar_sandi'].on('reload', function(event) {
-		this.load('index.php/ctrl_daftar_sandi/read');
-		this.selectNone();
-		this.reset();
-		this.refresh();
-		w2ui['grid_detail_daftar_sandi'].clear();
-	});
-}
-*/
+
 function menu_daftar_sandi(){
 	desObj();
 	w2ui['layout'].content('main', w2ui['layout2']);
@@ -267,6 +256,21 @@ function menu_nomor_rekening(){
 		this.reset();
 		this.refresh();
 		w2ui['grid_detail_nomor_rekening'].clear();
+	});
+}
+
+function menu_kas(){
+	desObj();
+	w2ui['layout'].content('main', w2ui['layout2']);
+	w2ui.layout.content('main', $().w2grid(config_kas.grid_kas));
+	w2ui.layout.content('right', $().w2grid(config_kas.grid_detail_kas));
+	w2ui['grid_kas'].load('index.php/ctrl_kas/read');
+	w2ui['grid_kas'].on('reload', function(event) {
+		this.load('index.php/ctrl_kas/read');
+		this.selectNone();
+		this.reset();
+		this.refresh();
+		w2ui['grid_detail_kas'].clear();
 	});
 }
 
