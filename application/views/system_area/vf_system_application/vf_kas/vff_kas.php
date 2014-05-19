@@ -163,7 +163,10 @@ var config_kas = {
 	        lineNumbers: true
 		},
         columns: [
-            { field: 'recid', caption: 'No. Rekening', size: '150px', searchable: true, sortable: true }
+            { field: 'recid', caption: 'No. Rekening', size: '150px', searchable: true, sortable: true },
+            { field: 'Nama', caption: 'Nama', size: '150px', searchable: true, sortable: true },
+            { field: 'Alamat', caption: 'Alamat', size: '150px', searchable: true, sortable: true },
+            { field: 'Jenis_Kelamin', caption: 'Jenis Kelamin', size: '150px', searchable: true, sortable: true },
 		]
 	},
 	grid_dt_daftar_sandi: { 
@@ -337,9 +340,9 @@ function openPopup_Kode_Norek(){
 	$().w2destroy('grid_dt_nomor_rekening');
 	w2ui.layout_kas.content('right', $().w2grid(config_kas.grid_dt_nomor_rekening));
 
-	w2ui['grid_dt_nomor_rekening'].load('index.php/ctrl_nomor_rekening/read');
+	w2ui['grid_dt_nomor_rekening'].load('index.php/ctrl_general_view/get_det_rek_nasabah');
 	w2ui['grid_dt_nomor_rekening'].on('reload', function(event) {
-		this.load('index.php/ctrl_nomor_rekening/read');
+		this.load('index.php/ctrl_general_view/get_det_rek_nasabah');
 		this.selectNone();
 		this.reset();
 		this.refresh();

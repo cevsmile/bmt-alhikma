@@ -30,10 +30,12 @@ class Mod_kas extends CI_Model {
 */
     public function update() {
 		$data = $this->input->post("record", TRUE);
-        $datalist = array(
-            'Saldo_Awal' => $data["Saldo_Awal"],
-            'Saldo_Akhir' => $data["Saldo_Akhir"],
-        );
+		$datalist = array(
+			'Id_Daftar_Sandi'	=> $data["Id_Daftar_Sandi"], 
+            'Validasi' 			=> $data["Validasi"],
+            'Jumlah' 			=> $data["Jumlah"],
+            'Log_User'			=> $this->session->userdata('Username')
+		);
 		$this->db->set($datalist);
 		$this->db->set('Log_Date', 'NOW()', FALSE);
 		$this->db->set('Log_Time', 'NOW()', FALSE);
@@ -44,13 +46,9 @@ class Mod_kas extends CI_Model {
     	$data = $this->input->post("record", TRUE);
 		$datalist = array(
 			'Kode_Norek'		=> $data["Kode_Norek"], 
-			'Kode_Cabang'		=> $data["Kode_Cabang"], 
-			'Id_Daftar_Akun'	=> $data["Id_Daftar_Akun"],
-			'Id_Nasabah'		=> empty($data["Id_Nasabah"]) ? NULL : $data["Id_Nasabah"],
-			'Id_Supplier'		=> empty($data["Id_Supplier"]) ? NULL : $data["Id_Supplier"],
-            'NIK' 				=> empty($data["NIK"]) ? NULL : $data["NIK"],
-            'Saldo_Awal' 		=> $data["Saldo_Awal"],
-            'Saldo_Akhir' 		=> $data["Saldo_Akhir"],
+			'Id_Daftar_Sandi'	=> $data["Id_Daftar_Sandi"], 
+            'Validasi' 			=> $data["Validasi"],
+            'Jumlah' 			=> $data["Jumlah"],
             'Log_User'			=> $this->session->userdata('Username')
 		);
 		$this->db->set($datalist);
