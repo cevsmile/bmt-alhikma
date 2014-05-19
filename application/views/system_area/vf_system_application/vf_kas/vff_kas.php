@@ -102,10 +102,10 @@ var config_kas = {
 	form_edit_kas: {
 		name: 'form_edit_kas',
 		fields: [
-            { field: 'recid', caption: 'Kode No. Rekening', size: '150px', searchable: true, sortable: true },
-            { field: 'Id_Daftar_Sandi', caption: 'Id Daftar Sandi', size: '150px', searchable: true, sortable: true },
-            { field: 'Validasi', caption: 'Validasi', size: '150px', searchable: true, sortable: true },
-            { field: 'Jumlah', caption: 'Jumlah', size: '100%', searchable: true, sortable: true }
+			{ name: 'recid', type: 'text', required: true, html: { caption: 'No. Rekening', attr: 'size="20" maxlength="20" readonly' } },
+			{ name: 'Id_Daftar_Sandi', type: 'text', required: true, html: { caption: 'Daftar Sandi', attr: 'size="20" maxlength="20" readonly' } },
+			{ name: 'Validasi', type: 'int', required: true, html: { caption: 'Validasi', attr: 'size="20" maxlength="20" readonly' } },
+			{ name: 'Jumlah', type: 'int', html: { caption: 'Jumlah', attr: 'size="20" maxlength="20"' } }
 		],
 		actions: {
 			Reset: function () {
@@ -133,7 +133,7 @@ var config_kas = {
 		fields: [
 			{ name: 'Kode_Norek', type: 'text', required: true, html: { caption: 'No. Rekening', attr: 'size="20" maxlength="20" onclick="openPopup_Kode_Norek()"' } },
 			{ name: 'Id_Daftar_Sandi', type: 'text', required: true, html: { caption: 'Daftar Sandi', attr: 'size="20" maxlength="20" onclick="openPopup_Id_Daftar_Sandi()"' } },
-			{ name: 'Validasi', type: 'text', html: { caption: 'Validasi', attr: 'size="20" maxlength="20"' } },
+			{ name: 'Validasi', type: 'int', required: true, html: { caption: 'Validasi', attr: 'size="20" maxlength="20" readonly onClick="kas_validation()"' } },
 			{ name: 'Jumlah', type: 'int', html: { caption: 'Jumlah', attr: 'size="20" maxlength="20"' } }
 		],
 		actions: {
@@ -200,12 +200,13 @@ function call_edit_kas(recid) {
 
 	$().w2destroy('layout_kas');
 	$().w2destroy('form_edit_kas');
-
+	$().w2destroy('form_add_kas');
+	
 	$().w2layout(config_kas.layout_kas);
 	w2ui.layout_kas.content('main', $().w2form(config_kas.form_edit_kas));
 
 	$().w2popup('open', {
-		title	: 'Edit Data Sandi BMT',
+		title	: 'Edit KAS BMT',
 		body	: '<div id="popup_edit_kas" style="width: 100%; height: 100%;"></div>',
 		style	: 'padding: 0px 0px 0px 0px',
 		width	: 700,
@@ -238,8 +239,9 @@ function call_edit_kas(recid) {
 
 function call_add_kas(recid) {
 	$().w2destroy('layout_kas');
+	$().w2destroy('form_edit_kas');
 	$().w2destroy('form_add_kas');
-	
+		
 	$().w2layout(config_kas.layout_kas);
 	w2ui.layout_kas.content('main', $().w2form(config_kas.form_add_kas));
 
@@ -403,5 +405,12 @@ function openPopup_Id_Daftar_Sandi(){
 }
 
 
+function kas_validation(){
+	  $.get("index.php/ctrl_kas/kas_validation",function(data){
+	  		w2ui['form_add_kas'].record.Validasi = data;
+	  		//$('#NIK').val(data);
+	  		w2ui['form_add_kas'].refresh();
+	  });
+}
 
 </script>

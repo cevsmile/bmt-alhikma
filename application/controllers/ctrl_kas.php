@@ -83,4 +83,10 @@ class Ctrl_kas extends CI_Controller {
 		}
 		//"<pre>"; die(print_r($data, TRUE));
 	}
+	
+	function kas_validation() {
+		$acak = mt_rand(10000,99999);
+		echo json_encode($acak);	
+	}
+	
 }// End of system area
