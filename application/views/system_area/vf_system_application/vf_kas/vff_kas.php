@@ -5,9 +5,8 @@ var config_kas = {
 		name: 'layout_kas',
 		padding: 2,
 		panels: [
-			{ type: 'left', size: '50%', resizable: true, minSize: 50 },
-			{ type: 'preview', size: '50%', resizable: true, minSize: 70 },
-			{ type: 'main', size: '50%', resizable: true, minSize: 50 }
+			{ type: 'main', size: '50%', resizable: true, minSize: 2 },
+			{ type: 'right', size: '50%', resizable: true, minSize: 2, hidden: true },
 		]
 	},
 
@@ -34,10 +33,10 @@ var config_kas = {
 						w2ui['layout'].toggle('right', true);
 						break;
 					case 'btn-fullscreen':
-						//w2ui['layout'].toggle('top', true);
+						w2ui['layout'].toggle('top', true);
 						w2ui['layout'].toggle('left', true);
 						w2ui['layout'].hide('right', true);
-						//w2ui['layout'].toggle('bottom', true);
+						w2ui['layout'].toggle('bottom', true);
 						break;
 					case 'level-1-2':
 						break;
@@ -52,7 +51,6 @@ var config_kas = {
             { field: 'Log_Date', caption: 'Tanggal', size: '100%', searchable: true, sortable: true },
             { field: 'Log_Time', caption: 'Jam', size: '100%', searchable: true, sortable: true },
             { field: 'Log_User', caption: 'Kasir', size: '100%', searchable: true, sortable: true }
-            
         ],
         onAdd: function (event) {
 	        call_add_kas(event.recid);
@@ -76,7 +74,6 @@ var config_kas = {
 			var delrecid= w2ui['grid_kas'].getSelection();
 			event.preventDefault();
 			call_delete_kas(delrecid);
-			//console.log(delrecid);
 		},	        
 		onClick: function (event) {
 			w2ui['grid_detail_kas'].clear();
@@ -108,10 +105,7 @@ var config_kas = {
             { field: 'recid', caption: 'Kode No. Rekening', size: '150px', searchable: true, sortable: true },
             { field: 'Id_Daftar_Sandi', caption: 'Id Daftar Sandi', size: '150px', searchable: true, sortable: true },
             { field: 'Validasi', caption: 'Validasi', size: '150px', searchable: true, sortable: true },
-            { field: 'Jumlah', caption: 'Jumlah', size: '100%', searchable: true, sortable: true },
-            { field: 'Log_Date', caption: 'Tanggal', size: '100%', searchable: true, sortable: true },
-            { field: 'Log_Time', caption: 'Jam', size: '100%', searchable: true, sortable: true },
-            { field: 'Log_User', caption: 'Kasir', size: '100%', searchable: true, sortable: true }
+            { field: 'Jumlah', caption: 'Jumlah', size: '100%', searchable: true, sortable: true }
 		],
 		actions: {
 			Reset: function () {
@@ -120,10 +114,13 @@ var config_kas = {
 			Save: function () {
 				this.save(function (data) {
 					if (data.status == 'success') {
+						/*
 						w2ui['grid_kas'].set(data.records.Kode_Norek, data.records);
 						w2ui['grid_kas'].refresh();
 						w2ui['grid_kas'].selectNone();
 						w2ui['grid_detail_kas'].clear();
+						*/
+						w2ui['grid_kas'].load('index.php/ctrl_kas/read');
 						$().w2popup('close');
 					}
 				});				
@@ -134,14 +131,11 @@ var config_kas = {
 	form_add_kas: {
 		name: 'form_add_kas',
 		fields: [
-            { field: 'Kode_Norek', caption: 'Kode No. Rekening', size: '150px', searchable: true, sortable: true },
-            { field: 'Id_Daftar_Sandi', caption: 'Id Daftar Sandi', size: '150px', searchable: true, sortable: true },
-            { field: 'Validasi', caption: 'Validasi', size: '150px', searchable: true, sortable: true },
-            { field: 'Jumlah', caption: 'Jumlah', size: '100%', searchable: true, sortable: true },
-            { field: 'Log_Date', caption: 'Tanggal', size: '100%', searchable: true, sortable: true },
-            { field: 'Log_Time', caption: 'Jam', size: '100%', searchable: true, sortable: true },
-            { field: 'Log_User', caption: 'Kasir', size: '100%', searchable: true, sortable: true }
- 		],
+			{ name: 'Kode_Norek', type: 'text', required: true, html: { caption: 'No. Rekening', attr: 'size="20" maxlength="20" onclick="openPopup_Kode_Norek()"' } },
+			{ name: 'Id_Daftar_Sandi', type: 'text', required: true, html: { caption: 'Daftar Sandi', attr: 'size="20" maxlength="20" onclick="openPopup_Id_Daftar_Sandi()"' } },
+			{ name: 'Validasi', type: 'text', html: { caption: 'Validasi', attr: 'size="20" maxlength="20"' } },
+			{ name: 'Jumlah', type: 'int', html: { caption: 'Jumlah', attr: 'size="20" maxlength="20"' } }
+		],
 		actions: {
 			Reset: function () {
 				this.clear();
@@ -149,8 +143,9 @@ var config_kas = {
 			Save: function () {
 				this.save(function (data) {
 					if (data.status == 'success') {
-						w2ui['grid_kas'].add(data.records);
-						w2ui['grid_kas'].selectNone();
+						w2ui['grid_kas'].load('index.php/ctrl_kas/read');
+						//w2ui['grid_kas'].add(data.records);
+						//w2ui['grid_kas'].selectNone();
 						$().w2popup('close');
 					}
 				});
@@ -160,7 +155,7 @@ var config_kas = {
 	},
 	grid_dt_nomor_rekening: { 
         name : 'grid_dt_nomor_rekening',
-        header : 'Daftar Akun BMT AL-Hikma',
+        header : 'Daftar Nomor Rekening BMT AL-Hikma',
 		show : {
 			toolbar : true,
 	        header : true,
@@ -168,13 +163,12 @@ var config_kas = {
 	        lineNumbers: true
 		},
         columns: [
-            { field: 'recid', caption: 'Nomor Rekening', size: '150px', searchable: true, sortable: true },
-            { field: 'Nama_Akun', caption: 'Nama Akun', size: '100%', searchable: true, sortable: true }
+            { field: 'recid', caption: 'No. Rekening', size: '150px', searchable: true, sortable: true }
 		]
 	},
-	grid_dt_akun_kredit: { 
-        name : 'grid_dt_akun_kredit',
-        header : 'Daftar Akun BMT AL-Hikma',
+	grid_dt_daftar_sandi: { 
+        name : 'grid_dt_daftar_sandi',
+        header : 'Daftar Sandi BMT AL-Hikma',
 		show : {
 			toolbar : true,
 	        header : true,
@@ -182,64 +176,31 @@ var config_kas = {
 	        lineNumbers: true
 		},
         columns: [
-            { field: 'recid', caption: 'Kode Akun', size: '150px', searchable: true, sortable: true },
-            { field: 'Nama_Akun', caption: 'Nama Akun', size: '100%', searchable: true, sortable: true }
+            { field: 'recid', caption: 'Sandi', size: '150px', searchable: true, sortable: true },
+            { field: 'Nama_Sandi', caption: 'Nama Sandi', size: '100%', searchable: true, sortable: true }
 		]
 	}
-		
+
 }
 
 $(function () {
-	
-	//$().w2form(config_kas.form_add_kas);
-	
-	//$().w2form(config_kas.form_edit_kas);
-	
+
+
 });
+
+
+
+
 
 
 function call_edit_kas(recid) {
 
 	$().w2destroy('layout_kas');
 	$().w2destroy('form_edit_kas');
-	$().w2destroy('grid_dt_nomor_rekening');
-	$().w2destroy('grid_dt_akun_kredit');
-	
+
 	$().w2layout(config_kas.layout_kas);
-	w2ui.layout_kas.content('left', $().w2form(config_kas.form_edit_kas));
-	w2ui.layout_kas.content('main', $().w2grid(config_kas.grid_dt_nomor_rekening));
-	w2ui.layout_kas.content('preview', $().w2grid(config_kas.grid_dt_akun_kredit));
+	w2ui.layout_kas.content('main', $().w2form(config_kas.form_edit_kas));
 
-	load_data_to_grid_kas();
-
-	w2ui.grid_dt_nomor_rekening.on('click', function(event) {
-		var grid = this;
-		var form_edit_kas = w2ui.form_edit_kas;
-		event.onComplete = function () {
-			var sel = grid.getSelection();
-			if (sel.length == 1) {
-				form_edit_kas.record['Id_Daftar_nomor_rekening']  = sel[0];
-				form_edit_kas.refresh();
-			} else {
-				form_edit_kas.clear();
-			}
-		}
-	});
-	
-	w2ui.grid_dt_akun_kredit.on('click', function(event) {
-		var grid = this;
-		var form_edit_kas = w2ui.form_edit_kas;
-		event.onComplete = function () {
-			var sel = grid.getSelection();
-			if (sel.length == 1) {
-				form_edit_kas.record['Id_Daftar_Akun_Kredit']  = sel[0];
-				form_edit_kas.refresh();
-			} else {
-				form_edit_kas.clear();
-			}
-		}
-	});	
-	
 	$().w2popup('open', {
 		title	: 'Edit Data Sandi BMT',
 		body	: '<div id="popup_edit_kas" style="width: 100%; height: 100%;"></div>',
@@ -275,51 +236,17 @@ function call_edit_kas(recid) {
 function call_add_kas(recid) {
 	$().w2destroy('layout_kas');
 	$().w2destroy('form_add_kas');
-	$().w2destroy('grid_dt_nomor_rekening');
-	$().w2destroy('grid_dt_akun_kredit');
 	
 	$().w2layout(config_kas.layout_kas);
-	w2ui.layout_kas.content('left', $().w2form(config_kas.form_add_kas));
-	w2ui.layout_kas.content('main', $().w2grid(config_kas.grid_dt_nomor_rekening));
-	w2ui.layout_kas.content('preview', $().w2grid(config_kas.grid_dt_akun_kredit));
+	w2ui.layout_kas.content('main', $().w2form(config_kas.form_add_kas));
 
-	load_data_to_grid_kas();
 
-	
-	w2ui.grid_dt_nomor_rekening.on('click', function(event) {
-		var grid = this;
-		var form_add_kas = w2ui.form_add_kas;
-		event.onComplete = function () {
-			var sel = grid.getSelection();
-			if (sel.length == 1) {
-				form_add_kas.record['Id_Daftar_nomor_rekening']  = sel[0];
-				form_add_kas.refresh();
-			} else {
-				form_add_kas.clear();
-			}
-		}
-	});
-	
-	w2ui.grid_dt_akun_kredit.on('click', function(event) {
-		var grid = this;
-		var form_add_kas = w2ui.form_add_kas;
-		event.onComplete = function () {
-			var sel = grid.getSelection();
-			if (sel.length == 1) {
-				form_add_kas.record['Id_Daftar_Akun_Kredit']  = sel[0];
-				form_add_kas.refresh();
-			} else {
-				form_add_kas.clear();
-			}
-		}
-	});	
-		
 	$().w2popup('open', {
-		title	: 'Add Daftar Sandi BMT',
+		title	: 'Add KAS BMT',
 		body	: '<div id="popup_add_kas" style="width: 100%; height: 100%;"></div>',
 		style	: 'padding: 0px 0px 0px 0px',
-		width	: 700,
-		height	: 600, 
+		width	: 800,
+		height	: 400, 
 		showMax : true,
 		onMin	: function (event) {
 			$(w2ui.layout_kas.box).hide();
@@ -340,20 +267,18 @@ function call_add_kas(recid) {
 				
 				$('#w2ui-popup #popup_add_kas').w2render('layout_kas');
 				w2ui['form_add_kas'].url = {save: 'index.php/ctrl_kas/create/'};
-				
-			/*	
-				
-				$('#w2ui-popup #form_add_kas').w2render('form_add_kas');
-				w2ui['form_add_kas'].url = {save: 'index.php/ctrl_kas/create/'};
-				w2ui['form_add_kas'].action('Reset');
-			*/
 			}
 		}
 	});
 	
 }
 
+
+
+
+
 function call_delete_kas(delrecid){
+	console.log(delrecid);
 	$().w2destroy('deletedialog');
 	$('#deletedialog').w2form({ 
 		name: 'deletedialog',
@@ -381,7 +306,6 @@ function call_delete_kas(delrecid){
 							w2ui['grid_detail_kas'].clear();
 							$().w2popup('close');
 						}
-					// if error, it is already displayed by w2form
 					});
 				},
 				"cancel": function () {
@@ -391,7 +315,7 @@ function call_delete_kas(delrecid){
 	}); 
 	
 	$().w2popup('open', {
-		title	: 'Delete Daftar Sandi BMT',
+		title	: 'Delete KAS BMT',
 		body	: '<div id="form_popup_kas" style="width: 100%; height: 100%;"></div>',
 		style	: 'padding: 15px 0px 0px 0px',
 		width	: 500,
@@ -402,25 +326,79 @@ function call_delete_kas(delrecid){
 			}
 		},
 	});	
-	
 }
 
 
-function load_data_to_grid_kas(){
-	w2ui['grid_dt_nomor_rekening'].load('index.php/ctrl_daftar_akun/read');
+
+
+
+
+function openPopup_Kode_Norek(){
+	$().w2destroy('grid_dt_nomor_rekening');
+	w2ui.layout_kas.content('right', $().w2grid(config_kas.grid_dt_nomor_rekening));
+
+	w2ui['grid_dt_nomor_rekening'].load('index.php/ctrl_nomor_rekening/read');
 	w2ui['grid_dt_nomor_rekening'].on('reload', function(event) {
-		this.load('index.php/ctrl_daftar_akun/read');
+		this.load('index.php/ctrl_nomor_rekening/read');
 		this.selectNone();
 		this.reset();
 		this.refresh();
 	});
 
-	w2ui['grid_dt_akun_kredit'].load('index.php/ctrl_daftar_akun/read');
-	w2ui['grid_dt_akun_kredit'].on('reload', function(event) {
-		this.load('index.php/ctrl_daftar_akun/read');
+	w2ui.layout_kas.show('right', true);
+	
+	//click event to copy selected recid into specific field in the form
+	w2ui.grid_dt_nomor_rekening.on('click', function(event) {
+		var grid = this;
+		var form_add_kas = w2ui.form_add_kas;
+		event.onComplete = function () {
+			var sel = grid.getSelection();
+			
+			if (sel.length == 1) {
+				//both of this similiar line is same
+				form_add_kas.record.Kode_Norek = sel[0];
+				form_add_kas.refresh();
+
+			} else {
+				form_add_kas.clear();
+			}
+		}
+	});
+
+}
+
+function openPopup_Id_Daftar_Sandi(){
+	$().w2destroy('grid_dt_daftar_sandi');
+	w2ui.layout_kas.content('right', $().w2grid(config_kas.grid_dt_daftar_sandi));
+
+	w2ui['grid_dt_daftar_sandi'].load('index.php/ctrl_daftar_sandi/read');
+	w2ui['grid_dt_daftar_sandi'].on('reload', function(event) {
+		this.load('index.php/ctrl_daftar_sandi/read');
 		this.selectNone();
 		this.reset();
 		this.refresh();
-	});	
+	});
+
+	w2ui.layout_kas.show('right', true);
+
+	//click event to copy selected recid into specific field in the form
+	w2ui.grid_dt_daftar_sandi.on('click', function(event) {
+		var grid = this;
+		var form_add_kas = w2ui.form_add_kas;
+		event.onComplete = function () {
+			var sel = grid.getSelection();
+			if (sel.length == 1) {
+				form_add_kas.record.Id_Daftar_Sandi  = sel[0];
+				form_add_kas.refresh();
+			} else {
+				form_add_kas.clear();
+			}
+		}
+	});
+
+
 }
+
+
+
 </script>

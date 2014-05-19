@@ -313,7 +313,7 @@ function call_add_nomor_rekening(recid) {
 	});				
 	
 	$().w2popup('open', {
-		title	: 'Add Daftar Sandi BMT',
+		title	: 'Add Nomor Rekening BMT',
 		body	: '<div id="popup_add_nomor_rekening" style="width: 100%; height: 100%;"></div>',
 		style	: 'padding: 0px 0px 0px 0px',
 		width	: 800,
