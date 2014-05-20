@@ -284,7 +284,7 @@ function call_delete_pegawai(delrecid){
 
 function gen_NIK(){
 	  $.get("index.php/ctrl_pegawai/getLastRec",function(data){
-	  		w2ui['form_add_pegawai'].record.NIK = data;
+	  		w2ui['form_add_pegawai'].record.NIK = "P"+''+data;
 	  		//$('#NIK').val(data);
 	  		w2ui['form_add_pegawai'].refresh();
 	  });

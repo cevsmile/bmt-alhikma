@@ -260,7 +260,7 @@ function call_edit_nomor_rekening(recid) {
 	w2ui.layout_nomor_rekening.content('main', $().w2form(config_nomor_rekening.form_edit_nomor_rekening));
 
 	$().w2popup('open', {
-		title	: 'Edit Data Sandi BMT',
+		title	: 'Edit Nomor Rekening BMT',
 		body	: '<div id="popup_edit_nomor_rekening" style="width: 100%; height: 100%;"></div>',
 		style	: 'padding: 0px 0px 0px 0px',
 		width	: 700,
@@ -310,6 +310,28 @@ function call_add_nomor_rekening(recid) {
 			NIK = [this.record.NIK];
 		
 		this.record.Kode_Norek = Kode_Cabang+'.'+Id_Daftar_Akun+'.'+Id_Nasabah+Id_Supplier+NIK;
+		
+		var cekkode1 = Kode_Cabang,
+			cekkode2 = Id_Daftar_Akun,
+			cekakhir = Id_Nasabah+Id_Supplier+NIK;
+		
+		//validation before check to database
+		if ((cekkode1 == '') || (cekkode2 == '') || (cekakhir == '')) {
+			//$('#Kode_Norek').w2tag('Lengkapi Data Berikut!');
+			if (cekakhir == '') $('#Kode_Norek').w2tag('Isi Field Terakhir!');
+			if (cekkode2 == '') $('#Kode_Norek').w2tag('Isi Daftar Akun!');
+			if (cekkode1 == '') $('#Kode_Norek').w2tag('Isi Kode Cabang!');
+		} else{
+
+			  $.get("index.php/ctrl_nomor_rekening/cekNorek/"+ this.record.Kode_Norek ,function(data){
+			  		//$('#Kode_Norek').w2tag(data);
+			  		//removing double quotes from json encode 
+			  		var data = data.replace(/"/g, '');
+			  		$('#Kode_Norek').val(data);
+			  });		    
+
+		}
+		
 	});				
 	
 	$().w2popup('open', {
@@ -349,7 +371,6 @@ function call_add_nomor_rekening(recid) {
 
 
 function call_delete_nomor_rekening(delrecid){
-	console.log(delrecid);
 	$().w2destroy('deletedialog');
 	$('#deletedialog').w2form({ 
 		name: 'deletedialog',
@@ -566,6 +587,7 @@ function openPopup_NIK(){
 
 
 }
+
 
 
 </script>

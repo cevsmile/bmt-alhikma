@@ -266,7 +266,7 @@ function call_delete_supplier(delrecid){
 
 function gen_Id_Supplier(){
 	  $.get("index.php/ctrl_supplier/getLastRec",function(data){
-	  		w2ui['form_add_supplier'].record.Id_Supplier = data;
+	  		w2ui['form_add_supplier'].record.Id_Supplier = "S"+''+data;
 	  		//$('#NIK').val(data);
 	  		w2ui['form_add_supplier'].refresh();
 	  });

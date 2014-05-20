@@ -283,10 +283,12 @@ function call_delete_nasabah(delrecid){
 
 function gen_Id_Nasabah(){
 	  $.get("index.php/ctrl_nasabah/getLastRec",function(data){
-	  		w2ui['form_add_nasabah'].record.Id_Nasabah = data;
+	  		w2ui['form_add_nasabah'].record.Id_Nasabah = "N"+''+data;
 	  		//$('#NIK').val(data);
 	  		w2ui['form_add_nasabah'].refresh();
 	  });
 }
+
+
 
 </script>

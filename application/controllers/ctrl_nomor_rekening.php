@@ -81,6 +81,17 @@ class Ctrl_nomor_rekening extends CI_Controller {
 			}
 			echo json_encode($newaray);
 		}
-		//"<pre>"; die(print_r($data, TRUE));
 	}
+
+	public function cekNorek($norek) {
+		$data = $this -> mod_nomor_rekening -> cekNorek($norek);
+		$counter = $data + 1;
+		$res = $norek.'.'.$counter;
+		//echo "<pre>"; die(print_r($res, TRUE));
+		echo json_encode($res);
+	}
+
+
+
+
 }// End of system area

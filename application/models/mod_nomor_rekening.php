@@ -6,6 +6,14 @@
  */
 class Mod_nomor_rekening extends CI_Model {
 
+	public function cekNorek($norek) {
+		$this->db->like('Kode_Norek', $norek);
+		$this->db->from('nomor_rekening');
+		$query = $this->db->count_all_results();
+		return $query;
+	}
+
+
 	public function getAll() {
 		//get all records from users table
 		$query = $this -> db -> get('nomor_rekening');

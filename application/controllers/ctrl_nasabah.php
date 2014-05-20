@@ -104,4 +104,6 @@ class Ctrl_nasabah extends CI_Controller {
 		echo json_encode($res);
 	}
 
+
+
 }// End of system area
