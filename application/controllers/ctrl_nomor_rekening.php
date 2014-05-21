@@ -34,6 +34,33 @@ class Ctrl_nomor_rekening extends CI_Controller {
 
 	function create() {
 		//echo "<pre>"; die(print_r($_POST, TRUE));
+		//echo "<pre>"; die(print_r($_POST['record']['Kode_Cabang'], TRUE));
+		$term1 = $_POST['record']['Id_Nasabah'];
+		$term2 = $_POST['record']['Id_Supplier'];
+		$term3 = $_POST['record']['NIK'];
+		if (!empty($term1) || !empty($term2) || !empty($term3)) {
+		   	$data = $this -> mod_nomor_rekening -> create();
+			$data['recid']= $data['Kode_Norek'];
+			
+			$res = Array();
+			$res['status'] = 'success';
+			$res['recid'] = $data['Kode_Norek']; 
+			//$res['total'] = intval($data['NIK']) + 1;
+			$res['records'] = $data; 
+			//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
+			//$res['postData']= $_REQUEST;
+			//echo "<pre>"; die(print_r($res, TRUE));
+			echo json_encode($res);
+		} else {
+			$res = Array();
+			$res['status']  = 'error';
+			$res['message'] = 'Maaf, Data Terakhir belum di input, SIlakan Dilengkapi dulu.';
+			echo json_encode($res);			
+		}
+		
+//		echo "<pre>"; die(print_r($hasil, TRUE));
+		
+/*		
 		if (!empty($_POST)) {
 		   	$data = $this -> mod_nomor_rekening -> create();
 			$data['recid']= $data['Kode_Norek'];
@@ -48,6 +75,8 @@ class Ctrl_nomor_rekening extends CI_Controller {
 			//echo "<pre>"; die(print_r($res, TRUE));
 			echo json_encode($res);
 		}
+ * 
+ */
 	}
 
 	function delete($recid = null) {
