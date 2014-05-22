@@ -6,6 +6,17 @@
  */
 class Mod_kas extends CI_Model {
 
+	public function getQread() {
+		//get all records from users table
+		$query = $this -> db -> get('det_rek_nasabah');
+		if ($query -> num_rows() > 0) {
+			return $query -> result();
+		} else {
+			return array();
+		}
+	} //end getAll
+
+
 	public function getAll() {
 		//get all records from users table
 		$query = $this -> db -> get('kas');
@@ -31,15 +42,14 @@ class Mod_kas extends CI_Model {
     public function update() {
 		$data = $this->input->post("record", TRUE);
 		$datalist = array(
-			'Id_Daftar_Sandi'	=> $data["Id_Daftar_Sandi"], 
-            'Validasi' 			=> $data["Validasi"],
-            'Jumlah' 			=> $data["Jumlah"],
+            'Jumlah_Debit' 		=> $data["Jumlah_Debit"],
+            'Jumlah_Kredit' 	=> $data["Jumlah_Kredit"],
             'Log_User'			=> $this->session->userdata('Username')
 		);
 		$this->db->set($datalist);
 		$this->db->set('Log_Date', 'NOW()', FALSE);
 		$this->db->set('Log_Time', 'NOW()', FALSE);
-        $this->db->update( 'kas', $datalist, array( 'Kode_Norek' => $this->input->post( 'recid', true ) ) );
+        $this->db->update( 'kas', $datalist, array( 'Id_Kas' => $this->input->post( 'recid', true ) ) );
     }	
 
     public function create() {
@@ -48,7 +58,8 @@ class Mod_kas extends CI_Model {
 			'Kode_Norek'		=> $data["Kode_Norek"], 
 			'Id_Daftar_Sandi'	=> $data["Id_Daftar_Sandi"], 
             'Validasi' 			=> $data["Validasi"],
-            'Jumlah' 			=> $data["Jumlah"],
+            'Jumlah_Debit' 		=> $data["Jumlah_Debit"],
+            'Jumlah_Kredit' 	=> $data["Jumlah_Kredit"],
             'Log_User'			=> $this->session->userdata('Username')
 		);
 		$this->db->set($datalist);
@@ -65,7 +76,7 @@ class Mod_kas extends CI_Model {
         * from intval function. This is done for security reason.
         */
         //$recid = intval( $recid );
-        $this->db->delete( 'kas', array( 'Kode_Norek' => $recid ) );
+        $this->db->delete( 'kas', array( 'Id_Kas' => $recid ) );
     } //end delete	
     
 }// end of class

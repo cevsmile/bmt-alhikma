@@ -308,6 +308,8 @@ function call_add_nomor_rekening(recid) {
 			cekakhir = Id_Nasabah+Id_Supplier+NIK;
 		
 		this.record.Kode_Norek = Kode_Cabang+'.'+Id_Daftar_Akun+'.'+ cekakhir;
+		
+		event.onComplete = function () {
 			if ((Kode_Cabang == '') || (Id_Daftar_Akun == '') || (cekakhir == '')) {
 				//$('#Kode_Norek').w2tag('Lengkapi Data Berikut!');
 				if (cekakhir == '') $('#Kode_Norek').w2tag('Isi Field Terakhir!');
@@ -319,6 +321,7 @@ function call_add_nomor_rekening(recid) {
 				var myKodeNorek = this.record.Kode_Norek;
 				$('#Kode_Norek').w2tag('Data Valid, Silakan Disimpan.', {onShow : cekNorekValid(myKodeNorek)});					
 			};
+		};
 	
 	});
 

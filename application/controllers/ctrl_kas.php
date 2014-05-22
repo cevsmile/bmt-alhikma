@@ -77,12 +77,37 @@ class Ctrl_kas extends CI_Controller {
 			$newaray['total'] = $sums;
 			$newaray['records'] = $data;
 			for ($i = 0; $i < $sums; $i++) {
-				$data[$i] -> recid = $data[$i]->Kode_Norek;
+				$data[$i] -> recid = $data[$i]->Id_Kas;
 			}
 			echo json_encode($newaray);
 		}
-		//"<pre>"; die(print_r($data, TRUE));
+		
 	}
+
+	function Qread() {
+		$data = $this -> mod_kas -> getQread();
+		$newaray = Array();
+		$sums = count($data);
+		if ($sums==0){
+			$newaray['status']  = 'error';
+			$newaray['message'] = 'Data Masih Kosong';
+			echo json_encode($newaray);		
+		}else{
+			$newaray['status'] = 'success';
+			$newaray['total'] = $sums;
+			$newaray['records'] = $data;
+			for ($i = 0; $i < $sums; $i++) {
+				$data[$i] -> recid = $data[$i]->Id_Kas;
+				$data[$i] -> namagabungan = $data[$i]->NamaPegawai.$data[$i]->NamaNasabah.$data[$i]->NamaSupplier;
+			}
+			//echo "<pre>"; die(print_r($newaray, TRUE));
+			echo json_encode($newaray);
+		}
+			
+	}
+
+
+
 	
 	function kas_validation() {
 		$acak = mt_rand(10000,99999);

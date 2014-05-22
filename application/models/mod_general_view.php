@@ -19,4 +19,16 @@ class Mod_general_view extends CI_Model {
 		}
 	} //end getAll
 
+	public function get_det_rek_nasabah2() {
+		//get all records from users table
+		$query = $this -> db -> get('det_rek_nasabah2');
+
+		if ($query -> num_rows() > 0) {
+			return $query -> result();
+		} else {
+			return array();
+		}
+	} //end getAll	
+
+	
 }// end of class

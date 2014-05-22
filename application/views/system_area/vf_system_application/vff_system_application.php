@@ -264,9 +264,9 @@ function menu_kas(){
 	w2ui['layout'].content('main', w2ui['layout2']);
 	w2ui.layout.content('main', $().w2grid(config_kas.grid_kas));
 	w2ui.layout.content('right', $().w2grid(config_kas.grid_detail_kas));
-	w2ui['grid_kas'].load('index.php/ctrl_kas/read');
+	w2ui['grid_kas'].load('index.php/ctrl_kas/Qread');
 	w2ui['grid_kas'].on('reload', function(event) {
-		this.load('index.php/ctrl_kas/read');
+		this.load('index.php/ctrl_kas/Qread');
 		this.selectNone();
 		this.reset();
 		this.refresh();
