@@ -137,7 +137,7 @@ var config_kas = {
 			{ name: 'Kode_Norek', type: 'text', required: true, html: { caption: 'No. Rekening', attr: 'size="20" maxlength="20" onclick="openPopup_Kode_Norek()" readonly' } },
 			{ name: 'Id_Daftar_Sandi', type: 'text', required: true, html: { caption: 'Daftar Sandi', attr: 'size="20" maxlength="20" onclick="openPopup_Id_Daftar_Sandi()" readonly' } },
 			{ name: 'Validasi', type: 'int', required: true, html: { caption: 'Validasi', attr: 'size="20" maxlength="20" readonly onClick="kas_validation()"' } },
-			{ name: 'Jumlah', type: 'int', html: { caption: 'Jumlah', attr: 'size="20" maxlength="20"' } },
+			{ name: 'Jumlah', type: 'int', html: { caption: 'Jumlah', attr: 'size="20" maxlength="20" ' } },
 			{ name: 'Jumlah_Debit', type: 'int', html: { caption: 'Jumlah Debit', attr: 'size="20" maxlength="20" readonly' } },
 			{ name: 'Jumlah_Kredit', type: 'int', html: { caption: 'Jumlah Kredit', attr: 'size="20" maxlength="20" readonly' } }
 		],
@@ -148,7 +148,7 @@ var config_kas = {
 			Save: function () {
 				this.save(function (data) {
 					if (data.status == 'success') {
-						w2ui['grid_kas'].load('index.php/ctrl_kas/read');
+						w2ui['grid_kas'].load('index.php/ctrl_kas/Qread');
 						//w2ui['grid_kas'].add(data.records);
 						//w2ui['grid_kas'].selectNone();
 						$().w2popup('close');
@@ -396,29 +396,37 @@ function openPopup_Id_Daftar_Sandi(){
 		var form_add_kas = w2ui.form_add_kas;
 
 		event.onComplete = function () {
-			
 			var recordku = this.get(event.recid),
-				posisikasdebit = recordku.Id_Daftar_Akun_Debit,
-				posisikaskredit = recordku.Id_Daftar_Akun_Kredit;
+				PosKasDebit = recordku.Id_Daftar_Akun_Debit,
+				PosKasKredit = recordku.Id_Daftar_Akun_Kredit;
 			
 			var	sel = grid.getSelection();
 				
 			if (sel.length == 1) {
+				//This is the important one, it will help un accounting people to input data without confuse wich is left or right. 
+				if(PosKasDebit == "1111"){
+					form_add_kas.record.Jumlah_Debit = form_add_kas.record.Jumlah;
+					form_add_kas.record.Jumlah_Kredit = 0;
+					$('#Jumlah').on('keyup', function(){
+						$('#Jumlah_Kredit').val(0);
+						$('#Jumlah_Debit').val($('#Jumlah').val());
+						form_add_kas.record.Jumlah_Debit = $('#Jumlah_Debit').val();
+					})
+					
+				};
 				
+				if(PosKasKredit == "1111"){
+					form_add_kas.record.Jumlah_Debit = 0;
+					form_add_kas.record.Jumlah_Kredit = form_add_kas.record.Jumlah;
+					$('#Jumlah').on('keyup', function(){
+						$('#Jumlah_Debit').val(0);
+						$('#Jumlah_Kredit').val($('#Jumlah').val());
+						form_add_kas.record.Jumlah_Kredit = $('#Jumlah_Kredit').val();
+					})
+				};		 
+				//this will copy another table wich is datasource to specific field in the form
 				form_add_kas.record.Id_Daftar_Sandi  = sel[0];
-				
-					if(posisikasdebit == "1111"){
-						form_add_kas.record.Jumlah_Debit = form_add_kas.record.Jumlah;
-						form_add_kas.record.Jumlah_Kredit = 0;
-					};
-					
-					if(posisikaskredit == "1111"){
-						form_add_kas.record.Jumlah_Debit = 0;
-						form_add_kas.record.Jumlah_Kredit = form_add_kas.record.Jumlah;
-					};
-					
 				form_add_kas.refresh();
-				
 			} else {
 				form_add_kas.clear();
 			};
