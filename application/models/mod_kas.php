@@ -6,6 +6,17 @@
  */
 class Mod_kas extends CI_Model {
 
+	public function getSumKas() {
+		//get all records from users table
+		$query = $this -> db -> get('sum_kas');
+		if ($query -> num_rows() > 0) {
+			return $query -> result();
+		} else {
+			return array();
+		}
+	} //end getAll
+
+
 	public function getQread() {
 		//get all records from users table
 		$query = $this -> db -> get('det_rek_nasabah');

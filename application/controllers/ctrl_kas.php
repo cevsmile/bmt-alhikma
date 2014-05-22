@@ -86,6 +86,7 @@ class Ctrl_kas extends CI_Controller {
 
 	function Qread() {
 		$data = $this -> mod_kas -> getQread();
+		$sumdata = $this -> mod_kas -> getSumKas();
 		$newaray = Array();
 		$sums = count($data);
 		if ($sums==0){
@@ -95,11 +96,18 @@ class Ctrl_kas extends CI_Controller {
 		}else{
 			$newaray['status'] = 'success';
 			$newaray['total'] = $sums;
+			//$newaray['summary'] = 'true, recid: \'10\'';
+			//$newaray['summary'] = true;
+			
 			$newaray['records'] = $data;
 			for ($i = 0; $i < $sums; $i++) {
 				$data[$i] -> recid = $data[$i]->Id_Kas;
 				$data[$i] -> namagabungan = $data[$i]->NamaPegawai.$data[$i]->NamaNasabah.$data[$i]->NamaSupplier;
+				//$data[$i] -> summary = true;
 			}
+			$newaray['records'][] = Array('summary' => true, 'recid'=>'S-1', 'Id_Daftar_Akun_Kredit'=>'<span style="float: right;">Total:</span>', 'Jumlah_Debit'=>$sumdata[0]->TotalDebet, 'Jumlah_Kredit'=>$sumdata[0]->TotalKredit);
+			$newaray['records'][] = Array('summary' => true, 'recid'=>'S-2', 'Id_Daftar_Akun_Kredit'=>'<span style="float: right;">Saldo:</span>', 'Jumlah_Debit'=>$sumdata[0]->GrandTotal);
+			
 			//echo "<pre>"; die(print_r($newaray, TRUE));
 			echo json_encode($newaray);
 		}
