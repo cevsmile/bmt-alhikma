@@ -1,6 +1,6 @@
 /*
 Created		15/04/2014
-Modified		13/05/2014
+Modified		22/05/2014
 Project		Akutansi BMT
 Model		Utama
 Company		BMT AL-Hikma
@@ -49,10 +49,11 @@ Create table Identitas_BMT (
 	Status Char(20),
 	Nomor_Registrasi Char(20),
 	Tgl_Pembukuan Date,
+	UNIQUE (Kode_Cabang),
  Primary Key (Kode_Cabang)) ENGINE = InnoDB;
 
 Create table Nasabah (
-	Id_Nasabah Int NOT NULL AUTO_INCREMENT,
+	Id_Nasabah Char(20) NOT NULL,
 	Nama Varchar(150),
 	Alamat Varchar(200),
 	Nomor_KTP Char(16),
@@ -61,8 +62,7 @@ Create table Nasabah (
 	Tanggal_Masuk Date,
 	Tanggal_Keluar Date,
 	Status Char(1),
-	Saldo_Awal Int,
-	Saldo_Akhir Int,
+	UNIQUE (Id_Nasabah),
  Primary Key (Id_Nasabah)) ENGINE = InnoDB;
 
 Create table Daftar_Sandi (
@@ -73,27 +73,34 @@ Create table Daftar_Sandi (
  Primary Key (Id_Daftar_Sandi)) ENGINE = InnoDB;
 
 Create table KAS (
-	Kode_Norek Char(20) NOT NULL,
-	Id_Daftar_Sandi Char(2) NOT NULL,
+	Id_Kas Int NOT NULL AUTO_INCREMENT,
+	Kode_Norek Char(20),
+	Id_Daftar_Sandi Char(2),
 	Validasi Varchar(200),
-	Jumlah Int,
+	Jumlah_Debit Int,
+	Jumlah_Kredit Int,
 	Log_Date Date,
 	Log_Time Time,
-	log_user Char(20)) ENGINE = InnoDB;
+	Log_User Char(20),
+ Primary Key (Id_Kas)) ENGINE = InnoDB;
 
 Create table Jurnal_Beli_Kredit (
-	Kode_Norek Char(20) NOT NULL,
-	Id_Daftar_Sandi Char(2) NOT NULL,
+	Id_Jurnal_Beli_Kredit Int NOT NULL AUTO_INCREMENT,
+	Kode_Norek Char(20),
+	Id_Daftar_Sandi Char(2),
 	Tanggal Datetime,
 	Faktur Char(20),
+	Jumlah_Debit Int,
+	Jumlah_Kredit Int,
 	Jumlah_Pembelian Int,
 	Jumlah_Potongan Int,
 	Log_Date Date NOT NULL,
 	Log_Time Time NOT NULL,
-	Log_User Char(20) NOT NULL) ENGINE = InnoDB;
+	Log_User Char(20) NOT NULL,
+ Primary Key (Id_Jurnal_Beli_Kredit)) ENGINE = InnoDB;
 
 Create table Pegawai (
-	NIK Int NOT NULL AUTO_INCREMENT,
+	NIK Char(20) NOT NULL,
 	Nama Varchar(150),
 	Alamat Varchar(200),
 	Nomor_KTP Char(16),
@@ -102,36 +109,42 @@ Create table Pegawai (
 	Tanggal_Masuk Date,
 	Tanggal_Keluar Date,
 	Status Char(1),
-	Saldo_Awal Int,
-	Saldo_Akhir Int,
 	UNIQUE (NIK),
  Primary Key (NIK)) ENGINE = InnoDB;
 
 Create table Bank (
-	Kode_Norek Char(20) NOT NULL,
-	Id_Daftar_Sandi Char(2) NOT NULL,
+	Id_Bank Int NOT NULL AUTO_INCREMENT,
+	Kode_Norek Char(20),
+	Id_Daftar_Sandi Char(2),
 	Validasi Char(5),
-	Jumlah Int,
+	Jumlah_Debit Int,
+	Jumlah_Kredit Int,
 	Log_Date Date NOT NULL,
 	Log_Time Time NOT NULL,
-	Log_User Char(20) NOT NULL) ENGINE = InnoDB;
+	Log_User Char(20) NOT NULL,
+ Primary Key (Id_Bank)) ENGINE = InnoDB;
 
 Create table Jurnal_Jual (
-	Kode_Norek Char(20) NOT NULL,
-	Id_Daftar_Sandi Char(2) NOT NULL,
+	Id_Jurnal_Jual Int NOT NULL AUTO_INCREMENT,
+	Kode_Norek Char(20),
+	Id_Daftar_Sandi Char(2),
 	Tanggal Date,
 	Faktur Char(20),
+	Jumlah_Debit Int,
+	Jumlah_Kredit Int,
 	Jumlah_Jual Int,
 	Jumlah_Untung Int,
-	log_date Date,
-	log_time Time,
-	log_user Char(20)) ENGINE = InnoDB;
+	Log_Date Date NOT NULL,
+	Log_Time Time NOT NULL,
+	Log_User Char(20) NOT NULL,
+ Primary Key (Id_Jurnal_Jual)) ENGINE = InnoDB;
 
 Create table Supplier (
 	Id_Supplier Char(20) NOT NULL,
 	Nama Char(20),
 	Alamat Char(20),
 	NPWP Char(20),
+	UNIQUE (Id_Supplier),
  Primary Key (Id_Supplier)) ENGINE = InnoDB;
 
 Create table User (
@@ -157,22 +170,28 @@ Create table Nomor_Rekening (
 	Kode_Norek Char(20) NOT NULL,
 	Kode_Cabang Char(3) NOT NULL,
 	Id_Daftar_Akun Char(4) NOT NULL,
-	Id_Nasabah Int,
+	Id_Nasabah Char(20),
 	Id_Supplier Char(20),
-	NIK Int,
+	NIK Char(20),
+	Saldo_Awal Int,
+	Saldo_Akhir Int,
 	Log_Date Date NOT NULL,
 	Log_Time Time NOT NULL,
 	Log_User Char(20) NOT NULL,
+	UNIQUE (Kode_Norek),
  Primary Key (Kode_Norek)) ENGINE = InnoDB;
 
 Create table Bank_Lain (
-	Kode_Norek Char(20) NOT NULL,
-	Id_Daftar_Sandi Char(2) NOT NULL,
+	Id_Bank_Lain Int NOT NULL AUTO_INCREMENT,
+	Kode_Norek Char(20),
+	Id_Daftar_Sandi Char(2),
 	Validasi Char(5),
-	Jumlah Int,
+	Jumlah_Debit Int,
+	Jumlah_Kredit Int,
 	Log_Date Date NOT NULL,
 	Log_Time Time NOT NULL,
-	Log_User Char(20) NOT NULL) ENGINE = InnoDB;
+	Log_User Char(20) NOT NULL,
+ Primary Key (Id_Bank_Lain)) ENGINE = InnoDB;
 
 
 

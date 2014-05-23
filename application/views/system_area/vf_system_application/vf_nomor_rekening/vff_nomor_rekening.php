@@ -243,11 +243,6 @@ $(function () {
 
 });
 
-
-
-
-
-
 function call_edit_nomor_rekening(recid) {
 
 	$().w2destroy('layout_nomor_rekening');
@@ -292,8 +287,8 @@ function call_edit_nomor_rekening(recid) {
 }
 
 function call_add_nomor_rekening(recid) {
-			$().w2destroy('form_add_nomor_rekening');
-			$().w2destroy('layout_nomor_rekening');
+	$().w2destroy('form_add_nomor_rekening');
+	$().w2destroy('layout_nomor_rekening');
 
 	$().w2layout(config_nomor_rekening.layout_nomor_rekening);
 	w2ui.layout_nomor_rekening.content('main', $().w2form(config_nomor_rekening.form_add_nomor_rekening));
@@ -306,24 +301,23 @@ function call_add_nomor_rekening(recid) {
 			Id_Supplier = [this.record.Id_Supplier],
 			NIK = [this.record.NIK],
 			cekakhir = Id_Nasabah+Id_Supplier+NIK;
-		
-		this.record.Kode_Norek = Kode_Cabang+'.'+Id_Daftar_Akun+'.'+ cekakhir;
-		
-		event.onComplete = function () {
-			if ((Kode_Cabang == '') || (Id_Daftar_Akun == '') || (cekakhir == '')) {
+
+			this.record.Kode_Norek = Kode_Cabang+'.'+Id_Daftar_Akun+'.'+ cekakhir;
+
+			if ((Kode_Cabang === '') || (Id_Daftar_Akun === '') || (cekakhir === '')) {
 				//$('#Kode_Norek').w2tag('Lengkapi Data Berikut!');
 				if (cekakhir == '') $('#Kode_Norek').w2tag('Isi Field Terakhir!');
 				if (Id_Daftar_Akun == '') $('#Kode_Norek').w2tag('Isi Daftar Akun!');
 				if (Kode_Cabang == '') $('#Kode_Norek').w2tag('Isi Kode Cabang!');
-			};
+			}
 	
 			if ((Kode_Cabang != '') && (Id_Daftar_Akun != '') && (cekakhir != '')) {
 				var myKodeNorek = this.record.Kode_Norek;
 				$('#Kode_Norek').w2tag('Data Valid, Silakan Disimpan.', {onShow : cekNorekValid(myKodeNorek)});					
-			};
-		};
-	
+			}
 	});
+
+
 
 	$().w2popup('open', {
 		title	: 'Add Nomor Rekening BMT',
@@ -584,8 +578,8 @@ function openPopup_NIK(){
 function cekNorekValid(myKodeNorek){
 	$.get("index.php/ctrl_nomor_rekening/cekNorek/"+ myKodeNorek ,function(data){
 		var data = data.replace(/"/g, '');
+		$('#Kode_Norek').val(data)
 		w2ui['form_add_nomor_rekening'].record.Kode_Norek = data;
-		$('#Kode_Norek').val(data);
 	});
 }
 

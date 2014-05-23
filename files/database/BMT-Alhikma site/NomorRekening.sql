@@ -1,0 +1,3 @@
+INSERT INTO `bmtalhikma`.`nomor_rekening` (`Kode_Norek`, `Kode_Cabang`, `Id_Daftar_Akun`, `Id_Nasabah`, `Id_Supplier`, `NIK`, `Saldo_Awal`, `Saldo_Akhir`, `Log_Date`, `Log_Time`, `Log_User`) VALUES 
+('101.2110.1', '101', '2110', '1', NULL, NULL, NULL, NULL, CURRENT_DATE(), CURRENT_TIME(), 'admin'), 
+('101.2110.2', '101', '2110', '2', NULL, NULL, NULL, NULL, CURRENT_DATE(), CURRENT_TIME(), 'admin');
