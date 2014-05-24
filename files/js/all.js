@@ -3,6 +3,7 @@ $(function() {
 	sampleGrid3();
 });
 //test git
+// Oke di tambahin lagi yah
 
 function sampleGrid1(){
 	$.ajax({
