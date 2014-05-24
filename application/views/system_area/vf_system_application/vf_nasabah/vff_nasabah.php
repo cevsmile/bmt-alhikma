@@ -151,6 +151,42 @@ var config_nasabah = {
 				
 			}
 		}
+	},
+
+	form_delete_nasabah:{
+		name: 'form_delete_nasabah',
+		style: 'border: 0px; background-color: transparent;',
+		//url : 'index.php/ctrl_nasabah/delete/' + delrecid,
+		formHTML:
+			'<div class="w2ui-page page-0">'+
+			'<div style="" class="w2ui-box1">'+
+			'	<div style="" class="w2ui-msg-body">'+
+			'		<div class="w2ui-centered">'+
+			'			<div style="font-size: 20px;">Data Akan Dihapus!!!!</div>'+
+			'		</div>'+
+			'	</div>'+
+			'</div>'+			
+			'</div>'+			
+			'<div class="w2ui-buttons">'+
+			'	<input type="button" value="delete" name="delete">'+
+			'	<input type="button" value="cancel" name="cancel">'+
+			'</div>',
+			actions: {
+				"delete": function () {
+					this.save(function (data) {
+						
+						if (data.status == 'success') {
+							w2ui['grid_nasabah'].remove(data.delrecid);
+							w2ui['grid_detail_nasabah'].clear();
+							$().w2popup('close');
+						}
+					// if error, it is already displayed by w2form
+					});
+				},
+				"cancel": function () {
+					$().w2popup('close');
+				}
+			}		
 	}
 		
 }
@@ -158,6 +194,7 @@ var config_nasabah = {
 $(function () {
 	$().w2form(config_nasabah.form_add_nasabah);
 	$().w2form(config_nasabah.form_edit_nasabah);
+	$().w2form(config_nasabah.form_delete_nasabah);
 	
 });
 
@@ -230,42 +267,6 @@ function call_add_nasabah(recid) {
 }
 
 function call_delete_nasabah(delrecid){
-	$().w2destroy('deletedialog');
-	$('#deletedialog').w2form({ 
-		name: 'deletedialog',
-		style: 'border: 0px; background-color: transparent;',
-		url : 'index.php/ctrl_nasabah/delete/' + delrecid,
-		formHTML:
-			'<div class="w2ui-page page-0">'+
-			'<div style="" class="w2ui-box1">'+
-			'	<div style="" class="w2ui-msg-body">'+
-			'		<div class="w2ui-centered">'+
-			'			<div style="font-size: 20px;">Data Akan Dihapus!!!!</div>'+
-			'		</div>'+
-			'	</div>'+
-			'</div>'+			
-			'</div>'+			
-			'<div class="w2ui-buttons">'+
-			'	<input type="button" value="delete" name="delete">'+
-			'	<input type="button" value="cancel" name="cancel">'+
-			'</div>',
-			actions: {
-				"delete": function () {
-					this.save(function (data) {
-						if (data.status == 'success') {
-							w2ui['grid_nasabah'].remove(delrecid);
-							w2ui['grid_detail_nasabah'].clear();
-							$().w2popup('close');
-						}
-					// if error, it is already displayed by w2form
-					});
-				},
-				"cancel": function () {
-					$().w2popup('close');
-				}
-			}
-	}); 
-	
 	$().w2popup('open', {
 		title	: 'Delete nasabah',
 		body	: '<div id="form_popup_nasabah" style="width: 100%; height: 100%;"></div>',
@@ -274,11 +275,12 @@ function call_delete_nasabah(delrecid){
 		height	: 300, 
 		onOpen	: function (event) {
 			event.onComplete = function () {
-				$('#w2ui-popup #form_popup_nasabah').w2render('deletedialog');
+				$('#w2ui-popup #form_popup_nasabah').w2render('form_delete_nasabah');
+				w2ui['form_delete_nasabah'].url = {save: 'index.php/ctrl_nasabah/delete/' + delrecid};
+			//url : 'index.php/ctrl_nasabah/delete/' + delrecid,
 			}
 		},
 	});	
-	
 }
 
 function gen_Id_Nasabah(){

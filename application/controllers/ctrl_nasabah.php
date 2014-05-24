@@ -69,6 +69,7 @@ class Ctrl_nasabah extends CI_Controller {
 		$this -> mod_nasabah -> delete($recid);
 		$res = Array();
 		$res['status'] = 'success';
+		$res['delrecid'] = $recid;
 		//$res['message'] = 'Command "'.$_REQUEST['cmd'].'" is not recognized.';
 		//$res['postData']= $_REQUEST;
 		echo json_encode($res);
