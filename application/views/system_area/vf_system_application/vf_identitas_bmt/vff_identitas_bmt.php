@@ -148,9 +148,14 @@ var config_identitas_bmt = {
 }
 
 $(function () {
+	//put grid to memory so we can re use it without have to destroy the object
+	//in this case, we are not use this grid on this page, but with the control page
+	$().w2grid(config_identitas_bmt.grid_identitas_bmt);
+	$().w2grid(config_identitas_bmt.grid_detail_identitas_bmt);
+
+	//initialize fom in memory. We can re-use it without destroying the object
 	$().w2form(config_identitas_bmt.form_add_identitas_bmt);
 	$().w2form(config_identitas_bmt.form_edit_identitas_bmt);
-	
 });
 
 

@@ -239,19 +239,25 @@ var config_nomor_rekening = {
 }
 
 $(function () {
+	//put grid to memory so we can re use it without have to destroy the object
+	//in this case, we are not use this grid on this page, but with the control page
+	$().w2grid(config_nomor_rekening.grid_nomor_rekening);
+	$().w2grid(config_nomor_rekening.grid_detail_nomor_rekening);
 
-
+	//initialize everythings in memory. We can re-use it without destroying the object
+	$().w2layout(config_nomor_rekening.layout_nomor_rekening);
+	$().w2form(config_nomor_rekening.form_edit_nomor_rekening);
+	$().w2form(config_nomor_rekening.form_add_nomor_rekening);
+	$().w2grid(config_nomor_rekening.grid_dt_identitas_bmt);
+	$().w2grid(config_nomor_rekening.grid_dt_daftar_akun);
+	$().w2grid(config_nomor_rekening.grid_dt_nasabah);
+	$().w2grid(config_nomor_rekening.grid_dt_supplier);
+	$().w2grid(config_nomor_rekening.grid_dt_pegawai);
 });
 
 function call_edit_nomor_rekening(recid) {
 
-	$().w2destroy('layout_nomor_rekening');
-	$().w2destroy('form_edit_nomor_rekening');
-	$().w2destroy('grid_dt_akun_debit');
-	$().w2destroy('grid_dt_akun_kredit');
-	
-	$().w2layout(config_nomor_rekening.layout_nomor_rekening);
-	w2ui.layout_nomor_rekening.content('main', $().w2form(config_nomor_rekening.form_edit_nomor_rekening));
+	w2ui.layout_nomor_rekening.content('main', w2ui.form_edit_nomor_rekening);
 
 	$().w2popup('open', {
 		title	: 'Edit Nomor Rekening BMT',
@@ -287,11 +293,8 @@ function call_edit_nomor_rekening(recid) {
 }
 
 function call_add_nomor_rekening(recid) {
-	$().w2destroy('form_add_nomor_rekening');
-	$().w2destroy('layout_nomor_rekening');
 
-	$().w2layout(config_nomor_rekening.layout_nomor_rekening);
-	w2ui.layout_nomor_rekening.content('main', $().w2form(config_nomor_rekening.form_add_nomor_rekening));
+	w2ui.layout_nomor_rekening.content('main', w2ui.form_add_nomor_rekening);
 
 
 	w2ui.form_add_nomor_rekening.on('refresh', function(event){
@@ -300,20 +303,22 @@ function call_add_nomor_rekening(recid) {
 			Id_Nasabah = [this.record.Id_Nasabah],
 			Id_Supplier = [this.record.Id_Supplier],
 			NIK = [this.record.NIK],
-			cekakhir = Id_Nasabah+Id_Supplier+NIK;
+			cekakhir = [Id_Nasabah+Id_Supplier+NIK];
+
 
 			this.record.Kode_Norek = Kode_Cabang+'.'+Id_Daftar_Akun+'.'+ cekakhir;
+			
+			event.onComplete = function () {
 
-			if ((Kode_Cabang === '') || (Id_Daftar_Akun === '') || (cekakhir === '')) {
-				//$('#Kode_Norek').w2tag('Lengkapi Data Berikut!');
+				if ((Kode_Cabang && Id_Daftar_Akun && cekakhir) != '') {
+					var myKodeNorek = this.record.Kode_Norek;
+					$('#Kode_Norek').w2tag('Data Valid, Silakan Disimpan.', {onShow : cekNorekValid(myKodeNorek)});					
+				}
 				if (cekakhir == '') $('#Kode_Norek').w2tag('Isi Field Terakhir!');
 				if (Id_Daftar_Akun == '') $('#Kode_Norek').w2tag('Isi Daftar Akun!');
 				if (Kode_Cabang == '') $('#Kode_Norek').w2tag('Isi Kode Cabang!');
-			}
-	
-			if ((Kode_Cabang != '') && (Id_Daftar_Akun != '') && (cekakhir != '')) {
-				var myKodeNorek = this.record.Kode_Norek;
-				$('#Kode_Norek').w2tag('Data Valid, Silakan Disimpan.', {onShow : cekNorekValid(myKodeNorek)});					
+
+			console.log('1. ',Kode_Cabang,'2. ',Id_Daftar_Akun,'3. ',cekakhir);
 			}
 	});
 
@@ -321,7 +326,7 @@ function call_add_nomor_rekening(recid) {
 
 	$().w2popup('open', {
 		title	: 'Add Nomor Rekening BMT',
-		body	: '<div id="popup_add_nomor_rekening" style="width: 100%; height: 100%;"></div>',
+		body	: '<div id="form_add_nomor_rekening" style="width: 100%; height: 100%;"></div>',
 		style	: 'padding: 0px 0px 0px 0px',
 		width	: 800,
 		height	: 400, 
@@ -343,9 +348,16 @@ function call_add_nomor_rekening(recid) {
 		onOpen	: function (event) {
 			event.onComplete = function () {
 				
-				$('#w2ui-popup #popup_add_nomor_rekening').w2render('layout_nomor_rekening');
+				$('#w2ui-popup #form_add_nomor_rekening').w2render('layout_nomor_rekening');
 				w2ui['form_add_nomor_rekening'].url = {save: 'index.php/ctrl_nomor_rekening/create/'};
-				
+				w2ui['form_add_nomor_rekening'].action('Reset');
+			}
+		},
+		onClose	: function (event) {
+			event.onComplete = function () {
+				w2ui['form_add_nomor_rekening'].action('Reset');
+				$('#Kode_Norek').val('..');
+
 			}
 		}
 
@@ -413,8 +425,7 @@ function call_delete_nomor_rekening(delrecid){
 
 
 function openPopup_Kode_Cabang(){
-	$().w2destroy('grid_dt_identitas_bmt');
-	w2ui.layout_nomor_rekening.content('right', $().w2grid(config_nomor_rekening.grid_dt_identitas_bmt));
+	w2ui.layout_nomor_rekening.content('right', w2ui.grid_dt_identitas_bmt);
 
 	w2ui['grid_dt_identitas_bmt'].load('index.php/ctrl_identitas_bmt/read');
 	w2ui['grid_dt_identitas_bmt'].on('reload', function(event) {
@@ -437,6 +448,7 @@ function openPopup_Kode_Cabang(){
 				//both of this similiar line is same
 				form_add_nomor_rekening.record.Kode_Cabang = sel[0];
 				form_add_nomor_rekening.refresh();
+				w2ui['grid_dt_identitas_bmt'].selectNone();
 
 			} else {
 				form_add_nomor_rekening.clear();
@@ -447,8 +459,7 @@ function openPopup_Kode_Cabang(){
 }
 
 function openPopup_Id_Daftar_Akun(){
-	$().w2destroy('grid_dt_daftar_akun');
-	w2ui.layout_nomor_rekening.content('right', $().w2grid(config_nomor_rekening.grid_dt_daftar_akun));
+	w2ui.layout_nomor_rekening.content('right', w2ui.grid_dt_daftar_akun);
 
 	w2ui['grid_dt_daftar_akun'].load('index.php/ctrl_daftar_akun/read');
 	w2ui['grid_dt_daftar_akun'].on('reload', function(event) {
@@ -469,6 +480,7 @@ function openPopup_Id_Daftar_Akun(){
 			if (sel.length == 1) {
 				form_add_nomor_rekening.record.Id_Daftar_Akun  = sel[0];
 				form_add_nomor_rekening.refresh();
+				w2ui['grid_dt_daftar_akun'].selectNone();
 			} else {
 				form_add_nomor_rekening.clear();
 			}
@@ -479,8 +491,7 @@ function openPopup_Id_Daftar_Akun(){
 }
 
 function openPopup_Id_Nasabah(){
-	$().w2destroy('grid_dt_nasabah');
-	w2ui.layout_nomor_rekening.content('right', $().w2grid(config_nomor_rekening.grid_dt_nasabah));
+	w2ui.layout_nomor_rekening.content('right', w2ui.grid_dt_nasabah);
 
 	w2ui['grid_dt_nasabah'].load('index.php/ctrl_nasabah/read');
 	w2ui['grid_dt_nasabah'].on('reload', function(event) {
@@ -502,6 +513,7 @@ function openPopup_Id_Nasabah(){
 				form_add_nomor_rekening.record.NIK = null;
 				form_add_nomor_rekening.record.Id_Nasabah  = sel[0];
 				form_add_nomor_rekening.refresh();
+				w2ui['grid_dt_nasabah'].selectNone();
 			} else {
 				form_add_nomor_rekening.clear();
 			}
@@ -512,8 +524,7 @@ function openPopup_Id_Nasabah(){
 }
 
 function openPopup_Id_Supplier(){
-	$().w2destroy('grid_dt_supplier');
-	w2ui.layout_nomor_rekening.content('right', $().w2grid(config_nomor_rekening.grid_dt_supplier));
+	w2ui.layout_nomor_rekening.content('right', w2ui.grid_dt_supplier);
 
 	w2ui['grid_dt_supplier'].load('index.php/ctrl_supplier/read');
 	w2ui['grid_dt_supplier'].on('reload', function(event) {
@@ -534,6 +545,7 @@ function openPopup_Id_Supplier(){
 				form_add_nomor_rekening.record.NIK = null;
 				form_add_nomor_rekening.record.Id_Supplier = sel[0];
 				form_add_nomor_rekening.refresh();
+				w2ui['grid_dt_supplier'].selectNone();
 			} else {
 				form_add_nomor_rekening.clear();
 			}
@@ -543,8 +555,7 @@ function openPopup_Id_Supplier(){
 }
 
 function openPopup_NIK(){
-	$().w2destroy('grid_dt_pegawai');
-	w2ui.layout_nomor_rekening.content('right', $().w2grid(config_nomor_rekening.grid_dt_pegawai));
+	w2ui.layout_nomor_rekening.content('right', w2ui.grid_dt_pegawai);
 
 	w2ui['grid_dt_pegawai'].load('index.php/ctrl_pegawai/read');
 	w2ui['grid_dt_pegawai'].on('reload', function(event) {
@@ -566,6 +577,7 @@ function openPopup_NIK(){
 				form_add_nomor_rekening.record.Id_Supplier = null;
 				form_add_nomor_rekening.record.NIK = sel[0];
 				form_add_nomor_rekening.refresh();
+				w2ui['grid_dt_pegawai'].selectNone();
 			} else {
 				form_add_nomor_rekening.clear();
 			}

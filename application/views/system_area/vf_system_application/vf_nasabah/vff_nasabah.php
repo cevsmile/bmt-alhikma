@@ -192,6 +192,12 @@ var config_nasabah = {
 }
 
 $(function () {
+	//put grid to memory so we can re use it without have to destroy the object
+	//in this case, we are not use this grid on this page, but with the control page
+	$().w2grid(config_nasabah.grid_nasabah);
+	$().w2grid(config_nasabah.grid_detail_nasabah);
+
+	//initialize fom in memory. We can re-use it without destroying the object
 	$().w2form(config_nasabah.form_add_nasabah);
 	$().w2form(config_nasabah.form_edit_nasabah);
 	$().w2form(config_nasabah.form_delete_nasabah);

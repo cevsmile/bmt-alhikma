@@ -147,6 +147,12 @@ var config_daftar_akun = {
 }
 
 $(function () {
+	//put grid to memory so we can re use it without have to destroy the object
+	//in this case, we are not use this grid on this page, but with the control page
+	$().w2grid(config_daftar_akun.grid_daftar_akun);
+	$().w2grid(config_daftar_akun.grid_detail_daftar_akun);
+	
+	//initialize fom in memory. We can re-use it without destroying the object
 	$().w2form(config_daftar_akun.form_add_daftar_akun);
 	$().w2form(config_daftar_akun.form_edit_daftar_akun);
 	

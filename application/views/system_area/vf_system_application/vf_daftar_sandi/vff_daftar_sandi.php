@@ -177,25 +177,25 @@ var config_daftar_sandi = {
 }
 
 $(function () {
-	
-	//$().w2form(config_daftar_sandi.form_add_daftar_sandi);
-	
-	//$().w2form(config_daftar_sandi.form_edit_daftar_sandi);
+	//put grid to memory so we can re use it without have to destroy the object
+	//in this case, we are not use this grid on this page, but with the control page
+	$().w2grid(config_daftar_sandi.grid_daftar_sandi);
+	$().w2grid(config_daftar_sandi.grid_detail_daftar_sandi);
+
+	//initialize everything in memory. We can re-use it without destroying the object
+	$().w2layout(config_daftar_sandi.layout_daftar_sandi);
+	$().w2form(config_daftar_sandi.form_edit_daftar_sandi);
+	$().w2form(config_daftar_sandi.form_add_daftar_sandi);
+	$().w2grid(config_daftar_sandi.grid_dt_akun_debit);
+	$().w2grid(config_daftar_sandi.grid_dt_akun_kredit);
 	
 });
 
 
 function call_edit_daftar_sandi(recid) {
-
-	$().w2destroy('layout_daftar_sandi');
-	$().w2destroy('form_edit_daftar_sandi');
-	$().w2destroy('grid_dt_akun_debit');
-	$().w2destroy('grid_dt_akun_kredit');
-	
-	$().w2layout(config_daftar_sandi.layout_daftar_sandi);
-	w2ui.layout_daftar_sandi.content('left', $().w2form(config_daftar_sandi.form_edit_daftar_sandi));
-	w2ui.layout_daftar_sandi.content('main', $().w2grid(config_daftar_sandi.grid_dt_akun_debit));
-	w2ui.layout_daftar_sandi.content('preview', $().w2grid(config_daftar_sandi.grid_dt_akun_kredit));
+	w2ui.layout_daftar_sandi.content('left', w2ui.form_edit_daftar_sandi);
+	w2ui.layout_daftar_sandi.content('main', w2ui.grid_dt_akun_debit);
+	w2ui.layout_daftar_sandi.content('preview', w2ui.grid_dt_akun_kredit);
 
 	load_data_to_grid_daftar_sandi();
 
@@ -260,15 +260,9 @@ function call_edit_daftar_sandi(recid) {
 }
 
 function call_add_daftar_sandi(recid) {
-	$().w2destroy('layout_daftar_sandi');
-	$().w2destroy('form_add_daftar_sandi');
-	$().w2destroy('grid_dt_akun_debit');
-	$().w2destroy('grid_dt_akun_kredit');
-	
-	$().w2layout(config_daftar_sandi.layout_daftar_sandi);
-	w2ui.layout_daftar_sandi.content('left', $().w2form(config_daftar_sandi.form_add_daftar_sandi));
-	w2ui.layout_daftar_sandi.content('main', $().w2grid(config_daftar_sandi.grid_dt_akun_debit));
-	w2ui.layout_daftar_sandi.content('preview', $().w2grid(config_daftar_sandi.grid_dt_akun_kredit));
+	w2ui.layout_daftar_sandi.content('left', w2ui.form_edit_daftar_sandi);
+	w2ui.layout_daftar_sandi.content('main', w2ui.grid_dt_akun_debit);
+	w2ui.layout_daftar_sandi.content('preview', w2ui.grid_dt_akun_kredit);
 
 	load_data_to_grid_daftar_sandi();
 
@@ -327,13 +321,7 @@ function call_add_daftar_sandi(recid) {
 				
 				$('#w2ui-popup #popup_add_daftar_sandi').w2render('layout_daftar_sandi');
 				w2ui['form_add_daftar_sandi'].url = {save: 'index.php/ctrl_daftar_sandi/create/'};
-				
-			/*	
-				
-				$('#w2ui-popup #form_add_daftar_sandi').w2render('form_add_daftar_sandi');
-				w2ui['form_add_daftar_sandi'].url = {save: 'index.php/ctrl_daftar_sandi/create/'};
 				w2ui['form_add_daftar_sandi'].action('Reset');
-			*/
 			}
 		}
 	});

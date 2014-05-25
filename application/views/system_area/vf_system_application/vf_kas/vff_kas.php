@@ -194,7 +194,18 @@ var config_kas = {
 }
 
 $(function () {
-	
+	//put grid to memory so we can re use it without have to destroy the object
+	//in this case, we are not use this grid on this page, but with the control page
+	$().w2grid(config_kas.grid_kas);
+	$().w2grid(config_kas.grid_detail_kas);
+
+	$().w2layout(config_kas.layout_kas);
+	$().w2form(config_kas.form_edit_kas);
+	$().w2form(config_kas.form_add_kas);
+	$().w2grid(config_kas.grid_dt_nomor_rekening);
+	$().w2grid(config_kas.grid_dt_daftar_sandi)
+
+
 });
 
 
@@ -203,13 +214,8 @@ $(function () {
 
 
 function call_edit_kas(recid) {
-
-	$().w2destroy('layout_kas');
-	$().w2destroy('form_edit_kas');
-	$().w2destroy('form_add_kas');
 	
-	$().w2layout(config_kas.layout_kas);
-	w2ui.layout_kas.content('left', $().w2form(config_kas.form_edit_kas));
+	w2ui.layout_kas.content('left', w2ui.form_edit_kas);
 
 	$().w2popup('open', {
 		title	: 'Edit KAS BMT',
@@ -244,12 +250,7 @@ function call_edit_kas(recid) {
 }
 
 function call_add_kas(recid) {
-	$().w2destroy('layout_kas');
-	$().w2destroy('form_edit_kas');
-	$().w2destroy('form_add_kas');
-		
-	$().w2layout(config_kas.layout_kas);
-	w2ui.layout_kas.content('left', $().w2form(config_kas.form_add_kas));
+	w2ui.layout_kas.content('left', w2ui.form_add_kas);
 
 
 	$().w2popup('open', {
@@ -275,9 +276,9 @@ function call_add_kas(recid) {
 		},
 		onOpen	: function (event) {
 			event.onComplete = function () {
-				
 				$('#w2ui-popup #popup_add_kas').w2render('layout_kas');
 				w2ui['form_add_kas'].url = {save: 'index.php/ctrl_kas/create/'};
+				w2ui['form_add_kas'].action('Reset');
 			}
 		}
 	});
@@ -337,11 +338,7 @@ function call_delete_kas(delrecid){
 }
 
 function openPopup_Kode_Norek(){
-	$().w2destroy('grid_dt_daftar_sandi');
-	$().w2destroy('grid_dt_nomor_rekening');
-	
-	//w2ui.layout_kas.content('right', $().w2grid(config_kas.grid_dt_nomor_rekening));
-	w2ui.layout_kas.content('preview', $().w2grid(config_kas.grid_dt_nomor_rekening));
+	w2ui.layout_kas.content('preview', w2ui.grid_dt_nomor_rekening);
 
 	w2ui['grid_dt_nomor_rekening'].load('index.php/ctrl_general_view/get_det_rek_nasabah2');
 	w2ui['grid_dt_nomor_rekening'].on('reload', function(event) {
@@ -364,6 +361,7 @@ function openPopup_Kode_Norek(){
 				//both of this similiar line is same
 				form_add_kas.record.Kode_Norek = sel[0];
 				form_add_kas.refresh();
+				w2ui['grid_dt_nomor_rekening'].selectNone();
 
 			} else {
 				form_add_kas.clear();
@@ -374,10 +372,7 @@ function openPopup_Kode_Norek(){
 }
 
 function openPopup_Id_Daftar_Sandi(){
-	$().w2destroy('grid_dt_daftar_sandi');
-	$().w2destroy('grid_dt_nomor_rekening');
-	
-	w2ui.layout_kas.content('right', $().w2grid(config_kas.grid_dt_daftar_sandi));
+	w2ui.layout_kas.content('right', w2ui.grid_dt_daftar_sandi);
 
 	w2ui['grid_dt_daftar_sandi'].load('index.php/ctrl_daftar_sandi/read');
 	w2ui['grid_dt_daftar_sandi'].on('reload', function(event) {
@@ -427,6 +422,7 @@ function openPopup_Id_Daftar_Sandi(){
 				//this will copy another table wich is datasource to specific field in the form
 				form_add_kas.record.Id_Daftar_Sandi  = sel[0];
 				form_add_kas.refresh();
+				w2ui['grid_dt_daftar_sandi'].selectNone();
 			} else {
 				form_add_kas.clear();
 			};

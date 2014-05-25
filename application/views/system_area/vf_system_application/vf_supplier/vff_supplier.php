@@ -140,6 +140,13 @@ var config_supplier = {
 }
 
 $(function () {
+
+	//put grid to memory so we can re use it without have to destroy the object
+	//in this case, we are not use this grid on this page, but with the control page
+	$().w2grid(config_supplier.grid_supplier);
+	$().w2grid(config_supplier.grid_detail_supplier);
+
+	//initialize fom in memory. We can re-use it without destroying the object		
 	$().w2form(config_supplier.form_add_supplier);
 	$().w2form(config_supplier.form_edit_supplier);
 	
