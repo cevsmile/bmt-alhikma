@@ -448,7 +448,7 @@ function openPopup_Kode_Cabang(){
 				//both of this similiar line is same
 				form_add_nomor_rekening.record.Kode_Cabang = sel[0];
 				form_add_nomor_rekening.refresh();
-				w2ui['grid_dt_identitas_bmt'].selectNone();
+				w2ui['grid_dt_identitas_bmt'].reset();
 
 			} else {
 				form_add_nomor_rekening.clear();
@@ -480,7 +480,7 @@ function openPopup_Id_Daftar_Akun(){
 			if (sel.length == 1) {
 				form_add_nomor_rekening.record.Id_Daftar_Akun  = sel[0];
 				form_add_nomor_rekening.refresh();
-				w2ui['grid_dt_daftar_akun'].selectNone();
+				w2ui['grid_dt_daftar_akun'].reset();
 			} else {
 				form_add_nomor_rekening.clear();
 			}
@@ -513,7 +513,7 @@ function openPopup_Id_Nasabah(){
 				form_add_nomor_rekening.record.NIK = null;
 				form_add_nomor_rekening.record.Id_Nasabah  = sel[0];
 				form_add_nomor_rekening.refresh();
-				w2ui['grid_dt_nasabah'].selectNone();
+				w2ui['grid_dt_nasabah'].reset();
 			} else {
 				form_add_nomor_rekening.clear();
 			}
@@ -545,7 +545,7 @@ function openPopup_Id_Supplier(){
 				form_add_nomor_rekening.record.NIK = null;
 				form_add_nomor_rekening.record.Id_Supplier = sel[0];
 				form_add_nomor_rekening.refresh();
-				w2ui['grid_dt_supplier'].selectNone();
+				w2ui['grid_dt_supplier'].reset();
 			} else {
 				form_add_nomor_rekening.clear();
 			}
@@ -577,7 +577,7 @@ function openPopup_NIK(){
 				form_add_nomor_rekening.record.Id_Supplier = null;
 				form_add_nomor_rekening.record.NIK = sel[0];
 				form_add_nomor_rekening.refresh();
-				w2ui['grid_dt_pegawai'].selectNone();
+				w2ui['grid_dt_pegawai'].reset();
 			} else {
 				form_add_nomor_rekening.clear();
 			}
