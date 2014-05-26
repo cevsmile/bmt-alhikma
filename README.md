@@ -39,8 +39,9 @@ visit [w2ui][w2uiweb] web to get newest version, or get direct download here [Do
 - [Facebook][author]
 - [W2ui Indonesian Group][w2uifbid]
 
-Suggestion, idea, or anything you can create new issue on the right top of this github page. 
-Make sure to put your question and idea on the right branch. We just want to make the master clean.
+	Suggestion, idea, or anything you can create new issue on the right top of this github page. 
+	Make sure to put your question and idea on the right branch. 
+	We just want to make the master clean.
 
 
 
