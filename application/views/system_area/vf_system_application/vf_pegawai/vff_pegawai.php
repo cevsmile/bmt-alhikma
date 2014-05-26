@@ -24,10 +24,10 @@ var config_pegawai = {
 						w2ui['layout'].toggle('right', true);
 						break;
 					case 'btn-fullscreen':
-						w2ui['layout'].toggle('top', true);
+						//w2ui['layout'].toggle('top', true);
 						w2ui['layout'].toggle('left', true);
 						w2ui['layout'].hide('right', true);
-						w2ui['layout'].toggle('bottom', true);
+						//w2ui['layout'].toggle('bottom', true);
 						break;
 					case 'level-1-2':
 						break;
