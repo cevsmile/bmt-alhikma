@@ -45,11 +45,7 @@ var config_nomor_rekening = {
 		},
         columns: [
             { field: 'recid', caption: 'Kode Nomor Rekening', size: '150px', searchable: true, sortable: true },
-            { field: 'Kode_Cabang', caption: 'Kode Cabang', size: '100px', searchable: true, sortable: true },
-            { field: 'Id_Daftar_Akun', caption: 'ID Daftar AKun', size: '100px', searchable: true, sortable: true },
-            { field: 'Id_Nasabah', caption: 'ID Nasabah', size: '100px', searchable: true, sortable: true },
-            { field: 'Id_Supplier', caption: 'ID Supplier', size: '100px', searchable: true, sortable: true },
-            { field: 'NIK', caption: 'NIK Pegawai', size: '100px', searchable: true, sortable: true },
+            { field: 'namagabungan', caption: 'Nama', size: '100%', searchable: true, sortable: true },
             { field: 'Saldo_Awal', caption: 'Saldo Awal', size: '100px', searchable: true, sortable: true },
             { field: 'Saldo_Akhir', caption: 'Saldo Akhir', size: '100%', searchable: true, sortable: true }
         ],
@@ -129,7 +125,7 @@ var config_nomor_rekening = {
 						w2ui['grid_nomor_rekening'].selectNone();
 						w2ui['grid_detail_nomor_rekening'].clear();
 						*/
-						w2ui['grid_nomor_rekening'].load('index.php/ctrl_nomor_rekening/read');
+						w2ui['grid_nomor_rekening'].load('index.php/ctrl_nomor_rekening/Qread');
 						$().w2popup('close');
 					}
 				});				
@@ -156,7 +152,7 @@ var config_nomor_rekening = {
 			Save: function () {
 				this.save(function (data) {
 					if (data.status == 'success') {
-						w2ui['grid_nomor_rekening'].load('index.php/ctrl_nomor_rekening/read');
+						w2ui['grid_nomor_rekening'].load('index.php/ctrl_nomor_rekening/Qread');
 						//w2ui['grid_nomor_rekening'].add(data.records);
 						//w2ui['grid_nomor_rekening'].selectNone();
 						$().w2popup('close');

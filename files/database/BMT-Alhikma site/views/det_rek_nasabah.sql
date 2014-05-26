@@ -11,9 +11,9 @@ SELECT
 	`daftar_sandi`.`Id_Daftar_Akun_Debit` AS `Id_Daftar_Akun_Debit`,
 	`kas`.`Jumlah_Debit` AS `Jumlah_Debit`,
 	`kas`.`Jumlah_Kredit` AS `Jumlah_Kredit`,
-	`nomor_rekening`.`Log_Date` AS `Log_Date`,
-	`nomor_rekening`.`Log_Time` AS `Log_Time`,
-	`nomor_rekening`.`Log_User` AS `Log_User`
+	`kas`.`Log_Date` AS `Log_Date`,
+	`kas`.`Log_Time` AS `Log_Time`,
+	`kas`.`Log_User` AS `Log_User`
 FROM
 	(
 		(

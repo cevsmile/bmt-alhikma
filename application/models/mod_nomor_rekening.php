@@ -13,6 +13,15 @@ class Mod_nomor_rekening extends CI_Model {
 		return $query;
 	}
 
+	public function getQread() {
+		//get all records from users table
+		$query = $this -> db -> get('det_no_rek');
+		if ($query -> num_rows() > 0) {
+			return $query -> result();
+		} else {
+			return array();
+		}
+	} //end getAll
 
 	public function getAll() {
 		//get all records from users table

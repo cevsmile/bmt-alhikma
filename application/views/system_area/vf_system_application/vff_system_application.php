@@ -255,9 +255,9 @@ function menu_daftar_sandi(){
 function menu_nomor_rekening(){
 	w2ui.layout.content('main', w2ui.grid_nomor_rekening);
 	w2ui.layout.content('right', w2ui.grid_detail_nomor_rekening);
-	w2ui['grid_nomor_rekening'].load('index.php/ctrl_nomor_rekening/read');
+	w2ui['grid_nomor_rekening'].load('index.php/ctrl_nomor_rekening/Qread');
 	w2ui['grid_nomor_rekening'].on('reload', function(event) {
-		this.load('index.php/ctrl_nomor_rekening/read');
+		this.load('index.php/ctrl_nomor_rekening/Qread');
 		this.selectNone();
 		this.reset();
 		this.refresh();

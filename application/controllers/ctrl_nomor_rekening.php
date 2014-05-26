@@ -112,6 +112,33 @@ class Ctrl_nomor_rekening extends CI_Controller {
 		}
 	}
 
+	function Qread() {
+		$data = $this -> mod_nomor_rekening -> getQread();
+		//$sumdata = $this -> mod_nomor_rekening -> getSumKas();
+		$newaray = Array();
+		$sums = count($data);
+		if ($sums==0){
+			$newaray['status']  = 'error';
+			$newaray['message'] = 'Data Masih Kosong';
+			echo json_encode($newaray);		
+		}else{
+			$newaray['status'] = 'success';
+			$newaray['total'] = $sums;
+			
+			$newaray['records'] = $data;
+			for ($i = 0; $i < $sums; $i++) {
+				$data[$i] -> recid = $data[$i]->Kode_Norek;
+				$data[$i] -> namagabungan = $data[$i]->NamaPegawai.$data[$i]->NamaNasabah.$data[$i]->NamaSupplier;
+			}
+			$newaray['records'][] = Array('summary' => true, 'recid'=>'Keterangan', 'namagabungan'=>'<span style="float: right;">Total Rekening:</span>', 'Saldo_Awal'=>$sums);
+			//$newaray['records'][] = Array('summary' => true, 'recid'=>'S-2', 'Id_Daftar_Akun_Kredit'=>'<span style="float: right;">Saldo:</span>', 'Jumlah_Debit'=>$sumdata[0]->GrandTotal);
+			
+			//echo "<pre>"; die(print_r($newaray, TRUE));
+			echo json_encode($newaray);
+		}
+			
+	}
+
 	public function cekNorek($norek) {
 		$data = $this -> mod_nomor_rekening -> cekNorek($norek);
 		$counter = $data + 1;
