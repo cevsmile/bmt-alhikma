@@ -96,7 +96,7 @@ var config_kas = {
 		header: 'Details',
 		show: { header: true, columnHeaders: false },
 		name: 'grid_detail_kas', 
-		columns: [				
+		columns: [
 			{ field: 'name', caption: 'Name', size: '100px', style: 'background-color: #efefef; border-bottom: 1px solid white; padding-right: 5px;', attr: "align=right" },
 			{ field: 'value', caption: 'Value', size: '100%' }
 		]

@@ -164,12 +164,14 @@ function menu_identitas_bmt(){
 	w2ui.layout.content('right', w2ui.grid_detail_identitas_bmt);
 	w2ui['grid_identitas_bmt'].load('index.php/ctrl_identitas_bmt/read');
 	w2ui['grid_identitas_bmt'].on('reload', function(event) {
-		this.load('index.php/ctrl_identitas_bmt/read');
-		this.selectNone();
 		this.reset();
-		this.refresh();
 		w2ui['grid_detail_identitas_bmt'].clear();
+		event.onComplete = function () {
+			this.load('index.php/ctrl_identitas_bmt/read');
+		};
+
 	});
+
 }
 
 
@@ -178,11 +180,11 @@ function menu_daftar_akun(){
 	w2ui.layout.content('right', w2ui.grid_detail_daftar_akun);
 	w2ui['grid_daftar_akun'].load('index.php/ctrl_daftar_akun/read');
 	w2ui['grid_daftar_akun'].on('reload', function(event) {
-		this.load('index.php/ctrl_daftar_akun/read');
-		this.selectNone();
 		this.reset();
-		this.refresh();
 		w2ui['grid_detail_daftar_akun'].clear();
+		event.onComplete = function () {
+			this.load('index.php/ctrl_daftar_akun/read');
+		};
 	});
 }
 
@@ -191,11 +193,13 @@ function menu_pegawai(){
 	w2ui.layout.content('right', w2ui.grid_detail_pegawai);
 	w2ui['grid_pegawai'].load('index.php/ctrl_pegawai/read');
 	w2ui['grid_pegawai'].on('reload', function(event) {
-		this.load('index.php/ctrl_pegawai/read');
-		this.selectNone();
 		this.reset();
-		this.refresh();
 		w2ui['grid_detail_pegawai'].clear();
+		event.onComplete = function () {
+			this.load('index.php/ctrl_pegawai/read');
+		};
+
+
 	});
 }
 
@@ -204,11 +208,12 @@ function menu_nasabah(){
 	w2ui.layout.content('right', w2ui.grid_detail_nasabah);
 	w2ui['grid_nasabah'].load('index.php/ctrl_nasabah/read');
 	w2ui['grid_nasabah'].on('reload', function(event) {
-		this.load('index.php/ctrl_nasabah/read');
-		this.selectNone();
 		this.reset();
-		this.refresh();
 		w2ui['grid_detail_nasabah'].clear();
+		event.onComplete = function () {
+			this.load('index.php/ctrl_nasabah/read');
+		};
+
 	});
 }
 
@@ -217,11 +222,11 @@ function menu_supplier(){
 	w2ui.layout.content('right', w2ui.grid_detail_supplier);
 	w2ui['grid_supplier'].load('index.php/ctrl_supplier/read');
 	w2ui['grid_supplier'].on('reload', function(event) {
-		this.load('index.php/ctrl_supplier/read');
-		this.selectNone();
 		this.reset();
-		this.refresh();
 		w2ui['grid_detail_supplier'].clear();
+		event.onComplete = function () {
+			this.load('index.php/ctrl_supplier/read');
+		};
 	});
 }
 
@@ -230,11 +235,11 @@ function menu_user(){
 	w2ui.layout.content('right', w2ui.grid_detail_user);
 	w2ui['grid_user'].load('index.php/ctrl_user/read');
 	w2ui['grid_user'].on('reload', function(event) {
-		this.load('index.php/ctrl_user/read');
-		this.selectNone();
 		this.reset();
-		this.refresh();
 		w2ui['grid_detail_user'].clear();
+		event.onComplete = function () {
+			this.load('index.php/ctrl_user/read');
+		};
 	});
 }
 
@@ -243,11 +248,11 @@ function menu_daftar_sandi(){
 	w2ui.layout.content('right', w2ui.grid_detail_daftar_sandi);
 	w2ui['grid_daftar_sandi'].load('index.php/ctrl_daftar_sandi/read');
 	w2ui['grid_daftar_sandi'].on('reload', function(event) {
-		this.load('index.php/ctrl_daftar_sandi/read');
-		this.selectNone();
 		this.reset();
-		this.refresh();
 		w2ui['grid_detail_daftar_sandi'].clear();
+		event.onComplete = function () {
+			this.load('index.php/ctrl_daftar_sandi/read');
+		};
 	});
 }
 
@@ -257,11 +262,11 @@ function menu_nomor_rekening(){
 	w2ui.layout.content('right', w2ui.grid_detail_nomor_rekening);
 	w2ui['grid_nomor_rekening'].load('index.php/ctrl_nomor_rekening/Qread');
 	w2ui['grid_nomor_rekening'].on('reload', function(event) {
-		this.load('index.php/ctrl_nomor_rekening/Qread');
-		this.selectNone();
 		this.reset();
-		this.refresh();
 		w2ui['grid_detail_nomor_rekening'].clear();
+		event.onComplete = function () {
+			this.load('index.php/ctrl_nomor_rekening/Qread');
+		};
 	});
 }
 
@@ -270,11 +275,11 @@ function menu_kas(){
 	w2ui.layout.content('right', w2ui.grid_detail_kas);
 	w2ui['grid_kas'].load('index.php/ctrl_kas/Qread');
 	w2ui['grid_kas'].on('reload', function(event) {
-		this.load('index.php/ctrl_kas/Qread');
-		this.selectNone();
 		this.reset();
-		this.refresh();
 		w2ui['grid_detail_kas'].clear();
+		event.onComplete = function () {
+			this.load('index.php/ctrl_kas/Qread');
+		};
 	});
 }
 

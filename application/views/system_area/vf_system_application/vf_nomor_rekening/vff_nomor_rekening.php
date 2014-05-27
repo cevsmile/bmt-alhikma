@@ -152,9 +152,11 @@ var config_nomor_rekening = {
 			Save: function () {
 				this.save(function (data) {
 					if (data.status == 'success') {
+						
 						w2ui['grid_nomor_rekening'].load('index.php/ctrl_nomor_rekening/Qread');
 						//w2ui['grid_nomor_rekening'].add(data.records);
 						//w2ui['grid_nomor_rekening'].selectNone();
+						
 						$().w2popup('close');
 					}
 				});
@@ -352,8 +354,6 @@ function call_add_nomor_rekening(recid) {
 		onClose	: function (event) {
 			event.onComplete = function () {
 				w2ui['form_add_nomor_rekening'].action('Reset');
-				$('#Kode_Norek').val('..');
-
 			}
 		}
 
