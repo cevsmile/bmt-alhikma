@@ -43,10 +43,10 @@
 					<a href="index.php/system_area/bmt_center" class="dropdown-toggle"/><img style="border:0;" src="files/img/Home.png" alt="Input Data" width="40" height="40"></a>
 				</li>
 				<li class="dropdown">
-					<a href="index.php/system_area/menu_system_application" class="dropdown-toggle"/><img style="border:0;" src="files/img/User Accounts.png" alt="Input Data" width="40" height="40"></a>
+					<a href="index.php/system_area/admin_application" class="dropdown-toggle"/><img style="border:0;" src="files/img/User Accounts.png" alt="Input Data" width="40" height="40"></a>
 				</li>
 				<li class="dropdown">
-					<a href="index.php/system_area/menu_data_processing" class="dropdown-toggle"/><img style="border:0;" src="files/img/HD DVD.png" alt="Input Data" width="40" height="40"></a>
+					<a href="index.php/system_area/pegawai_application" class="dropdown-toggle"/><img style="border:0;" src="files/img/HD DVD.png" alt="Input Data" width="40" height="40"></a>
 				</li>
 				<li class="dropdown">
 					<a href="index.php/system_area/menu_tester" class="dropdown-toggle"/><img style="border:0;" src="files/img/Configure alt 1.png" alt="Input Data" width="40" height="40"></a>

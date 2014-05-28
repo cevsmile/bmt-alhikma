@@ -1,15 +1,15 @@
 <div id="toolbar" style="padding: 4px; border: 1px solid silver; border-radius: 3px"></div>
 
 <div id="main" style="width: 100%; height: 500px;"></div>
-<?php $this->load->view('system_area/vf_system_application/vf_identitas_bmt/vff_identitas_bmt'); ?>
-<?php $this->load->view('system_area/vf_system_application/vf_daftar_akun/vff_daftar_akun'); ?>
-<?php $this->load->view('system_area/vf_system_application/vf_pegawai/vff_pegawai'); ?>
-<?php $this->load->view('system_area/vf_system_application/vf_nasabah/vff_nasabah'); ?>
-<?php $this->load->view('system_area/vf_system_application/vf_supplier/vff_supplier'); ?>
-<?php $this->load->view('system_area/vf_system_application/vf_user/vff_user'); ?>
-<?php $this->load->view('system_area/vf_system_application/vf_daftar_sandi/vff_daftar_sandi'); ?>
-<?php $this->load->view('system_area/vf_system_application/vf_nomor_rekening/vff_nomor_rekening'); ?>
-<?php $this->load->view('system_area/vf_system_application/vf_kas/vff_kas'); ?>
+<?php $this->load->view('system_area/vf_admin_application/vf_identitas_bmt/vff_identitas_bmt'); ?>
+<?php $this->load->view('system_area/vf_admin_application/vf_daftar_akun/vff_daftar_akun'); ?>
+<?php $this->load->view('system_area/vf_admin_application/vf_pegawai/vff_pegawai'); ?>
+<?php $this->load->view('system_area/vf_admin_application/vf_nasabah/vff_nasabah'); ?>
+<?php $this->load->view('system_area/vf_admin_application/vf_supplier/vff_supplier'); ?>
+<?php $this->load->view('system_area/vf_admin_application/vf_user/vff_user'); ?>
+<?php $this->load->view('system_area/vf_admin_application/vf_daftar_sandi/vff_daftar_sandi'); ?>
+<?php $this->load->view('system_area/vf_admin_application/vf_nomor_rekening/vff_nomor_rekening'); ?>
+<?php $this->load->view('system_area/vf_admin_application/vf_kas/vff_kas'); ?>
 <script type="text/javascript">
 // widget configuration
 var config = {

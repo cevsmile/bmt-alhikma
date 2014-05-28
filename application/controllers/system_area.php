@@ -19,15 +19,15 @@ class System_area extends CI_Controller {
 		$this -> load -> view('system_area/vf_temp/vff_template', $data);
 	}
 
-	function menu_system_application() {
+	function admin_application() {
 		$data['title'] = 'BMT System Application';
-		$data['main_content'] = 'system_area/vf_system_application/vff_system_application';
+		$data['main_content'] = 'system_area/vf_admin_application/vff_main_application';
 		$this -> load -> view('system_area/vf_temp/vff_template', $data);
 	}
 
-	function menu_data_processing() {
+	function pegawai_application() {
 		$data['title'] = 'BMT System Application';
-		$data['main_content'] = 'system_area/vf_data_processing/vff_data_processing';
+		$data['main_content'] = 'system_area/vf_pegawai_application/vff_main_application';
 		$this -> load -> view('system_area/vf_temp/vff_template', $data);
 	}
 
