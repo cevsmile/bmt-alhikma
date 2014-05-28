@@ -203,7 +203,7 @@ $(function () {
 	$().w2form(config_kas.form_edit_kas);
 	$().w2form(config_kas.form_add_kas);
 	$().w2grid(config_kas.grid_dt_nomor_rekening);
-	$().w2grid(config_kas.grid_dt_daftar_sandi)
+	$().w2grid(config_kas.grid_dt_daftar_sandi);
 
 
 });
