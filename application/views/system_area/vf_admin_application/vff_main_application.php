@@ -9,6 +9,7 @@
 <?php $this->load->view('system_area/vf_admin_application/vf_user/vff_user'); ?>
 <?php $this->load->view('system_area/vf_admin_application/vf_daftar_sandi/vff_daftar_sandi'); ?>
 <?php $this->load->view('system_area/vf_admin_application/vf_nomor_rekening/vff_nomor_rekening'); ?>
+<?php $this->load->view('system_area/vf_admin_application/vf_nomor_rekening_daftar_akun/vff_nomor_rekening_daftar_akun'); ?>
 <?php $this->load->view('system_area/vf_admin_application/vf_kas/vff_kas'); ?>
 <script type="text/javascript">
 // widget configuration
@@ -39,7 +40,7 @@ var config = {
 			{ id: 'level-2', text: 'SECONDARY MASTER', img: 'icon-folder',
 			  nodes: [ { id: 'level-2-1', text: 'Daftar Sandi', img: 'icon-page' },
 					   { id: 'level-2-2', text: 'Nomor Rekening', img: 'icon-page'  },
-					   { id: 'level-2-3', text: 'Barcode', icon: 'fa fa-barcode'  }
+					   { id: 'level-2-3', text: 'No.Rek. Daftar Akun', img: 'icon-page'  }
 					 ]
 			},
 			{ id: 'level-3', text: 'PROCESS', img: 'icon-folder',
@@ -131,6 +132,10 @@ $(function () {
 			case 'level-2-2':
 				menu_nomor_rekening();
 				break;
+			case 'level-2-3':
+				menu_nomor_rekening_daftar_akun();
+				break;
+
 			case 'level-3':
 				w2ui['layout'].hide('right', true);
 				w2ui.layout.content('main', '<div style="padding: 10px">You can fill this form after completing master anda secondary master data.</div>');
@@ -263,12 +268,28 @@ function menu_nomor_rekening(){
 	w2ui['grid_nomor_rekening'].load('index.php/ctrl_nomor_rekening/Qread');
 	w2ui['grid_nomor_rekening'].on('reload', function(event) {
 		this.reset();
+
 		w2ui['grid_detail_nomor_rekening'].clear();
+		event.onComplete = function () {
+			this.load('index.php/ctrl_nomor_rekening/Qread');
+			this.refresh();
+		};
+	});
+}
+
+function menu_nomor_rekening_daftar_akun(){
+	w2ui.layout.content('main', w2ui.grid_nomor_rekening_daftar_akun);
+	w2ui.layout.content('right', w2ui.grid_detail_nomor_rekening_daftar_akun);
+	w2ui['grid_nomor_rekening_daftar_akun'].load('index.php/ctrl_nomor_rekening/Qread');
+	w2ui['grid_nomor_rekening_daftar_akun'].on('reload', function(event) {
+		this.reset();
+		w2ui['grid_detail_nomor_rekening_daftar_akun'].clear();
 		event.onComplete = function () {
 			this.load('index.php/ctrl_nomor_rekening/Qread');
 		};
 	});
 }
+
 
 function menu_kas(){
 	w2ui.layout.content('main', w2ui.grid_kas);

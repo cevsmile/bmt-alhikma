@@ -6,6 +6,15 @@
  */
 class Mod_nomor_rekening extends CI_Model {
 
+	public function get_neraca_saldo() {
+		$query = $this -> db -> get('daftar_akun');
+		if ($query -> num_rows() > 0) {
+			return $query -> result();
+		} else {
+			return array();
+		}
+	} //end get_neraca_saldo
+
 	public function cekNorek($norek) {
 		$this->db->like('Kode_Norek', $norek);
 		$this->db->from('nomor_rekening');
@@ -75,8 +84,27 @@ class Mod_nomor_rekening extends CI_Model {
 		$this->db->set('Log_Time', 'CURRENT_TIME()', FALSE);
 		$this -> db -> insert('nomor_rekening', $datalist);
 		return $data;
-    }	
-    
+    }
+
+/*
+     public function create_neraca_saldo($rekening_neraca_saldo, $sum_rekening_neraca_saldo) {
+
+     	//echo "<pre>"; die(print_r($sum_rekening_neraca_saldo, TRUE));
+
+		for ($i = 0; $i < $sum_rekening_neraca_saldo; $i++) {
+	    	$datalist = array(
+				'Kode_Norek'		=> $rekening_neraca_saldo[$i] -> Id_Daftar_Akun,
+	            'Saldo_Awal' 		=> $rekening_neraca_saldo[$i] -> Jumlah_Debit,
+	            'Saldo_Akhir' 		=> $rekening_neraca_saldo[$i] -> Jumlah_Kredit,
+	            'Log_User'			=> $this->session->userdata('Username')
+			);
+			$this->db->set($datalist);
+			$this->db->set('Log_Date', 'CURRENT_DATE()', FALSE);
+			$this->db->set('Log_Time', 'CURRENT_TIME()', FALSE);
+			$this -> db -> insert('nomor_rekening', $datalist);
+		}
+    }
+*/    
     public function delete( $recid ) {
     	//echo "<pre>"; die(print_r($recid, TRUE));
         /*

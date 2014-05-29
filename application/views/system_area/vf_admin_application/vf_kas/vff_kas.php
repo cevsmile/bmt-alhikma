@@ -169,9 +169,7 @@ var config_kas = {
 		},
         columns: [
             { field: 'recid', caption: 'No. Rekening', size: '150px', searchable: true, sortable: true },
-            { field: 'NamaPegawai', caption: 'Nama', size: '150px', searchable: true, sortable: true },
-            { field: 'NamaNasabah', caption: 'Nama', size: '150px', searchable: true, sortable: true },
-            { field: 'NamaSupplier', caption: 'Nama', size: '150px', searchable: true, sortable: true }
+            { field: 'namagabungan', caption: 'Nama', size: '150px', searchable: true, sortable: true }
 		]
 	},
 	grid_dt_daftar_sandi: { 
@@ -287,7 +285,6 @@ function call_add_kas(recid) {
 
 
 function call_delete_kas(delrecid){
-	console.log(delrecid);
 	$().w2destroy('deletedialog');
 	$('#deletedialog').w2form({ 
 		name: 'deletedialog',

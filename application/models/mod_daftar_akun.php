@@ -33,10 +33,11 @@ class Mod_daftar_akun extends CI_Model {
         $datalist = array(
             'Nama_Akun' => $data["Nama_Akun"],
             'Akun_DK' => $data["Akun_DK"],
-            'Akun_NL_LR' => $data["Akun_NL_LR"],
+            'Akun_NR_LR' => $data["Akun_NR_LR"],
             'Jumlah_Debit' => $data["Jumlah_Debit"],
             'Jumlah_Kredit' => $data["Jumlah_Kredit"]
         );
+        $this->db->set($datalist);
         $this->db->update( 'daftar_akun', $datalist, array( 'Id_Daftar_Akun' => $this->input->post( 'recid', true ) ) );
 		//return $datalist;
     }	

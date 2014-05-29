@@ -43,6 +43,7 @@ class Ctrl_general_view extends CI_Controller {
 			$res['records'] = $data;
 			for ($i = 0; $i < $sums; $i++) {
 				$data[$i] -> recid = $data[$i]->Kode_Norek;
+				$data[$i] -> namagabungan = $data[$i]->NamaPegawai.$data[$i]->NamaNasabah.$data[$i]->NamaSupplier;
 			}
 			echo json_encode($res);
 		}

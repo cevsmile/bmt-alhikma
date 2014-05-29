@@ -64,40 +64,26 @@ class Ctrl_kas extends CI_Controller {
 		echo json_encode($res);
 	}
 
-	function read() {
-		$data = $this -> mod_kas -> getAll();
-		$newaray = Array();
-		$sums = count($data);
-		if ($sums==0){
-			$newaray['status']  = 'error';
-			$newaray['message'] = 'Data Masih Kosong';
-			echo json_encode($newaray);		
-		}else{
-			$newaray['status'] = 'success';
-			$newaray['total'] = $sums;
-			$newaray['records'] = $data;
-			for ($i = 0; $i < $sums; $i++) {
-				$data[$i] -> recid = $data[$i]->Id_Kas;
-			}
-			echo json_encode($newaray);
-		}
-		
-	}
 
 	function Qread() {
 		$data = $this -> mod_kas -> getQread();
+		//$sumdata for calculate summary of kas
 		$sumdata = $this -> mod_kas -> getSumKas();
+
 		$newaray = Array();
 		$sums = count($data);
+		//echo "<pre>"; die(print_r($sums, TRUE));
 		if ($sums==0){
 			$newaray['status']  = 'error';
-			$newaray['message'] = 'Data Masih Kosong';
-			echo json_encode($newaray);		
+			$newaray['message'] = 'Kas Saldo Periode Sebelumnya Otomatis Ditambahkan';
+			$kas = $this -> mod_kas -> get_saldo_kas();
+			if (!empty($kas)) {
+			   	$data = $this -> mod_kas -> create_saldo_kas($kas);
+			}			
+			echo json_encode($newaray);
 		}else{
 			$newaray['status'] = 'success';
 			$newaray['total'] = $sums;
-			//$newaray['summary'] = 'true, recid: \'10\'';
-			//$newaray['summary'] = true;
 			
 			$newaray['records'] = $data;
 			for ($i = 0; $i < $sums; $i++) {

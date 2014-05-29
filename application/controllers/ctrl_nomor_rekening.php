@@ -121,6 +121,20 @@ class Ctrl_nomor_rekening extends CI_Controller {
 			$newaray['status']  = 'error';
 			$newaray['message'] = 'Data Masih Kosong';
 			echo json_encode($newaray);		
+/*			
+			$rekening_neraca_saldo = $this -> mod_nomor_rekening -> get_neraca_saldo();
+			$sum_rekening_neraca_saldo = count($rekening_neraca_saldo);
+			//echo "<pre>"; die(print_r($rekening_neraca_saldo, TRUE));
+
+			if (!empty($rekening_neraca_saldo)) {
+			   	$data = $this -> mod_nomor_rekening -> create_neraca_saldo($rekening_neraca_saldo, $sum_rekening_neraca_saldo);
+			}else{
+				$newaray['status']  = 'error';
+				$newaray['message'] = 'Data Masih Kosong, Mohon untuk mengisi Daftar Akun Terlebih Dahulu!';
+				echo json_encode($newaray);		
+			}		
+*/
+
 		}else{
 			$newaray['status'] = 'success';
 			$newaray['total'] = $sums;
