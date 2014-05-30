@@ -310,7 +310,7 @@ function call_add_nomor_rekening_daftar_akun(recid) {
 
 				if ((Kode_Cabang && Id_Daftar_Akun && cekakhir) != '') {
 					var myKodeNorek = this.record.Kode_Norek;
-					$('#Kode_Norek').w2tag('Data Valid, Silakan Disimpan.', {onShow : cekNorekValid(myKodeNorek)});					
+					$('#Kode_Norek').w2tag('Data Valid, Silakan Disimpan.', {onShow : cekNorekValid_daftar_akun(myKodeNorek)});					
 				}
 				if (cekakhir == '') $('#Kode_Norek').w2tag('Isi Field Terakhir!');
 				if (Id_Daftar_Akun == '') $('#Kode_Norek').w2tag('Isi Daftar Akun!');
@@ -583,7 +583,7 @@ function openPopup_NIK2(){
 
 }
 
-function cekNorekValid(myKodeNorek){
+function cekNorekValid_daftar_akun(myKodeNorek){
 	$.get("index.php/ctrl_nomor_rekening/cekNorek/"+ myKodeNorek ,function(data){
 		var data = data.replace(/"/g, '');
 		$('#Kode_Norek').val(data)
