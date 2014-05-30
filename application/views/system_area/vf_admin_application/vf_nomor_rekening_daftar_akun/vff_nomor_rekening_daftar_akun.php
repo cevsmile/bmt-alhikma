@@ -579,8 +579,6 @@ function openPopup_NIK2(){
 			}
 		}
 	});
-
-
 }
 
 function cekNorekValid_daftar_akun(myKodeNorek){
