@@ -260,7 +260,7 @@ function call_edit_daftar_sandi(recid) {
 }
 
 function call_add_daftar_sandi(recid) {
-	w2ui.layout_daftar_sandi.content('left', w2ui.form_edit_daftar_sandi);
+	w2ui.layout_daftar_sandi.content('left', w2ui.form_add_daftar_sandi);
 	w2ui.layout_daftar_sandi.content('main', w2ui.grid_dt_akun_debit);
 	w2ui.layout_daftar_sandi.content('preview', w2ui.grid_dt_akun_kredit);
 
