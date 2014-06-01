@@ -52,6 +52,7 @@ class Mod_kas extends CI_Model {
     }	
 
 
+    //this execute when no kas has been created
     public function create_saldo_kas($kas) {
  		$datalist = array(
  			'Validasi' 			=> 'kas',
@@ -81,8 +82,33 @@ class Mod_kas extends CI_Model {
 		$this->db->set('Log_Time', 'CURRENT_TIME()', FALSE);
 		$this -> db -> insert('kas', $datalist);
 		return $data;
+    }
+
+
+	public function get_data_nomor_rekening($data) {
+		//echo "<pre>"; die(print_r($data, TRUE));
+		$query = $this -> db -> where('Kode_Norek', $data) -> limit(1) -> get('nomor_rekening');
+
+		if ($query -> num_rows() > 0) {
+			return $query -> row();
+		} else {
+			return array();
+		}
+	}
+
+    //update nomor_rekening.db after create kas transaction
+    public function update_nomor_rekening($Kode_Norek, $Jumlah) {
+    	//echo "<pre>"; die(print_r($Jumlah, TRUE));
+        $datalist = array(
+            'Saldo_Akhir' => $Jumlah,
+        );
+		$this->db->set($datalist);
+		$this->db->set('Log_Date', 'NOW()', FALSE);
+		$this->db->set('Log_Time', 'NOW()', FALSE);
+        $this->db->update( 'nomor_rekening', $datalist, array( 'Kode_Norek' => $Kode_Norek ) );
     }	
-    
+
+
     public function delete( $recid ) {
     	//echo "<pre>"; die(print_r($recid, TRUE));
         /*

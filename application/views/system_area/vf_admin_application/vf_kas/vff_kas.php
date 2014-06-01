@@ -75,9 +75,11 @@ var config_kas = {
 			}
         },
 		onDelete: function(event) {
-			var delrecid= w2ui['grid_kas'].getSelection();
+			var delrecid= w2ui['grid_kas'].getSelection(),
+				record = w2ui['grid_kas'].get(delrecid[0]);
+			console.log(record);
 			event.preventDefault();
-			call_delete_kas(delrecid);
+			call_delete_kas(delrecid,record);
 		},	        
 		onClick: function (event) {
 			w2ui['grid_detail_kas'].clear();
@@ -207,10 +209,6 @@ $(function () {
 });
 
 
-
-
-
-
 function call_edit_kas(recid) {
 	
 	w2ui.layout_kas.content('left', w2ui.form_edit_kas);
@@ -284,12 +282,12 @@ function call_add_kas(recid) {
 }
 
 
-function call_delete_kas(delrecid){
+function call_delete_kas(delrecid,record){
 	$().w2destroy('deletedialog');
 	$('#deletedialog').w2form({ 
 		name: 'deletedialog',
 		style: 'border: 0px; background-color: transparent;',
-		url : 'index.php/ctrl_kas/delete/' + delrecid,
+		url : 'index.php/ctrl_kas/delete/' + delrecid +'/'+ record.Jumlah_Debit +'/'+ record.Jumlah_Kredit +'/'+ record.Kode_Norek +'/'+ record.Validasi,
 		formHTML:
 			'<div class="w2ui-page page-0">'+
 			'<div style="" class="w2ui-box1">'+
