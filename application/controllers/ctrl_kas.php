@@ -43,7 +43,8 @@ class Ctrl_kas extends CI_Controller {
 			$jml_tabungan			= $data["Jumlah"];
 
 			// if tarik tunai 
-			if ($data["Id_Daftar_Sandi"] == '03'){
+			// note : becarefull, you have to manually change this value if tarik tunai id has a diffrent value
+			if ($data["Id_Daftar_Sandi"] == '3B'){
 				$subjumlah = $jml_saldo - $jml_tarik;
 				//if saldo akhir on nomor rekening smaller than jml_rekening than show the errror message
 				if ($subjumlah < 10000){
@@ -86,25 +87,34 @@ class Ctrl_kas extends CI_Controller {
 		}
 
 		if ($Validasi == 'kas'){
+/*
 			$res 	= Array();
 			$res['status'] = 'error';
 			$res['message'] = 'Maaf. Kas Tidak Dapat Dihapus';
 			echo json_encode($res);
 			return;
+*/
+
+			$this -> mod_kas -> delete($recid);
+			$res = Array();
+			$res['status'] = 'success';
+			echo json_encode($res);
+
+
 		}else{
+			$data_nomor_rekening 	= $this -> mod_kas -> get_data_nomor_rekening($Kode_Norek);
+			//echo "<pre>"; die(print_r($data_nomor_rekening, TRUE));
+			$saldo_nomor_rekening	= $data_nomor_rekening->Saldo_Akhir;
+			$Jumlah = $saldo_nomor_rekening - $Jumlah_Debit + $Jumlah_Kredit ;
+			
 
-		$data_nomor_rekening 	= $this -> mod_kas -> get_data_nomor_rekening($Kode_Norek);
-		$saldo_nomor_rekening	= $data_nomor_rekening->Saldo_Akhir;
-		$Jumlah = $saldo_nomor_rekening - $Jumlah_Debit + $Jumlah_Kredit ;
-		
+			$this -> mod_kas -> delete($recid);
+		    $this -> mod_kas -> update_nomor_rekening($Kode_Norek, $Jumlah);
+		   	
 
-		$this -> mod_kas -> delete($recid);
-	    $this -> mod_kas -> update_nomor_rekening($Kode_Norek, $Jumlah);
-	   	
-
-		$res = Array();
-		$res['status'] = 'success';
-		echo json_encode($res);
+			$res = Array();
+			$res['status'] = 'success';
+			echo json_encode($res);
 		}
 	}
 
@@ -113,13 +123,15 @@ class Ctrl_kas extends CI_Controller {
 		$data = $this -> mod_kas -> getQread();
 		//$sumdata for calculate summary of kas
 		$sumdata = $this -> mod_kas -> getSumKas();
+		$validasi = $this -> mod_kas -> getValidasiKas();
+		//echo "<pre>"; die(print_r($validasi, TRUE));
 
 		$newaray = Array();
 		$sums = count($data);
 		//echo "<pre>"; die(print_r($sums, TRUE));
-		if ($sums==0){
+		if (($sums==0) || ($validasi != 1)){
 			$newaray['status']  = 'error';
-			$newaray['message'] = 'Kas Saldo Periode Sebelumnya Otomatis Ditambahkan';
+			$newaray['message'] = 'Kas Saldo Periode Sebelumnya Otomatis Ditambahkan <br> Silakan Tekan Refresh.';
 			$kas = $this -> mod_kas -> get_saldo_kas();
 			if (!empty($kas)) {
 			   	$data = $this -> mod_kas -> create_saldo_kas($kas);

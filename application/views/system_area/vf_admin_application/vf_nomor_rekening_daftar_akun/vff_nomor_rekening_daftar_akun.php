@@ -128,7 +128,7 @@ var config_nomor_rekening_daftar_akun = {
 						w2ui['grid_nomor_rekening_daftar_akun'].load('index.php/ctrl_nomor_rekening/Qread');
 						$().w2popup('close');
 					}
-				});				
+				});
 				
 			}
 		}
@@ -139,9 +139,7 @@ var config_nomor_rekening_daftar_akun = {
 			{ name: 'Kode_Norek', type: 'text', required: true, html: { caption: 'Nomor Rekening', attr: 'size="20" readonly ' } },
 			{ name: 'Kode_Cabang', type: 'text', required: true, html: { caption: 'Kode Cabang', attr: 'size="20" maxlength="20" readonly onclick="openPopup_Kode_Cabang2()"' } },
 			{ name: 'Id_Daftar_Akun', type: 'text', required: true, html: { caption: 'Daftar Akun', attr: 'size="20" maxlength="20" readonly onclick="openPopup_Id_Daftar_Akun2()"' } },
-			{ name: 'Id_Nasabah', type: 'text', html: { caption: 'ID Nasabah', attr: 'size="20" maxlength="20" readonly onclick="openPopup_Id_Nasabah2()"' } },
-			{ name: 'Id_Supplier', type: 'text', html: { caption: 'ID Supplier', attr: 'size="20" maxlength="20" readonly onclick="openPopup_Id_Supplier2()"' } },
-			{ name: 'NIK', type: 'text', html: { caption: 'NIK', attr: 'size="20" maxlength="20" readonly onclick="openPopup_NIK2()"' } },
+			{ name: 'Keterangan', type: 'text', required: true, html: { caption: 'Keterangan', attr: 'size="20" maxlength="20" readonly' } },
 			{ name: 'Saldo_Awal', type: 'text', html: { caption: 'Saldo Awal' } },
 			{ name: 'Saldo_Akhir', type: 'text', html: { caption: 'Saldo Akhir' } }
 		],
@@ -190,48 +188,6 @@ var config_nomor_rekening_daftar_akun = {
             { field: 'recid', caption: 'ID Daftar Akun', size: '150px', searchable: true, sortable: true },
             { field: 'Nama_Akun', caption: 'Nama', size: '100%', searchable: true, sortable: true }
 		]
-	},
-	grid_dt_nasabah2: { 
-        name : 'grid_dt_nasabah2',
-        header : 'Daftar Nasabah BMT AL-Hikma',
-		show : {
-			toolbar : true,
-	        header : true,
-	        footer : true,
-	        lineNumbers: true
-		},
-        columns: [
-            { field: 'recid', caption: 'ID Nasabah', size: '150px', searchable: true, sortable: true },
-            { field: 'Nama', caption: 'Nama', size: '100%', searchable: true, sortable: true }
-		]
-	},
-	grid_dt_supplier2: { 
-        name : 'grid_dt_supplier2',
-        header : 'Daftar Supplier BMT AL-Hikma',
-		show : {
-			toolbar : true,
-	        header : true,
-	        footer : true,
-	        lineNumbers: true
-		},
-        columns: [
-            { field: 'recid', caption: 'ID Supplier', size: '150px', searchable: true, sortable: true },
-            { field: 'Nama', caption: 'Nama', size: '100%', searchable: true, sortable: true }
-		]
-	},
-	grid_dt_pegawai2: { 
-        name : 'grid_dt_pegawai2',
-        header : 'Daftar Pegawai BMT AL-Hikma',
-		show : {
-			toolbar : true,
-	        header : true,
-	        footer : true,
-	        lineNumbers: true
-		},
-        columns: [
-            { field: 'recid', caption: 'Nomor Induk Kepegawaian', size: '150px', searchable: true, sortable: true },
-            { field: 'Nama', caption: 'Nama', size: '100%', searchable: true, sortable: true }
-		]
 	}
 
 }
@@ -248,9 +204,6 @@ $(function () {
 	$().w2form(config_nomor_rekening_daftar_akun.form_add_nomor_rekening_daftar_akun);
 	$().w2grid(config_nomor_rekening_daftar_akun.grid_dt_identitas_bmt2);
 	$().w2grid(config_nomor_rekening_daftar_akun.grid_dt_daftar_akun2);
-	$().w2grid(config_nomor_rekening_daftar_akun.grid_dt_nasabah2);
-	$().w2grid(config_nomor_rekening_daftar_akun.grid_dt_supplier2);
-	$().w2grid(config_nomor_rekening_daftar_akun.grid_dt_pegawai2);
 });
 
 function call_edit_nomor_rekening_daftar_akun(recid) {
@@ -293,30 +246,25 @@ function call_edit_nomor_rekening_daftar_akun(recid) {
 function call_add_nomor_rekening_daftar_akun(recid) {
 
 	w2ui.layout_nomor_rekening_daftar_akun.content('main', w2ui.form_add_nomor_rekening_daftar_akun);
-
+// reset all grid
 
 	w2ui.form_add_nomor_rekening_daftar_akun.on('refresh', function(event){
 		var Kode_Cabang = [this.record.Kode_Cabang],
-			Id_Daftar_Akun = [this.record.Id_Daftar_Akun],
-			Id_Nasabah = [this.record.Id_Nasabah],
-			Id_Supplier = [this.record.Id_Supplier],
-			NIK = [this.record.NIK],
-			cekakhir = [Id_Nasabah+Id_Supplier+NIK];
+			Id_Daftar_Akun = [this.record.Id_Daftar_Akun];
 
-
-			this.record.Kode_Norek = Kode_Cabang+'.'+Id_Daftar_Akun+'.'+ cekakhir;
+			this.record.Kode_Norek = Kode_Cabang+'.'+Id_Daftar_Akun;
 			
 			event.onComplete = function () {
 
-				if ((Kode_Cabang && Id_Daftar_Akun && cekakhir) != '') {
+				if ((Kode_Cabang && Id_Daftar_Akun) != '') {
 					var myKodeNorek = this.record.Kode_Norek;
-					$('#Kode_Norek').w2tag('Data Valid, Silakan Disimpan.', {onShow : cekNorekValid_daftar_akun(myKodeNorek)});					
+					$('#Kode_Norek').w2tag('Pengecekan Data...', {onShow : cekNorekValid_daftar_akun(myKodeNorek)});					
 				}
-				if (cekakhir == '') $('#Kode_Norek').w2tag('Isi Field Terakhir!');
+				
 				if (Id_Daftar_Akun == '') $('#Kode_Norek').w2tag('Isi Daftar Akun!');
 				if (Kode_Cabang == '') $('#Kode_Norek').w2tag('Isi Kode Cabang!');
 
-			console.log('1. ',Kode_Cabang,'2. ',Id_Daftar_Akun,'3. ',cekakhir);
+			//console.log('1. ',Kode_Cabang,'2. ',Id_Daftar_Akun,'3. ',cekakhir);
 			}
 	});
 
@@ -347,7 +295,7 @@ function call_add_nomor_rekening_daftar_akun(recid) {
 			event.onComplete = function () {
 				
 				$('#w2ui-popup #form_add_nomor_rekening_daftar_akun').w2render('layout_nomor_rekening_daftar_akun');
-				w2ui['form_add_nomor_rekening_daftar_akun'].url = {save: 'index.php/ctrl_nomor_rekening/create/'};
+				w2ui['form_add_nomor_rekening_daftar_akun'].url = {save: 'index.php/ctrl_nomor_rekening/create_daftar_akun/'};
 				w2ui['form_add_nomor_rekening_daftar_akun'].action('Reset');
 			}
 		},
@@ -418,8 +366,6 @@ function call_delete_nomor_rekening_daftar_akun(delrecid){
 
 
 
-
-
 function openPopup_Kode_Cabang2(){
 	w2ui.layout_nomor_rekening_daftar_akun.content('right', w2ui.grid_dt_identitas_bmt2);
 
@@ -472,9 +418,12 @@ function openPopup_Id_Daftar_Akun2(){
 		var grid = this;
 		var form_add_nomor_rekening_daftar_akun = w2ui.form_add_nomor_rekening_daftar_akun;
 		event.onComplete = function () {
-			var sel = grid.getSelection();
+			var sel = grid.getSelection(),
+				record = grid.get(sel[0]);
+
 			if (sel.length == 1) {
 				form_add_nomor_rekening_daftar_akun.record.Id_Daftar_Akun  = sel[0];
+				form_add_nomor_rekening_daftar_akun.record.Keterangan = record.Nama_Akun;
 				form_add_nomor_rekening_daftar_akun.refresh();
 				w2ui['grid_dt_daftar_akun2'].reset();
 			} else {
@@ -486,106 +435,22 @@ function openPopup_Id_Daftar_Akun2(){
 
 }
 
-function openPopup_Id_Nasabah2(){
-	w2ui.layout_nomor_rekening_daftar_akun.content('right', w2ui.grid_dt_nasabah2);
-
-	w2ui['grid_dt_nasabah2'].load('index.php/ctrl_nasabah/read');
-	w2ui['grid_dt_nasabah2'].on('reload', function(event) {
-		this.load('index.php/ctrl_nasabah/read');
-		this.selectNone();
-		this.reset();
-		this.refresh();
-	});	
-
-	w2ui.layout_nomor_rekening_daftar_akun.show('right', true);
-
-	w2ui.grid_dt_nasabah2.on('click', function(event) {
-		var grid = this;
-		var form_add_nomor_rekening_daftar_akun = w2ui.form_add_nomor_rekening_daftar_akun;
-		event.onComplete = function () {
-			var sel = grid.getSelection();
-			if (sel.length == 1) {
-				form_add_nomor_rekening_daftar_akun.record.Id_Supplier = null;
-				form_add_nomor_rekening_daftar_akun.record.NIK = null;
-				form_add_nomor_rekening_daftar_akun.record.Id_Nasabah  = sel[0];
-				form_add_nomor_rekening_daftar_akun.refresh();
-				w2ui['grid_dt_nasabah2'].reset();
-			} else {
-				form_add_nomor_rekening_daftar_akun.clear();
-			}
-		}
-	});
 
 
-}
 
-function openPopup_Id_Supplier2(){
-	w2ui.layout_nomor_rekening_daftar_akun.content('right', w2ui.grid_dt_supplier2);
 
-	w2ui['grid_dt_supplier2'].load('index.php/ctrl_supplier/read');
-	w2ui['grid_dt_supplier2'].on('reload', function(event) {
-		this.load('index.php/ctrl_supplier/read');
-		this.selectNone();
-		this.reset();
-		this.refresh();
-	});
-
-	w2ui.layout_nomor_rekening_daftar_akun.show('right', true);
-	w2ui.grid_dt_supplier2.on('click', function(event) {
-		var grid = this;
-		var form_add_nomor_rekening_daftar_akun = w2ui.form_add_nomor_rekening_daftar_akun;
-		event.onComplete = function () {
-			var sel = grid.getSelection();
-			if (sel.length == 1) {
-				form_add_nomor_rekening_daftar_akun.record.Id_Nasabah  = null;
-				form_add_nomor_rekening_daftar_akun.record.NIK = null;
-				form_add_nomor_rekening_daftar_akun.record.Id_Supplier = sel[0];
-				form_add_nomor_rekening_daftar_akun.refresh();
-				w2ui['grid_dt_supplier2'].reset();
-			} else {
-				form_add_nomor_rekening_daftar_akun.clear();
-			}
-		}
-	});
-
-}
-
-function openPopup_NIK2(){
-	w2ui.layout_nomor_rekening_daftar_akun.content('right', w2ui.grid_dt_pegawai2);
-
-	w2ui['grid_dt_pegawai2'].load('index.php/ctrl_pegawai/read');
-	w2ui['grid_dt_pegawai2'].on('reload', function(event) {
-		this.load('index.php/ctrl_pegawai/read');
-		this.selectNone();
-		this.reset();
-		this.refresh();
-	});	
-
-	w2ui.layout_nomor_rekening_daftar_akun.show('right', true);
-
-	w2ui.grid_dt_pegawai2.on('click', function(event) {
-		var grid = this;
-		var form_add_nomor_rekening_daftar_akun = w2ui.form_add_nomor_rekening_daftar_akun;
-		event.onComplete = function () {
-			var sel = grid.getSelection();
-			if (sel.length == 1) {
-				form_add_nomor_rekening_daftar_akun.record.Id_Nasabah  = null;
-				form_add_nomor_rekening_daftar_akun.record.Id_Supplier = null;
-				form_add_nomor_rekening_daftar_akun.record.NIK = sel[0];
-				form_add_nomor_rekening_daftar_akun.refresh();
-				w2ui['grid_dt_pegawai2'].reset();
-			} else {
-				form_add_nomor_rekening_daftar_akun.clear();
-			}
-		}
-	});
-}
 
 function cekNorekValid_daftar_akun(myKodeNorek){
-	$.get("index.php/ctrl_nomor_rekening/cekNorek/"+ myKodeNorek ,function(data){
-		var data = data.replace(/"/g, '');
-		$('#Kode_Norek').val(data)
-		w2ui['form_add_nomor_rekening_daftar_akun'].record.Kode_Norek = data;
+	$.get("index.php/ctrl_nomor_rekening/cekNorekDaftarAkun/"+ myKodeNorek ,function(data){
+		if (data == 0) {
+			$('#Kode_Norek').w2tag('Data Valid, Silakan Disimpan');
+			//var data = data.replace(/"/g, '');
+		}else{
+			$('#Kode_Norek').w2tag('Data ini sudah ada, Silakan memilih kombinasi yang lain');
+			$('#Kode_Norek').val('');
+			w2ui['form_add_nomor_rekening_daftar_akun'].record.Kode_Norek = '';
+		}
+		
 	});
 }
 

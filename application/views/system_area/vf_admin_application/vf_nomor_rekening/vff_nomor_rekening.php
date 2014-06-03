@@ -282,8 +282,6 @@ function call_edit_nomor_rekening(recid) {
 			event.onComplete = function () {
 				$('#w2ui-popup #popup_edit_nomor_rekening').w2render('layout_nomor_rekening');
 				w2ui['form_edit_nomor_rekening'].url = {save: 'index.php/ctrl_nomor_rekening/update/'};
-				
-				
 			}
 		}
 	});
@@ -293,6 +291,12 @@ function call_edit_nomor_rekening(recid) {
 function call_add_nomor_rekening(recid) {
 
 	w2ui.layout_nomor_rekening.content('main', w2ui.form_add_nomor_rekening);
+//reset all grid here
+	w2ui.grid_dt_identitas_bmt.reset();
+	w2ui.grid_dt_daftar_akun.reset();
+	w2ui.grid_dt_nasabah.reset();
+	w2ui.grid_dt_supplier.reset();
+	w2ui.grid_dt_pegawai.reset();
 
 
 	w2ui.form_add_nomor_rekening.on('refresh', function(event){
@@ -316,7 +320,7 @@ function call_add_nomor_rekening(recid) {
 				if (Id_Daftar_Akun == '') $('#Kode_Norek').w2tag('Isi Daftar Akun!');
 				if (Kode_Cabang == '') $('#Kode_Norek').w2tag('Isi Kode Cabang!');
 
-			console.log('1. ',Kode_Cabang,'2. ',Id_Daftar_Akun,'3. ',cekakhir);
+			//console.log('1. ',Kode_Cabang,'2. ',Id_Daftar_Akun,'3. ',cekakhir);
 			}
 	});
 
@@ -482,8 +486,6 @@ function openPopup_Id_Daftar_Akun(){
 			}
 		}
 	});
-
-
 }
 
 function openPopup_Id_Nasabah(){

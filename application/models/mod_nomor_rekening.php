@@ -75,6 +75,7 @@ class Mod_nomor_rekening extends CI_Model {
 			'Id_Nasabah'		=> empty($data["Id_Nasabah"]) ? NULL : $data["Id_Nasabah"],
 			'Id_Supplier'		=> empty($data["Id_Supplier"]) ? NULL : $data["Id_Supplier"],
             'NIK' 				=> empty($data["NIK"]) ? NULL : $data["NIK"],
+            'Keterangan' 		=> empty($data["Keterangan"]) ? NULL : $data["Keterangan"],
             'Saldo_Awal' 		=> $data["Saldo_Awal"],
             'Saldo_Akhir' 		=> $data["Saldo_Akhir"],
             'Log_User'			=> $this->session->userdata('Username')

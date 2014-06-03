@@ -6,6 +6,16 @@
  */
 class Mod_kas extends CI_Model {
 
+	public function getValidasiKas() {
+		$query = $this -> db -> where('Validasi', 'kas') -> limit(1) -> get('kas');
+		if ($query -> num_rows() > 0) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	} //end getAll	
+
+
 	///first load, when kas empty, we will automatically add saldo of kas on daftar akun
 	public function get_saldo_kas() {
 		$query = $this -> db -> where('Id_Daftar_Akun', '1111') -> limit(1) -> get('daftar_akun');

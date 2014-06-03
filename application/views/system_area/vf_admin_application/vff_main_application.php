@@ -43,7 +43,7 @@ var config = {
 					   { id: 'level-2-3', text: 'No.Rek. Daftar Akun', img: 'icon-page'  }
 					 ]
 			},
-			{ id: 'level-3', text: 'PROCESS', img: 'icon-folder',
+			{ id: 'level-3', text: 'TRANSAKSI', img: 'icon-folder',
 			  nodes: [ { id: 'level-3-1', text: 'KAS', img: 'icon-page' },
 					   { id: 'level-3-2', text: 'Bank', img: 'icon-page' },
 					   { id: 'level-3-3', text: 'Bank Lain', img: 'icon-page' },
@@ -133,7 +133,7 @@ $(function () {
 				menu_nomor_rekening();
 				break;
 			case 'level-2-3':
-				menu_nomor_rekening_daftar_akun();
+				//menu_nomor_rekening_daftar_akun();
 				break;
 
 			case 'level-3':
@@ -268,7 +268,7 @@ function menu_nomor_rekening(){
 	w2ui['grid_nomor_rekening'].load('index.php/ctrl_nomor_rekening/Qread');
 	w2ui['grid_nomor_rekening'].on('reload', function(event) {
 		this.reset();
-
+		this.clear();
 		w2ui['grid_detail_nomor_rekening'].clear();
 		event.onComplete = function () {
 			this.load('index.php/ctrl_nomor_rekening/Qread');
@@ -283,6 +283,7 @@ function menu_nomor_rekening_daftar_akun(){
 	w2ui['grid_nomor_rekening_daftar_akun'].load('index.php/ctrl_nomor_rekening/Qread');
 	w2ui['grid_nomor_rekening_daftar_akun'].on('reload', function(event) {
 		this.reset();
+		this.clear();
 		w2ui['grid_detail_nomor_rekening_daftar_akun'].clear();
 		event.onComplete = function () {
 			this.load('index.php/ctrl_nomor_rekening/Qread');
@@ -300,6 +301,7 @@ function menu_kas(){
 		w2ui['grid_detail_kas'].clear();
 		event.onComplete = function () {
 			this.load('index.php/ctrl_kas/Qread');
+			this.refresh();
 		};
 	});
 }

@@ -77,7 +77,7 @@ var config_kas = {
 		onDelete: function(event) {
 			var delrecid= w2ui['grid_kas'].getSelection(),
 				record = w2ui['grid_kas'].get(delrecid[0]);
-			console.log(record);
+			//console.log(record);
 			event.preventDefault();
 			call_delete_kas(delrecid,record);
 		},	        
@@ -306,6 +306,7 @@ function call_delete_kas(delrecid,record){
 				"delete": function () {
 					this.save(function (data) {
 						if (data.status == 'success') {
+							//w2ui['grid_kas'].load('index.php/ctrl_kas/Qread');
 							w2ui['grid_kas'].remove(delrecid);
 							w2ui['grid_detail_kas'].clear();
 							$().w2popup('close');
@@ -337,10 +338,11 @@ function openPopup_Kode_Norek(){
 
 	w2ui['grid_dt_nomor_rekening'].load('index.php/ctrl_general_view/get_det_rek_nasabah2');
 	w2ui['grid_dt_nomor_rekening'].on('reload', function(event) {
-		this.load('index.php/ctrl_general_view/get_det_rek_nasabah2');
-		this.selectNone();
 		this.reset();
-		this.refresh();
+		this.clear();
+		event.onComplete = function () {
+			this.load('index.php/ctrl_general_view/get_det_rek_nasabah2');
+		}
 	});
 	w2ui.layout_kas.hide('right', true);
 	w2ui.layout_kas.show('preview', true);
