@@ -21,6 +21,33 @@ var config_nomor_rekening = {
 	        toolbarDelete	: true,
 	        lineNumbers: true
 		},
+		buttons: {
+			'reload' : { 
+				hint	: w2utils.lang('Refresh Data Terbaru') 
+			},
+			'columns' : { 
+				hint	: w2utils.lang('Lihat/Sembunyikan Kolom')
+			},
+			'search' : { 
+				html 	: '<div class="w2ui-icon icon-search-down w2ui-search-down" '+
+						  '	title="'+ w2utils.lang('Pilih field yang ingin dicari') +'" '+ 
+						  '	onclick="var obj = w2ui[$(this).parents(\'div.w2ui-grid\').attr(\'name\')]; '+
+						  '	obj.searchShowFields(this);"></div>' 
+			},
+			'search-go' : { 
+				caption	: w2utils.lang('Cari...'), 
+				hint	: w2utils.lang('Pencarian Lebih') 
+			},
+			'delete' : { 
+				caption	: w2utils.lang('Hapus'), 
+				hint	: w2utils.lang('Menghapus Baris Yang Dipilih'), 
+			},			
+			'add' : { 
+				caption	: w2utils.lang('Tambah Data'), 
+				hint	: w2utils.lang('Menambah Data Baru')
+			}
+		},
+
 		toolbar: {
 			items: [
 				{ type: 'break' },
